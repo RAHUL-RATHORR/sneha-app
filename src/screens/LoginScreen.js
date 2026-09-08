@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
@@ -80,6 +80,14 @@ export default function LoginScreen() {
               onPress={handleLogin} 
               style={styles.loginButton} 
             />
+
+            <TouchableOpacity 
+              style={styles.guestButton} 
+              onPress={() => navigation.replace('MainTabs')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.guestButtonText}>Explore App as Guest →</Text>
+            </TouchableOpacity>
 
             <View style={styles.signupContainer}>
               <Text style={styles.signupText}>Don't have an account? </Text>
@@ -189,7 +197,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   loginButton: {
+    marginBottom: 14,
+  },
+  guestButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 194, 224, 0.4)',
+    backgroundColor: 'rgba(0, 194, 224, 0.08)',
     marginBottom: 24,
+  },
+  guestButtonText: {
+    color: '#00C2E0',
+    fontSize: SIZES.font,
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
   signupContainer: {
     flexDirection: 'row',
