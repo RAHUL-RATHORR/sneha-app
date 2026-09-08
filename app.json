@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Sneha Graphics & Solutions",
+    "slug": "sneha-graphics",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.snehagraphics.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-status-bar"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "18a0fe5b-e182-40f0-8b9b-f970b92082df"
+      }
+    }
+  }
+}
