@@ -8,7 +8,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   ActivityIndicator,
   Image,
 } from 'react-native';
@@ -16,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
+import Toast from '../components/Toast';
 import { sendOtpApi, verifyOtpApi } from '../api/authService';
 import { useAuth } from '../context/AuthContext';
 import { parseAndValidateDob } from '../utils/dateUtils';
@@ -39,19 +39,28 @@ export default function RegisterScreen() {
 
   const [loading, setLoading] = useState(false);
 
+  // Toast state
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
+  const [statusMsg, setStatusMsg] = useState('');
+
+  const triggerToast = (message, type = 'success') => {
+    setToast({ visible: true, message, type });
+  };
+
   // Step 1: Send OTP
   const handleSendOtp = async () => {
     if (!email || !email.includes('@')) {
-      Alert.alert('Validation Error', 'Please enter a valid email address.');
+      triggerToast('Please enter a valid email address.', 'error');
       return;
     }
     setLoading(true);
     try {
       const res = await sendOtpApi(email);
-      Alert.alert('Success', res.message || 'OTP sent to your email.');
+      triggerToast(res.message || 'OTP sent successfully to your email!', 'success');
+      setStatusMsg('OTP sent! Check your inbox.');
       setStep(2);
     } catch (err) {
-      Alert.alert('Error', err.message || 'Failed to send OTP.');
+      triggerToast(err.message || 'Failed to send OTP.', 'error');
     } finally {
       setLoading(false);
     }
@@ -60,16 +69,17 @@ export default function RegisterScreen() {
   // Step 2: Verify OTP
   const handleVerifyOtp = async () => {
     if (!otp || otp.length !== 4) {
-      Alert.alert('Validation Error', 'Please enter the 4-digit OTP sent to your email.');
+      triggerToast('Please enter the 4-digit OTP sent to your email.', 'error');
       return;
     }
     setLoading(true);
     try {
       const res = await verifyOtpApi(email, otp);
-      Alert.alert('Success', res.message || 'Email verified successfully!');
+      triggerToast(res.message || 'Email verified successfully!', 'success');
+      setStatusMsg('✓ Email verified! Fill in your details below.');
       setStep(3);
     } catch (err) {
-      Alert.alert('Verification Failed', err.message || 'Invalid OTP.');
+      triggerToast(err.message || 'Invalid OTP.', 'error');
     } finally {
       setLoading(false);
     }
@@ -78,21 +88,21 @@ export default function RegisterScreen() {
   // Step 3: Complete Profile & Register
   const handleRegister = async () => {
     if (!fname.trim()) {
-      Alert.alert('Validation Error', 'First name is required.');
+      triggerToast('First name is required.', 'error');
       return;
     }
     if (!mobile.trim()) {
-      Alert.alert('Validation Error', 'Mobile number is required.');
+      triggerToast('Mobile number is required.', 'error');
       return;
     }
     if (!password || password.length < 6) {
-      Alert.alert('Validation Error', 'Password must be at least 6 characters long.');
+      triggerToast('Password must be at least 6 characters long.', 'error');
       return;
     }
 
     const dobValidation = parseAndValidateDob(dob);
     if (!dobValidation.isValid) {
-      Alert.alert('Validation Error', dobValidation.error);
+      triggerToast(dobValidation.error, 'error');
       return;
     }
 
@@ -106,10 +116,12 @@ export default function RegisterScreen() {
         password,
         dob: dobValidation.displayDob,
       });
-      Alert.alert('Success', 'Registration successful! Welcome to Sneha Graphics.');
-      navigation.replace('MainTabs');
+      triggerToast('Registration successful! Welcome to Sneha Graphics.', 'success');
+      setTimeout(() => {
+        navigation.replace('MainTabs');
+      }, 1200);
     } catch (err) {
-      Alert.alert('Registration Error', err.message || 'Registration failed.');
+      triggerToast(err.message || 'Registration failed.', 'error');
     } finally {
       setLoading(false);
     }
@@ -135,6 +147,14 @@ export default function RegisterScreen() {
               {step === 3 && 'Step 3: Complete your profile information'}
             </Text>
           </View>
+
+          {/* Inline Status Banner */}
+          {statusMsg ? (
+            <View style={styles.statusBanner}>
+              <Ionicons name="checkmark-circle" size={20} color="#00E676" style={{ marginRight: 8 }} />
+              <Text style={styles.statusText}>{statusMsg}</Text>
+            </View>
+          ) : null}
 
           {/* STEP 1: Email Input & Send OTP */}
           {step === 1 && (
@@ -280,6 +300,13 @@ export default function RegisterScreen() {
             </TouchableOpacity>
           </View>
         </ScrollView>
+
+        <Toast
+          visible={toast.visible}
+          message={toast.message}
+          type={toast.type}
+          onDismiss={() => setToast((prev) => ({ ...prev, visible: false }))}
+        />
       </KeyboardAvoidingView>
     </Screen>
   );
@@ -301,7 +328,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   header: {
-    marginBottom: 28,
+    marginBottom: 24,
   },
   title: {
     fontSize: 28,
@@ -312,6 +339,23 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: SIZES.medium,
     color: 'rgba(255,255,255,0.6)',
+  },
+  statusBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 230, 118, 0.12)',
+    borderWidth: 1,
+    borderColor: '#00E676',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    marginBottom: 20,
+  },
+  statusText: {
+    color: '#00E676',
+    fontSize: SIZES.font,
+    fontWeight: '600',
+    flex: 1,
   },
   form: {
     width: '100%',

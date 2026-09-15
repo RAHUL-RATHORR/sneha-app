@@ -8,7 +8,6 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   ActivityIndicator,
   Image,
 } from 'react-native';
@@ -16,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
+import Toast from '../components/Toast';
 import { useAuth } from '../context/AuthContext';
 import { formatDobForDisplay, parseAndValidateDob } from '../utils/dateUtils';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
@@ -28,23 +28,28 @@ export default function EditProfileScreen() {
   const [lname, setLname] = useState(user?.user_lname || '');
   const [mobile, setMobile] = useState(user?.user_mobile || '');
   const [dob, setDob] = useState(formatDobForDisplay(user?.user_dob || ''));
-  const [profileImage, setProfileImage] = useState(null); // base64 string if updated
+  const [profileImage, setProfileImage] = useState(null);
 
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
+
+  const triggerToast = (message, type = 'success') => {
+    setToast({ visible: true, message, type });
+  };
 
   const handleUpdate = async () => {
     if (!fname.trim()) {
-      Alert.alert('Validation Error', 'First name is required.');
+      triggerToast('First name is required.', 'error');
       return;
     }
     if (!mobile.trim()) {
-      Alert.alert('Validation Error', 'Mobile number is required.');
+      triggerToast('Mobile number is required.', 'error');
       return;
     }
 
     const dobValidation = parseAndValidateDob(dob);
     if (!dobValidation.isValid) {
-      Alert.alert('Validation Error', dobValidation.error);
+      triggerToast(dobValidation.error, 'error');
       return;
     }
 
@@ -54,24 +59,22 @@ export default function EditProfileScreen() {
         fname: fname.trim(),
         lname: lname.trim(),
         mobile: mobile.trim(),
-        dob: dobValidation.displayDob, // Saves in DD-MM-YYYY format
+        dob: dobValidation.displayDob,
         profileImage,
       });
-      Alert.alert('Success', 'Profile updated successfully!');
-      navigation.goBack();
+      triggerToast('Profile updated successfully!', 'success');
+      setTimeout(() => {
+        navigation.goBack();
+      }, 1200);
     } catch (err) {
       if (err.isLogout) {
-        Alert.alert('Session Expired', err.message, [
-          {
-            text: 'Login',
-            onPress: async () => {
-              await logout();
-              navigation.replace('Login');
-            },
-          },
-        ]);
+        triggerToast('Session expired. Logging out...', 'error');
+        setTimeout(async () => {
+          await logout();
+          navigation.replace('Login');
+        }, 1200);
       } else {
-        Alert.alert('Update Failed', err.message || 'Failed to update profile.');
+        triggerToast(err.message || 'Failed to update profile.', 'error');
       }
     } finally {
       setLoading(false);
@@ -169,6 +172,13 @@ export default function EditProfileScreen() {
             )}
           </View>
         </ScrollView>
+
+        <Toast
+          visible={toast.visible}
+          message={toast.message}
+          type={toast.type}
+          onDismiss={() => setToast((prev) => ({ ...prev, visible: false }))}
+        />
       </KeyboardAvoidingView>
     </Screen>
   );

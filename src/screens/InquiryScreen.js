@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
+import Toast from '../components/Toast';
 
 export default function InquiryScreen({ navigation }) {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'error' });
+
+  const triggerToast = (message, type = 'error') => {
+    setToast({ visible: true, message, type });
+  };
+
   const [form, setForm] = useState({
     companyName: '',
     personName: '',
@@ -24,7 +31,7 @@ export default function InquiryScreen({ navigation }) {
 
   const handleSubmit = () => {
     if (!form.companyName || !form.personName || !form.email || !form.mobile || !form.whatsapp || !form.city || !form.state || !form.country || !form.requirements) {
-      Alert.alert('Validation Error', 'Please fill in all required fields.');
+      triggerToast('Please fill in all required fields.', 'error');
       return;
     }
     // Show success modal
@@ -134,6 +141,13 @@ export default function InquiryScreen({ navigation }) {
         </View>
       </View>
       </ScrollView>
+
+      <Toast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+        onDismiss={() => setToast((prev) => ({ ...prev, visible: false }))}
+      />
     </>
   );
 }

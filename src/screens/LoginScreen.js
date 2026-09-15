@@ -8,7 +8,6 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   Image,
   TouchableOpacity,
   ActivityIndicator,
@@ -17,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
+import Toast from '../components/Toast';
 import { COLORS, SIZES } from '../constants/theme';
 import { useAuth } from '../context/AuthContext';
 
@@ -29,9 +29,16 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // Modern Toast state
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'error' });
+
+  const triggerToast = (message, type = 'error') => {
+    setToast({ visible: true, message, type });
+  };
+
   const handleLogin = async () => {
     if (!email.trim() || !password) {
-      Alert.alert('Validation Error', 'Please enter both your email and password to login.');
+      triggerToast('Please enter both your email and password to login.', 'error');
       return;
     }
 
@@ -40,7 +47,7 @@ export default function LoginScreen() {
       await login({ email: email.trim(), password });
       navigation.replace('MainTabs');
     } catch (err) {
-      Alert.alert('Login Failed', err.message || 'Wrong email or password. Please try again.');
+      triggerToast(err.message || 'Wrong email or password. Please try again.', 'error');
     } finally {
       setLoading(false);
     }
@@ -134,6 +141,13 @@ export default function LoginScreen() {
           </View>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
+
+      <Toast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+        onDismiss={() => setToast((prev) => ({ ...prev, visible: false }))}
+      />
     </Screen>
   );
 }

@@ -8,13 +8,13 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
+import Toast from '../components/Toast';
 import { sendOtpApi, verifyOtpApi, resetPasswordApi } from '../api/authService';
 import { COLORS, SIZES } from '../constants/theme';
 
@@ -28,21 +28,31 @@ export default function ForgotPasswordScreen() {
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Modern Toast state
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
+  const [statusMsg, setStatusMsg] = useState('');
+
+  const triggerToast = (message, type = 'success') => {
+    setToast({ visible: true, message, type });
+  };
 
   // Step 1: Send OTP for Forgot Password
   const handleSendOtp = async () => {
     if (!email || !email.includes('@')) {
-      Alert.alert('Validation Error', 'Please enter your registered email address.');
+      triggerToast('Please enter your registered email address.', 'error');
       return;
     }
     setLoading(true);
     try {
       const res = await sendOtpApi(email);
-      Alert.alert('Success', res.message || 'Password reset OTP sent to your email.');
+      triggerToast(res.message || 'OTP sent successfully to your email!', 'success');
+      setStatusMsg('OTP sent! Please check your inbox.');
       setStep(2);
     } catch (err) {
-      Alert.alert('Error', err.message || 'Failed to send reset OTP.');
+      triggerToast(err.message || 'Failed to send reset OTP.', 'error');
     } finally {
       setLoading(false);
     }
@@ -51,16 +61,17 @@ export default function ForgotPasswordScreen() {
   // Step 2: Verify OTP
   const handleVerifyOtp = async () => {
     if (!otp || otp.length !== 4) {
-      Alert.alert('Validation Error', 'Please enter the 4-digit OTP.');
+      triggerToast('Please enter the 4-digit OTP.', 'error');
       return;
     }
     setLoading(true);
     try {
       const res = await verifyOtpApi(email, otp);
-      Alert.alert('Verified', res.message || 'OTP verified successfully.');
+      triggerToast(res.message || 'Email verified successfully!', 'success');
+      setStatusMsg('✓ Email verified successfully! Enter new password.');
       setStep(3);
     } catch (err) {
-      Alert.alert('Verification Error', err.message || 'Invalid or expired OTP.');
+      triggerToast(err.message || 'Invalid or expired OTP.', 'error');
     } finally {
       setLoading(false);
     }
@@ -69,25 +80,23 @@ export default function ForgotPasswordScreen() {
   // Step 3: Set New Password
   const handleResetPassword = async () => {
     if (!newPassword || newPassword.length < 6) {
-      Alert.alert('Validation Error', 'Password must be at least 6 characters long.');
+      triggerToast('Password must be at least 6 characters long.', 'error');
       return;
     }
     if (newPassword !== confirmPassword) {
-      Alert.alert('Validation Error', 'Passwords do not match.');
+      triggerToast('Passwords do not match.', 'error');
       return;
     }
 
     setLoading(true);
     try {
       const res = await resetPasswordApi(email, newPassword);
-      Alert.alert('Success', res.message || 'Password Reset Successfully!', [
-        {
-          text: 'Go to Login',
-          onPress: () => navigation.replace('Login'),
-        },
-      ]);
+      triggerToast(res.message || 'Password Reset Successfully! Redirecting to login...', 'success');
+      setTimeout(() => {
+        navigation.replace('Login');
+      }, 1500);
     } catch (err) {
-      Alert.alert('Error', err.message || 'Failed to reset password.');
+      triggerToast(err.message || 'Failed to reset password.', 'error');
     } finally {
       setLoading(false);
     }
@@ -113,6 +122,14 @@ export default function ForgotPasswordScreen() {
               {step === 3 && 'Create a new password for your account.'}
             </Text>
           </View>
+
+          {/* Inline Status Banner */}
+          {statusMsg ? (
+            <View style={styles.statusBanner}>
+              <Ionicons name="checkmark-circle" size={20} color="#00E676" style={{ marginRight: 8 }} />
+              <Text style={styles.statusText}>{statusMsg}</Text>
+            </View>
+          ) : null}
 
           {/* STEP 1: Enter Email */}
           {step === 1 && (
@@ -171,26 +188,52 @@ export default function ForgotPasswordScreen() {
             <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>New Password</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter new password"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  secureTextEntry
-                  value={newPassword}
-                  onChangeText={setNewPassword}
-                />
+                <View style={styles.passwordWrapper}>
+                  <TextInput
+                    style={styles.passwordInput}
+                    placeholder="Enter new password"
+                    placeholderTextColor="rgba(255,255,255,0.4)"
+                    secureTextEntry={!showPassword}
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                  />
+                  <TouchableOpacity
+                    style={styles.eyeIcon}
+                    onPress={() => setShowPassword(!showPassword)}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                      size={22}
+                      color="rgba(255,255,255,0.7)"
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>Confirm New Password</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirm new password"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  secureTextEntry
-                  value={confirmPassword}
-                  onChangeText={setConfirmPassword}
-                />
+                <View style={styles.passwordWrapper}>
+                  <TextInput
+                    style={styles.passwordInput}
+                    placeholder="Confirm new password"
+                    placeholderTextColor="rgba(255,255,255,0.4)"
+                    secureTextEntry={!showPassword}
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                  />
+                  <TouchableOpacity
+                    style={styles.eyeIcon}
+                    onPress={() => setShowPassword(!showPassword)}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                      size={22}
+                      color="rgba(255,255,255,0.7)"
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
 
               {loading ? (
@@ -201,6 +244,13 @@ export default function ForgotPasswordScreen() {
             </View>
           )}
         </ScrollView>
+
+        <Toast
+          visible={toast.visible}
+          message={toast.message}
+          type={toast.type}
+          onDismiss={() => setToast((prev) => ({ ...prev, visible: false }))}
+        />
       </KeyboardAvoidingView>
     </Screen>
   );
@@ -234,6 +284,23 @@ const styles = StyleSheet.create({
     fontSize: SIZES.medium,
     color: 'rgba(255,255,255,0.6)',
   },
+  statusBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 230, 118, 0.12)',
+    borderWidth: 1,
+    borderColor: '#00E676',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    marginBottom: 20,
+  },
+  statusText: {
+    color: '#00E676',
+    fontSize: SIZES.font,
+    fontWeight: '600',
+    flex: 1,
+  },
   form: {
     width: '100%',
   },
@@ -255,6 +322,25 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: SIZES.font,
     color: '#FFFFFF',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,194,224,0.3)',
+    paddingRight: 14,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: SIZES.font,
+    color: '#FFFFFF',
+  },
+  eyeIcon: {
+    padding: 4,
   },
   otpInput: {
     fontSize: 22,
