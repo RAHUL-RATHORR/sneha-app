@@ -34,6 +34,7 @@ export default function RegisterScreen() {
   const [lname, setLname] = useState('');
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [dob, setDob] = useState(''); // DD-MM-YYYY
 
   const [loading, setLoading] = useState(false);
@@ -228,14 +229,27 @@ export default function RegisterScreen() {
 
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>Password (min 6 chars) *</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="••••••••"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  secureTextEntry
-                  value={password}
-                  onChangeText={setPassword}
-                />
+                <View style={styles.passwordWrapper}>
+                  <TextInput
+                    style={styles.passwordInput}
+                    placeholder="••••••••"
+                    placeholderTextColor="rgba(255,255,255,0.4)"
+                    secureTextEntry={!showPassword}
+                    value={password}
+                    onChangeText={setPassword}
+                  />
+                  <TouchableOpacity
+                    style={styles.eyeIcon}
+                    onPress={() => setShowPassword(!showPassword)}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                      size={22}
+                      color="rgba(255,255,255,0.7)"
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
 
               <View style={styles.inputContainer}>
@@ -323,6 +337,25 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: SIZES.font,
     color: '#FFFFFF',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,194,224,0.3)',
+    paddingRight: 14,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: SIZES.font,
+    color: '#FFFFFF',
+  },
+  eyeIcon: {
+    padding: 4,
   },
   otpInput: {
     fontSize: 22,

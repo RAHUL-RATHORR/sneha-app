@@ -14,9 +14,9 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
-import PrinterLogo from '../components/ShatterLogo';
 import { COLORS, SIZES } from '../constants/theme';
 import { useAuth } from '../context/AuthContext';
 
@@ -26,6 +26,7 @@ export default function LoginScreen() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -52,10 +53,8 @@ export default function LoginScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.innerContainer}
         >
-          {/* ── Brand Logo & Animation ── */}
+          {/* ── Brand Logo ── */}
           <View style={styles.logoSection}>
-            <View style={styles.glowRing} />
-            <PrinterLogo style={styles.logo} />
             <View style={styles.logoCard}>
               <Image
                 source={require('../../assets/logo.png')}
@@ -86,14 +85,27 @@ export default function LoginScreen() {
 
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Password</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your password"
-                placeholderTextColor="rgba(255,255,255,0.4)"
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-              />
+              <View style={styles.passwordWrapper}>
+                <TextInput
+                  style={styles.passwordInput}
+                  placeholder="Enter your password"
+                  placeholderTextColor="rgba(255,255,255,0.4)"
+                  secureTextEntry={!showPassword}
+                  value={password}
+                  onChangeText={setPassword}
+                />
+                <TouchableOpacity
+                  style={styles.eyeIcon}
+                  onPress={() => setShowPassword(!showPassword)}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <Ionicons
+                    name={showPassword ? 'eye-outline' : 'eye-off-outline'}
+                    size={22}
+                    color="rgba(255,255,255,0.7)"
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
 
             <TouchableOpacity
@@ -141,28 +153,12 @@ const styles = StyleSheet.create({
   logoSection: {
     alignItems: 'center',
     marginBottom: 28,
-    position: 'relative',
   },
-  glowRing: {
-    position: 'absolute',
-    width: 210,
-    height: 210,
-    borderRadius: 105,
-    backgroundColor: 'rgba(0, 194, 224, 0.07)',
-    top: '50%',
-    left: '50%',
-    marginTop: -105,
-    marginLeft: -105,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 194, 224, 0.2)',
-  },
-  logo: {},
   logoCard: {
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-    marginTop: 14,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -172,12 +168,12 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   brandLogoImage: {
-    width: 170,
-    height: 44,
+    width: 190,
+    height: 50,
   },
   // ── Header ──
   header: {
-    marginBottom: 28,
+    marginBottom: 24,
   },
   title: {
     fontSize: 28,
@@ -210,6 +206,25 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     fontSize: SIZES.font,
     color: '#FFFFFF',
+  },
+  passwordWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(0,194,224,0.3)',
+    paddingRight: 14,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: SIZES.font,
+    color: '#FFFFFF',
+  },
+  eyeIcon: {
+    padding: 4,
   },
   forgotPasswordContainer: {
     alignItems: 'flex-end',
