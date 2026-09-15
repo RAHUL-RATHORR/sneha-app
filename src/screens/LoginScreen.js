@@ -1,29 +1,54 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, Alert, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
 import PrinterLogo from '../components/ShatterLogo';
 import { COLORS, SIZES } from '../constants/theme';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
+  const { login } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    if (!email || !password) {
+  const handleLogin = async () => {
+    if (!email.trim() || !password) {
       Alert.alert('Validation Error', 'Please enter both your email and password to login.');
       return;
     }
-    // API call can go here later
-    navigation.replace('MainTabs');
+
+    setLoading(true);
+    try {
+      await login({ email: email.trim(), password });
+      navigation.replace('MainTabs');
+    } catch (err) {
+      Alert.alert('Login Failed', err.message || 'Wrong email or password. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Screen style={styles.container} backgroundColor='#142B48' barStyle='light-content'>
+    <Screen style={styles.container} backgroundColor="#142B48" barStyle="light-content">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView 
+        <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.innerContainer}
         >
@@ -32,10 +57,10 @@ export default function LoginScreen() {
             <View style={styles.glowRing} />
             <PrinterLogo style={styles.logo} />
             <View style={styles.logoCard}>
-              <Image 
-                source={require('../../assets/logo.png')} 
-                style={styles.brandLogoImage} 
-                resizeMode="contain" 
+              <Image
+                source={require('../../assets/logo.png')}
+                style={styles.brandLogoImage}
+                resizeMode="contain"
               />
             </View>
           </View>
@@ -51,7 +76,7 @@ export default function LoginScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="Enter your email"
-                placeholderTextColor={COLORS.darkGray}
+                placeholderTextColor="rgba(255,255,255,0.4)"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 value={email}
@@ -64,34 +89,35 @@ export default function LoginScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="Enter your password"
-                placeholderTextColor={COLORS.darkGray}
+                placeholderTextColor="rgba(255,255,255,0.4)"
                 secureTextEntry
                 value={password}
                 onChangeText={setPassword}
               />
             </View>
 
-            <View style={styles.forgotPasswordContainer}>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </View>
-
-            <CustomButton 
-              title="Login" 
-              onPress={handleLogin} 
-              style={styles.loginButton} 
-            />
-
-            <TouchableOpacity 
-              style={styles.guestButton} 
-              onPress={() => navigation.replace('MainTabs')}
-              activeOpacity={0.7}
+            <TouchableOpacity
+              style={styles.forgotPasswordContainer}
+              onPress={() => navigation.navigate('ForgotPassword')}
             >
-              <Text style={styles.guestButtonText}>Explore App as Guest →</Text>
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
             </TouchableOpacity>
+
+            {loading ? (
+              <ActivityIndicator size="large" color="#00C2E0" style={{ marginVertical: 16 }} />
+            ) : (
+              <CustomButton
+                title="Login"
+                onPress={handleLogin}
+                style={styles.loginButton}
+              />
+            )}
 
             <View style={styles.signupContainer}>
               <Text style={styles.signupText}>Don't have an account? </Text>
-              <Text style={styles.signupLink}>Sign Up</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.signupLink}>Sign Up</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -130,9 +156,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(0, 194, 224, 0.2)',
   },
-  logo: {
-    // ShatterLogo itself handles sizing (166x166 for 3x3 grid)
-  },
+  logo: {},
   logoCard: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
@@ -197,23 +221,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   loginButton: {
-    marginBottom: 14,
-  },
-  guestButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 194, 224, 0.4)',
-    backgroundColor: 'rgba(0, 194, 224, 0.08)',
     marginBottom: 24,
-  },
-  guestButtonText: {
-    color: '#00C2E0',
-    fontSize: SIZES.font,
-    fontWeight: '700',
-    letterSpacing: 0.5,
   },
   signupContainer: {
     flexDirection: 'row',
@@ -229,5 +237,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-

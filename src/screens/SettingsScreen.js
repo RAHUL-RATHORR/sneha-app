@@ -4,12 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import Screen from '../components/Screen';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import CustomButton from '../components/CustomButton';
 import { useAppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
   const { isDarkMode, toggleDarkMode } = useAppContext();
+  const { user, isLoggedIn, logout } = useAuth();
+
   const [notifications, setNotifications] = useState(true);
 
   const toggleSwitch = () => toggleDarkMode();
@@ -18,13 +20,14 @@ export default function SettingsScreen() {
   const handleLogout = () => {
     Alert.alert(
       "Log Out",
-      "Are you sure you want to log out?",
+      "Are you sure you want to log out of your account?",
       [
         { text: "Cancel", style: "cancel" },
         { 
           text: "Log Out", 
           style: "destructive",
-          onPress: () => {
+          onPress: async () => {
+            await logout();
             navigation.dispatch(
               CommonActions.reset({
                 index: 0,
@@ -37,6 +40,10 @@ export default function SettingsScreen() {
     );
   };
 
+  const fullName = user ? `${user.user_fname || ''} ${user.user_lname || ''}`.trim() : 'Guest User';
+  const email = user?.user_email || 'Sign in to access your profile';
+  const avatarUrl = user?.user_profile || `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName || 'User')}&background=00C2E0&color=fff&size=120`;
+
   return (
     <Screen backgroundColor="#F8F9FA">
       <View style={styles.header}>
@@ -45,16 +52,23 @@ export default function SettingsScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
-        {/* Profile Header */}
+        {/* Profile Card Header */}
         <View style={styles.profileSection}>
-          <Image source={{ uri: 'https://ui-avatars.com/api/?name=User&background=f97316&color=fff&size=120' }} style={styles.profileImage} />
+          <Image source={{ uri: avatarUrl }} style={styles.profileImage} />
           <View style={styles.profileInfo}>
-            <Text style={styles.profileName}>Guest User</Text>
-            <Text style={styles.profileEmail}>guest@snehagraphics.com</Text>
+            <Text style={styles.profileName}>{fullName}</Text>
+            <Text style={styles.profileEmail} numberOfLines={1}>{email}</Text>
           </View>
-          <TouchableOpacity style={styles.editBtn}>
-            <Ionicons name="pencil" size={16} color={COLORS.white} />
-          </TouchableOpacity>
+
+          {isLoggedIn ? (
+            <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate('EditProfile')}>
+              <Ionicons name="pencil" size={16} color={COLORS.white} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.signInBtn} onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.signInBtnText}>Sign In</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.section}>
@@ -67,7 +81,7 @@ export default function SettingsScreen() {
             <Text style={styles.rowLabel}>Dark Mode</Text>
             <Switch
               trackColor={{ false: COLORS.lightGray, true: COLORS.primary }}
-              thumbColor={isDarkMode ? COLORS.white : COLORS.white}
+              thumbColor={COLORS.white}
               onValueChange={toggleSwitch}
               value={isDarkMode}
               style={{ marginLeft: 'auto' }}
@@ -83,7 +97,7 @@ export default function SettingsScreen() {
             <Text style={styles.rowLabel}>Push Notifications</Text>
             <Switch
               trackColor={{ false: COLORS.lightGray, true: COLORS.primary }}
-              thumbColor={notifications ? COLORS.white : COLORS.white}
+              thumbColor={COLORS.white}
               onValueChange={toggleNotifications}
               value={notifications}
               style={{ marginLeft: 'auto' }}
@@ -94,31 +108,33 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Account</Text>
           
-          <TouchableOpacity style={styles.rowButton} activeOpacity={0.7}>
+          <TouchableOpacity
+            style={styles.rowButton}
+            activeOpacity={0.7}
+            onPress={() => {
+              if (isLoggedIn) {
+                navigation.navigate('EditProfile');
+              } else {
+                navigation.navigate('Login');
+              }
+            }}
+          >
             <View style={[styles.rowIconWrap, { backgroundColor: '#10B981' }]}>
               <Ionicons name="person" size={20} color={COLORS.white} />
             </View>
             <Text style={styles.rowLabel}>Personal Information</Text>
             <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
           </TouchableOpacity>
-          
-          <View style={styles.divider} />
-
-          <TouchableOpacity style={styles.rowButton} activeOpacity={0.7}>
-            <View style={[styles.rowIconWrap, { backgroundColor: '#8B5CF6' }]}>
-              <Ionicons name="shield-checkmark" size={20} color={COLORS.white} />
-            </View>
-            <Text style={styles.rowLabel}>Privacy & Security</Text>
-            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
         </View>
 
-        <View style={styles.logoutContainer}>
-          <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
-            <Ionicons name="log-out-outline" size={22} color={COLORS.error} />
-            <Text style={styles.logoutBtnText}>Log Out</Text>
-          </TouchableOpacity>
-        </View>
+        {isLoggedIn && (
+          <View style={styles.logoutContainer}>
+            <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout} activeOpacity={0.8}>
+              <Ionicons name="log-out-outline" size={22} color={COLORS.error} />
+              <Text style={styles.logoutBtnText}>Log Out</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
       </ScrollView>
     </Screen>
@@ -149,31 +165,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    padding: 20,
+    padding: 16,
     borderRadius: 20,
     marginBottom: 24,
     ...SHADOWS.medium,
     elevation: 4,
   },
   profileImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 54,
+    height: 54,
+    borderRadius: 27,
     borderWidth: 2,
     borderColor: '#FFF7ED',
   },
   profileInfo: {
-    marginLeft: 16,
+    marginLeft: 14,
     flex: 1,
   },
   profileName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: COLORS.secondary,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   profileEmail: {
-    fontSize: 13,
+    fontSize: 12,
     color: COLORS.darkGray,
     fontWeight: '500',
   },
@@ -185,6 +201,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     ...SHADOWS.light,
+  },
+  signInBtn: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: SIZES.radius,
+  },
+  signInBtnText: {
+    color: COLORS.white,
+    fontWeight: '700',
+    fontSize: 12,
   },
   section: {
     backgroundColor: COLORS.white,

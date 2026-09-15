@@ -3,15 +3,18 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import { AppProvider } from './src/context/AppContext';
+import { AuthProvider } from './src/context/AuthContext';
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   return (
-    <AppProvider>
-      <SafeAreaProvider>
-        <StatusBar style="light" backgroundColor="#111827" />
-        <AppNavigator />
-      </SafeAreaProvider>
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <SafeAreaProvider>
+          <StatusBar style="light" backgroundColor="#111827" />
+          <AppNavigator />
+        </SafeAreaProvider>
+      </AppProvider>
+    </AuthProvider>
   );
 }

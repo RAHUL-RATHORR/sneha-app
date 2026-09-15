@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../constants/theme';
 
 // Screens
@@ -18,6 +19,9 @@ import EventsScreen from '../screens/EventsScreen';
 import ClientsScreen from '../screens/ClientsScreen';
 import TestimonialsScreen from '../screens/TestimonialsScreen';
 import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 
@@ -25,6 +29,9 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
+  const insets = useSafeAreaInsets();
+  const bottomInset = Math.max(insets.bottom, 8);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -42,9 +49,9 @@ function TabNavigator() {
         tabBarInactiveTintColor: COLORS.darkGray,
         headerShown: false,
         tabBarStyle: {
-          paddingBottom: 6,
+          paddingBottom: bottomInset,
           paddingTop: 6,
-          height: 64,
+          height: 54 + bottomInset,
           backgroundColor: COLORS.white,
           borderTopWidth: 1,
           borderTopColor: COLORS.lightGray,
@@ -54,7 +61,7 @@ function TabNavigator() {
           shadowOpacity: 0.06,
           shadowRadius: 4,
         },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600', paddingBottom: 2 },
       })}
     >
       <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
@@ -80,6 +87,9 @@ export default function AppNavigator() {
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="MachineDetails" component={MachineDetailsScreen} options={{ title: 'Machine Details' }} />
         <Stack.Screen name="Inquiry" component={InquiryScreen} options={{ title: 'Send Inquiry', headerStyle: { backgroundColor: COLORS.primary }, headerTintColor: COLORS.white }} />

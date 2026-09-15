@@ -1,37 +1,57 @@
 import axios from 'axios';
 
-// TODO: Replace with actual Laravel API URL when provided by user
-const BASE_URL = 'https://api.snehagraphics.com/api'; 
+// Live Laravel API Base URL for Sneha Graphics & Solutions
+export const DEFAULT_BASE_URL = 'https://snehagraphicssolutions.com/api';
 
 const apiClient = axios.create({
-  baseURL: BASE_URL,
-  timeout: 10000, // 10 seconds timeout
+  baseURL: DEFAULT_BASE_URL,
+  timeout: 15000,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json',
   },
+  transformRequest: [
+    (data, headers) => {
+      if (data && typeof data === 'object' && !(data instanceof FormData)) {
+        const params = new URLSearchParams();
+        Object.keys(data).forEach((key) => {
+          if (data[key] !== undefined && data[key] !== null) {
+            params.append(key, data[key]);
+          }
+        });
+        return params.toString();
+      }
+      return data;
+    },
+  ],
 });
 
-// Request Interceptor (Useful for adding auth tokens later if needed)
-apiClient.interceptors.request.use(
-  (config) => {
-    // const token = await AsyncStorage.getItem('token');
-    // if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+// Utility to update the base URL dynamically if needed
+export const setBaseUrl = (url) => {
+  if (url) {
+    apiClient.defaults.baseURL = url;
   }
-);
+};
 
-// Response Interceptor (Handle global errors)
+// Response Interceptor
 apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    // Optionally handle global errors like 401 Unauthorized
-    console.error('API Error:', error.response?.data || error.message);
+    const isNetworkErr = error.message === 'Network Error' || error.code === 'ERR_NETWORK';
+    const serverMessage = error.response?.data?.message || error.message;
+
+    console.warn('[API Network Log]:', serverMessage);
+
+    if (isNetworkErr) {
+      const networkError = new Error(
+        'Network Error: Unable to connect to backend server. Please verify your internet connection or server API URL.'
+      );
+      networkError.isNetworkError = true;
+      return Promise.reject(networkError);
+    }
+
     return Promise.reject(error);
   }
 );
