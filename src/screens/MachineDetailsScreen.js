@@ -1,26 +1,94 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, FlatList, Linking, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, FlatList, Linking, Dimensions, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import { machines } from '../constants/dummyData';
 import { useAppContext } from '../context/AppContext';
 import MachineSpecsCard from '../components/MachineSpecsCard';
 import Screen from '../components/Screen';
+import { getMachineDetails } from '../api/services';
 
 const { width } = Dimensions.get('window');
+const BASE_IMG_URL = 'https://snehagraphicssolutions.com/public/img/uploads/product/';
 
 export default function MachineDetailsScreen({ route, navigation }) {
-  const { id } = route.params;
-  const machine = machines.find(m => m.id === id) || machines[0];
-  const relatedMachines = machines.filter(m => m.brand === machine.brand && m.id !== machine.id).slice(0, 4);
+  const { id, slug } = route.params;
   const { favorites, toggleFavorite } = useAppContext();
-  const isFavorite = favorites.includes(machine.id);
+  
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [data, setData] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const handleCall = () => Linking.openURL('tel:+919799968351');
-  const handleWhatsApp = () => Linking.openURL(`https://wa.me/919799968351?text=Hello, I am interested in getting a quote for the ${machine.name}`);
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const res = await getMachineDetails(slug || id);
+        setData(res);
+      } catch (error) {
+        console.error('Error fetching machine details:', error);
+        setErrorMsg('Machine details not found or an error occurred.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDetails();
+  }, [id, slug]);
 
-  const images = machine.images && machine.images.length > 0 ? machine.images : [machine.image];
+  if (loading) {
+    return (
+      <Screen backgroundColor={COLORS.background}>
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Screen>
+    );
+  }
+
+  if (errorMsg || !data) {
+    return (
+      <Screen backgroundColor={COLORS.background}>
+        <View style={styles.headerSection}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 20 }}>
+            <Ionicons name="arrow-back" size={24} color={COLORS.secondary} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Error</Text>
+          <Text style={styles.description}>{errorMsg || 'Machine not found.'}</Text>
+        </View>
+      </Screen>
+    );
+  }
+
+  const { product, gallery, related_products } = data;
+  
+  // Format Data
+  const isFavorite = favorites.includes(product.product_id);
+  const name = product.product_name;
+  const brand = product.manufacturer?.manufacturer_name || 'Unknown';
+  const availability = product.product_sold === 1 ? 'Sold' : 'In Stock';
+  const desc = product.product_desc ? product.product_desc.replace(/<[^>]+>/g, '').trim() : '';
+
+  // Images
+  const mainImage = product.product_image ? `${BASE_IMG_URL}${product.product_image}` : null;
+  const images = [];
+  if (mainImage) images.push(mainImage);
+  if (gallery && gallery.length > 0) {
+    gallery.forEach(g => {
+      if (g.gallery_image) images.push(g.gallery_image); // Already has full URL in JSON
+    });
+  }
+  if (images.length === 0) images.push('https://via.placeholder.com/400'); // Fallback
+
+  const handleCall = () => Linking.openURL('tel:+919799968351');
+  const handleWhatsApp = () => Linking.openURL(`https://wa.me/919799968351?text=Hello, I am interested in getting a quote for the ${name}`);
+
+  // Specs Mapping
+  const specs = {
+    format: product.format?.formate_name || '',
+    maxSheetSize: product.product_sheet_size || '',
+    speed: product.colour?.color_name || '',
+    power: product.type?.type_name || '',
+    weight: product.year?.year_name ? `Year: ${product.year.year_name}` : ''
+  };
 
   return (
     <Screen backgroundColor={COLORS.background}>
@@ -41,7 +109,7 @@ export default function MachineDetailsScreen({ route, navigation }) {
               <Image source={{ uri: item }} style={styles.heroImage} resizeMode="cover" />
             )}
           />
-          <TouchableOpacity style={styles.heartBtn} onPress={() => toggleFavorite(machine.id)}>
+          <TouchableOpacity style={styles.heartBtn} onPress={() => toggleFavorite(product.product_id)}>
             <View style={styles.glassCircle}>
               <Ionicons name={isFavorite ? 'bookmark' : 'bookmark-outline'} size={22} color={isFavorite ? COLORS.primary : COLORS.secondary} />
             </View>
@@ -56,18 +124,18 @@ export default function MachineDetailsScreen({ route, navigation }) {
         {/* Title & Tags */}
         <View style={styles.headerSection}>
           <View style={styles.badgeRow}>
-            <View style={styles.brandBadge}><Text style={styles.brandBadgeText}>{machine.brand}</Text></View>
-            <View style={[styles.statusBadge, { backgroundColor: machine.availability.includes('Stock') ? COLORS.success : COLORS.warning }]}>
-              <Text style={styles.statusBadgeText}>{machine.availability}</Text>
+            <View style={styles.brandBadge}><Text style={styles.brandBadgeText}>{brand}</Text></View>
+            <View style={[styles.statusBadge, { backgroundColor: availability === 'In Stock' ? COLORS.success : COLORS.error }]}>
+              <Text style={styles.statusBadgeText}>{availability}</Text>
             </View>
           </View>
-          <Text style={styles.title}>{machine.name}</Text>
-          <Text style={styles.price}>{machine.price}</Text>
+          <Text style={styles.title}>{name}</Text>
+          <Text style={styles.price}>Request Quote</Text>
         </View>
 
         {/* Action Buttons */}
         <View style={styles.actionRow}>
-          <TouchableOpacity style={[styles.actionBtn, { backgroundColor: COLORS.primary }]} onPress={() => navigation.navigate('Inquiry')}>
+          <TouchableOpacity style={[styles.actionBtn, { backgroundColor: COLORS.primary }]} onPress={() => navigation.navigate('Inquiry', { productId: product.product_id })}>
             <Ionicons name="document-text" size={18} color={COLORS.surface} />
             <Text style={styles.actionBtnText}>Request Quote</Text>
           </TouchableOpacity>
@@ -83,47 +151,41 @@ export default function MachineDetailsScreen({ route, navigation }) {
 
         <View style={styles.contentPad}>
           {/* Detailed Specifications */}
-          <MachineSpecsCard specs={machine.specs} />
+          <MachineSpecsCard specs={specs} />
 
           {/* Description */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Overview</Text>
-            <Text style={styles.description}>{machine.description}</Text>
-          </View>
-
-          {/* Features */}
-          {machine.features && machine.features.length > 0 && (
+          {desc ? (
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Key Features</Text>
-              {machine.features.map((feature, idx) => (
-                <View key={idx} style={styles.featureRow}>
-                  <Ionicons name="checkmark-circle" size={16} color={COLORS.success} />
-                  <Text style={styles.featureText}>{feature}</Text>
-                </View>
-              ))}
+              <Text style={styles.sectionTitle}>Overview</Text>
+              <Text style={styles.description}>{desc}</Text>
             </View>
-          )}
+          ) : null}
         </View>
 
         {/* Related Machines */}
-        {relatedMachines.length > 0 && (
+        {related_products && related_products.length > 0 && (
           <View style={styles.relatedSection}>
-            <Text style={styles.sectionTitleRelated}>More from {machine.brand}</Text>
+            <Text style={styles.sectionTitleRelated}>More from {brand}</Text>
             <FlatList
-              data={relatedMachines}
+              data={related_products}
               horizontal
               showsHorizontalScrollIndicator={false}
-              keyExtractor={item => item.id}
+              keyExtractor={item => item.product_id.toString()}
               contentContainerStyle={{ paddingHorizontal: 20 }}
-              renderItem={({ item }) => (
-                <TouchableOpacity style={styles.relatedCard} onPress={() => navigation.push('MachineDetails', { id: item.id })}>
-                  <Image source={{ uri: item.image }} style={styles.relatedImage} resizeMode="cover" />
-                  <View style={styles.relatedInfo}>
-                    <Text style={styles.relatedName} numberOfLines={2}>{item.name}</Text>
-                    <Text style={styles.relatedMeta}>{item.year} • {item.color}C</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
+              renderItem={({ item }) => {
+                const relImage = item.product_image ? `${BASE_IMG_URL}${item.product_image}` : 'https://via.placeholder.com/150';
+                return (
+                  <TouchableOpacity style={styles.relatedCard} onPress={() => navigation.push('MachineDetails', { id: item.product_id, slug: item.product_slug || item.slug })}>
+                    <Image source={{ uri: relImage }} style={styles.relatedImage} resizeMode="cover" />
+                    <View style={styles.relatedInfo}>
+                      <Text style={styles.relatedName} numberOfLines={2}>{item.product_name}</Text>
+                      {item.year?.year_name || item.colour?.color_name ? (
+                        <Text style={styles.relatedMeta}>{item.year?.year_name || ''} {item.colour?.color_name || ''}</Text>
+                      ) : null}
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
             />
           </View>
         )}
@@ -135,6 +197,7 @@ export default function MachineDetailsScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   galleryContainer: { position: 'relative', width: '100%', height: 320, backgroundColor: COLORS.surfaceMuted },
   heroImage: { width: width, height: 320 },
   heartBtn: { position: 'absolute', top: 16, right: 16 },

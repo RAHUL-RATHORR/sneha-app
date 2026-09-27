@@ -7,8 +7,14 @@ import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import Toast from '../components/Toast';
+import { useAuth } from '../context/AuthContext';
+import { submitInquiry } from '../api/services';
 
-export default function InquiryScreen({ navigation }) {
+export default function InquiryScreen({ navigation, route }) {
+  const { user } = useAuth();
+  const productId = route.params?.productId;
+
+  const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [toast, setToast] = useState({ visible: false, message: '', type: 'error' });
 
@@ -18,10 +24,10 @@ export default function InquiryScreen({ navigation }) {
 
   const [form, setForm] = useState({
     companyName: '',
-    personName: '',
-    email: '',
-    mobile: '',
-    whatsapp: '',
+    personName: user ? `${user.user_fname || ''} ${user.user_lname || ''}`.trim() : '',
+    email: user?.user_email || '',
+    mobile: user?.user_mobile || '',
+    whatsapp: user?.user_mobile || '',
     contactType: '',
     city: '',
     state: '',
@@ -29,17 +35,49 @@ export default function InquiryScreen({ navigation }) {
     requirements: ''
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!form.companyName || !form.personName || !form.email || !form.mobile || !form.whatsapp || !form.city || !form.state || !form.country || !form.requirements) {
       triggerToast('Please fill in all required fields.', 'error');
       return;
     }
-    // Show success modal
-    setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-      navigation.goBack();
-    }, 2500);
+
+    setLoading(true);
+    try {
+      const payload = {
+        contact_name: form.companyName,
+        contact_person: form.personName,
+        contact_email: form.email,
+        contact_mobile: form.mobile,
+        contact_whatsapp: form.whatsapp,
+        contact_type: form.contactType,
+        contact_city: form.city,
+        contact_state: form.state,
+        contact_country: form.country,
+        contact_message: form.requirements,
+        contact_form_type: productId ? 2 : 1,
+      };
+      
+      if (productId) {
+        payload.product_id = productId;
+      }
+
+      const response = await submitInquiry(payload);
+      
+      if (response.status === false) {
+        triggerToast(response.message || 'Error sending inquiry.', 'error');
+        return;
+      }
+
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        navigation.goBack();
+      }, 2500);
+    } catch (error) {
+      triggerToast(error.message || 'Failed to submit inquiry.', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -137,7 +175,7 @@ export default function InquiryScreen({ navigation }) {
         <CustomInput label="Requirements *" placeholder="" multiline numberOfLines={4} value={form.requirements} onChangeText={t => setForm({...form, requirements: t})} />
         
         <View style={styles.btnContainer}>
-          <CustomButton title="Submit" onPress={handleSubmit} style={{ width: 120 }} />
+          <CustomButton title={loading ? "Sending..." : "Submit"} onPress={handleSubmit} style={{ width: 120 }} disabled={loading} />
         </View>
       </View>
       </ScrollView>

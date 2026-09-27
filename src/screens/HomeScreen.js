@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, FlatList,
-  TouchableOpacity, RefreshControl, Animated, Image, Dimensions
+  TouchableOpacity, RefreshControl, Animated, Image, Dimensions, ActivityIndicator
 } from 'react-native';
 import Screen from '../components/Screen';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import {
-  banners, categories, machines, manufacturers
-} from '../constants/dummyData';
+import { getHomeData } from '../api/services';
 import BannerCarousel from '../components/BannerCarousel';
 import MachineCard from '../components/MachineCard';
 import BrandCard from '../components/BrandCard';
+import TestimonialCard from '../components/TestimonialCard';
 
 const { width } = Dimensions.get('window');
 
@@ -41,36 +40,97 @@ const sh = StyleSheet.create({
   all: { fontSize: 12, color: COLORS.primary, fontWeight: '700', marginRight: 2 },
 });
 
-function CircleCategory({ item, onPress }) {
-  return (
-    <TouchableOpacity style={circleCat.wrap} activeOpacity={0.8} onPress={onPress}>
-      <View style={circleCat.imageWrap}>
-        <Ionicons name={item.icon || 'print'} size={24} color={COLORS.primary} />
-      </View>
-      <Text style={circleCat.name} numberOfLines={2}>{item.name}</Text>
-    </TouchableOpacity>
-  );
-}
-const circleCat = StyleSheet.create({
-  wrap: { alignItems: 'center', width: 76, marginRight: 12 },
-  imageWrap: { width: 56, height: 56, borderRadius: 28, backgroundColor: COLORS.surface, alignItems: 'center', justifyContent: 'center', ...SHADOWS.light, borderWidth: 1, borderColor: COLORS.border, marginBottom: 8 },
-  name: { fontSize: 11, fontWeight: '600', color: COLORS.textSecondary, textAlign: 'center', lineHeight: 14 },
-});
+
 
 // ─── Main Screen ──────────────────────────────────────────────────
 
 export default function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [homeData, setHomeData] = useState(null);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  const fetchHomeData = async () => {
+    try {
+      const data = await getHomeData();
+      
+      // Parse API Data
+      const parsedData = {
+        banners: (data.home_slider || []).map(s => ({
+          id: s.slider_id.toString(),
+          image: data.paths.appearance_image + s.slider_image,
+          title: (s.slider_name || '').replace(/<[^>]+>/g, '').trim(),
+          subtitle: ""
+        })),
+        categories: (data.productCategories || []).map(c => ({
+          id: c.category_id.toString(),
+          name: c.category_name,
+          slug: c.category_slug,
+          icon: 'print'
+        })),
+        manufacturers: (data.manufacturer || []).map(m => ({
+          name: m.manufacturer_name,
+          slug: m.manufacturer_slug
+        })),
+        featuredMachines: (data.featuredProducts || []).map(p => {
+          const mfg = (data.manufacturer || []).find(m => m.manufacturer_id === p.product_manufacturer);
+          return {
+            id: p.product_id.toString(),
+            name: p.product_name,
+            slug: p.product_slug,
+            brand: mfg ? mfg.manufacturer_name : 'Unknown',
+            image: data.paths.product_image + p.product_image,
+            year: p.year?.year_name || 'N/A',
+            color: p.product_color || '1',
+            featured: true,
+            specs: { format: 'Offset', maxSheetSize: p.product_sheet_size },
+            availability: 'Available'
+          };
+        }),
+        testimonials: (data.testimonials || []).map(t => {
+          let imgPath = data.paths.testimonial_image || '';
+          if (imgPath && !imgPath.startsWith('http')) {
+            imgPath = 'https://snehagraphicssolutions.com/public' + imgPath;
+          }
+          return {
+            id: t.testimonial_id.toString(),
+            name: t.testimonial_name,
+            image: imgPath + t.testimonial_image,
+            text: (t.testimonial_desc || '').replace(/<[^>]+>/g, '').trim(),
+            rating: parseInt(t.testimonial_rating, 10) || 5,
+            company: t.testimonial_designation
+          };
+        })
+      };
+
+      setHomeData(parsedData);
+      Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: true }).start();
+    } catch (error) {
+      console.error("Error fetching home data:", error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    Animated.timing(fadeAnim, { toValue: 1, duration: 600, useNativeDriver: true }).start();
+    fetchHomeData();
   }, []);
 
-  const onRefresh = () => { setRefreshing(true); setTimeout(() => setRefreshing(false), 1000); };
-  
-  const featuredMachines = machines.filter(m => m.featured);
-  const recentImports = machines.slice(5, 10);
+  const onRefresh = () => {
+    setRefreshing(true);
+    fetchHomeData();
+  };
+
+  if (loading && !homeData) {
+    return (
+      <Screen backgroundColor={COLORS.background}>
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Screen>
+    );
+  }
 
   return (
     <Screen backgroundColor={COLORS.background}>
@@ -84,7 +144,7 @@ export default function HomeScreen({ navigation }) {
           />
         </View>
         <View style={styles.navIcons}>
-          <TouchableOpacity onPress={() => navigation.navigate('MachinesTab')} style={styles.navIconBtn}>
+          <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.navIconBtn}>
             <Ionicons name="search-outline" size={20} color={COLORS.textPrimary} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')} style={styles.navIconBtn}>
@@ -102,22 +162,10 @@ export default function HomeScreen({ navigation }) {
 
           {/* ── Hero Banner ── */}
           <View style={styles.bannerContainer}>
-            <BannerCarousel data={banners} />
+            <BannerCarousel data={homeData?.banners || []} />
           </View>
 
-          {/* ── Categories ── */}
-          <View style={styles.section}>
-            <FlatList
-              data={categories}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={i => i.id}
-              contentContainerStyle={{ paddingHorizontal: 20 }}
-              renderItem={({ item }) => (
-                <CircleCategory item={item} onPress={() => navigation.navigate('MachinesTab', { categoryId: item.id })} />
-              )}
-            />
-          </View>
+
 
           {/* ── Browse by Manufacturer ── */}
           <View style={styles.sectionWrap}>
@@ -126,13 +174,13 @@ export default function HomeScreen({ navigation }) {
               subtitle="Browse machines by leading brands"
             />
             <FlatList
-              data={manufacturers}
+              data={homeData?.manufacturers || []}
               horizontal
               showsHorizontalScrollIndicator={false}
-              keyExtractor={i => i}
+              keyExtractor={i => i.slug}
               contentContainerStyle={{ paddingHorizontal: 20 }}
               renderItem={({ item }) => (
-                <BrandCard brandName={item} onPress={() => navigation.navigate('MachinesTab', { brand: item })} />
+                <BrandCard brandName={item.name} onPress={() => navigation.navigate('MachinesTab', { type: 'machines', slug: item.slug })} />
               )}
             />
           </View>
@@ -145,13 +193,33 @@ export default function HomeScreen({ navigation }) {
               onSeeAll={() => navigation.navigate('MachinesTab')}
             />
             <View style={styles.gridWrap}>
-              {featuredMachines.slice(0, 4).map(item => (
+              {(homeData?.featuredMachines || []).slice(0, 4).map(item => (
                 <View key={item.id} style={styles.gridItem}>
-                  <MachineCard machine={item} onPress={() => navigation.navigate('MachineDetails', { id: item.id })} />
+                  <MachineCard machine={item} onPress={() => navigation.navigate('MachineDetails', { id: item.id, slug: item.product_slug || item.slug })} />
                 </View>
               ))}
             </View>
           </View>
+
+          {/* ── Testimonials ── */}
+          {homeData?.testimonials && homeData.testimonials.length > 0 && (
+            <View style={styles.sectionWrap}>
+              <SectionHeader
+                title="What Our Clients Say"
+                subtitle="Trusted by businesses across India"
+              />
+              <FlatList
+                data={homeData.testimonials}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={i => i.id}
+                contentContainerStyle={{ paddingHorizontal: 20 }}
+                renderItem={({ item }) => (
+                  <TestimonialCard item={item} />
+                )}
+              />
+            </View>
+          )}
 
           {/* ── B2B Promo ── */}
           <TouchableOpacity style={styles.promoBanner} activeOpacity={0.9} onPress={() => navigation.navigate('Inquiry')}>
@@ -163,44 +231,23 @@ export default function HomeScreen({ navigation }) {
             </View>
           </TouchableOpacity>
 
-          {/* ── Recently Imported ── */}
-          <View style={styles.sectionWrap}>
-            <SectionHeader
-              title="Recently Imported"
-              subtitle="Fresh stock available for delivery"
-              onSeeAll={() => navigation.navigate('MachinesTab')}
-            />
-            <FlatList
-              data={recentImports}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={i => i.id}
-              contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 10 }}
-              renderItem={({ item }) => (
-                <View style={{ width: width * 0.65, marginRight: 15 }}>
-                  <MachineCard machine={item} onPress={() => navigation.navigate('MachineDetails', { id: item.id })} />
-                </View>
-              )}
-            />
-          </View>
-
           {/* ── Quick Services ── */}
           <View style={styles.servicesWrap}>
-            <View style={styles.serviceBox}>
+            <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('Services')}>
               <Ionicons name="settings" size={28} color={COLORS.primary} />
               <Text style={styles.serviceTitle}>Installation</Text>
               <Text style={styles.serviceSub}>Expert Setup</Text>
-            </View>
-            <View style={styles.serviceBox}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('Services')}>
               <Ionicons name="construct" size={28} color={COLORS.primary} />
               <Text style={styles.serviceTitle}>Maintenance</Text>
               <Text style={styles.serviceSub}>24/7 Support</Text>
-            </View>
-            <View style={styles.serviceBox}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.serviceBox} onPress={() => navigation.navigate('Services')}>
               <Ionicons name="shield-checkmark" size={28} color={COLORS.primary} />
               <Text style={styles.serviceTitle}>Refurbished</Text>
               <Text style={styles.serviceSub}>100% Tested</Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={{ height: 40 }} />
@@ -212,6 +259,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   navbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: COLORS.surface, borderBottomWidth: 1, borderBottomColor: COLORS.border, zIndex: 10 },
   navLeft: { flexDirection: 'row', alignItems: 'center' },
   logo: { width: 140, height: 36 },

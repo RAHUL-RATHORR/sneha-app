@@ -1,0 +1,121 @@
+{
+  "status": true,
+  "message": "Client data fetched successfully",
+  "data": {
+    "clients": [
+      {
+        "client_id": 143,
+        "client_image": "17793573111771.jpeg",
+        "client_title": "SOLD : KOMORI LITHRONE 426 MR. NIRMAL SIR AT JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 1,
+        "client_slug": "sold-komori-426-2000-model-autoplate-with-amr-popular-printers-jaipur",
+        "created_at": "2026-05-21T09:55:11.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 111,
+        "client_image": "17359887776850.jpeg",
+        "client_title": "SOLD KOMORI LITHRONE 440 MR. PAWAN SIR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 2,
+        "client_slug": "komori-lithrone-650-instillation-completed",
+        "created_at": "2025-01-04T11:06:17.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 110,
+        "client_image": "17337281551912.jpeg",
+        "client_title": "SOLD : KOMORI LITHRONE 426 PUNJAB",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 3,
+        "client_slug": "sold-komori-lithrone-26-in-punjab",
+        "created_at": "2024-12-09T07:09:15.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 137,
+        "client_image": "17740751118056.jpg",
+        "client_title": "Sold Komori Lithrone 426 - 2005 MR. Vikash Ji & Deepak Ji",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 4,
+        "client_slug": "komori-426-machine-sold-at-jaipur",
+        "created_at": "2026-03-21T06:36:57.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 148,
+        "client_image": "17855837688487.jpeg",
+        "client_title": "Polar 115 EM Monitor Sold at NRM Industry",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 5,
+        "client_slug": "polar-115-em-monitor-sold-at-nrm-industry",
+        "created_at": "2026-08-01T11:29:28.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 142,
+        "client_image": "17779089042253.jpg",
+        "client_title": "SOLD : KOMORI ENTHRONE (2015 MODEL) MR. MANOJ JI & MR. AMIT JI AT JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 6,
+        "client_slug": "successful-installation-of-enthrone-2015-model-fully-loaded-mr-manoj-ji-mr-amit-ji-sakshi-printers-jaipur",
+        "created_at": "2026-05-04T15:33:16.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 145,
+        "client_image": "17839271503375.jpeg",
+        "client_title": "Komori Manchine Sold : NRM Industries",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 7,
+        "client_slug": "komori-manchine-sold-nrm-industries",
+        "created_at": "2026-07-13T07:19:10.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 47,
+        "client_image": "17308095893151.png",
+        "client_title": "VISHAL PRINTER",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 8,
+        "client_slug": "technical-1",
+        "created_at": "2024-01-05T09:35:37.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 146,
+        "client_image": "17847093528462.jpeg",
+        "client_title": "Komori Model Sold at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 9,
+        "client_slug": "komori-model-sold-at-jaipur-1",
+        "created_at": "2026-07-22T08:35:52.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      },
+      {
+        "client_id": 135,
+        "client_image": "17700181569062.jpg",
+        "client_title": "Komori lithrone LS 626- 2008 Model Installation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 10,
+        "client_slug": "komori-lithrone-ls-626-2008-model",
+        "created_at": "2026-02-02T07:37:17.000000Z",
+        "updated_at": "2026-08-01T11:30:28.000000Z"
+      }
+    ],
+    "paths": {
+      "client_image": "https://snehagraphicssolutions.com/public/img/uploads/our_clients/"
+    }
+  }
+}

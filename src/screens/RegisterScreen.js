@@ -18,7 +18,6 @@ import CustomButton from '../components/CustomButton';
 import Toast from '../components/Toast';
 import { sendOtpApi, verifyOtpApi } from '../api/authService';
 import { useAuth } from '../context/AuthContext';
-import { parseAndValidateDob } from '../utils/dateUtils';
 import { COLORS, SIZES } from '../constants/theme';
 
 export default function RegisterScreen() {
@@ -35,7 +34,6 @@ export default function RegisterScreen() {
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [dob, setDob] = useState(''); // DD-MM-YYYY
 
   const [loading, setLoading] = useState(false);
 
@@ -100,11 +98,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    const dobValidation = parseAndValidateDob(dob);
-    if (!dobValidation.isValid) {
-      triggerToast(dobValidation.error, 'error');
-      return;
-    }
+
 
     setLoading(true);
     try {
@@ -114,7 +108,6 @@ export default function RegisterScreen() {
         mobile: mobile.trim(),
         email: email.trim(),
         password,
-        dob: dobValidation.displayDob,
       });
       triggerToast('Registration successful! Welcome to Sneha Graphics.', 'success');
       setTimeout(() => {
@@ -272,17 +265,7 @@ export default function RegisterScreen() {
                 </View>
               </View>
 
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Date of Birth (DD-MM-YYYY) *</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="15-08-1995"
-                  placeholderTextColor="rgba(255,255,255,0.4)"
-                  value={dob}
-                  onChangeText={setDob}
-                  keyboardType="numbers-and-punctuation"
-                />
-              </View>
+
 
               {loading ? (
                 <ActivityIndicator size="large" color="#00C2E0" style={{ marginVertical: 16 }} />

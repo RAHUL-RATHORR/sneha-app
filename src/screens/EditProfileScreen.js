@@ -17,7 +17,6 @@ import Screen from '../components/Screen';
 import CustomButton from '../components/CustomButton';
 import Toast from '../components/Toast';
 import { useAuth } from '../context/AuthContext';
-import { formatDobForDisplay, parseAndValidateDob } from '../utils/dateUtils';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 
 export default function EditProfileScreen() {
@@ -27,7 +26,6 @@ export default function EditProfileScreen() {
   const [fname, setFname] = useState(user?.user_fname || '');
   const [lname, setLname] = useState(user?.user_lname || '');
   const [mobile, setMobile] = useState(user?.user_mobile || '');
-  const [dob, setDob] = useState(formatDobForDisplay(user?.user_dob || ''));
   const [profileImage, setProfileImage] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -47,11 +45,7 @@ export default function EditProfileScreen() {
       return;
     }
 
-    const dobValidation = parseAndValidateDob(dob);
-    if (!dobValidation.isValid) {
-      triggerToast(dobValidation.error, 'error');
-      return;
-    }
+
 
     setLoading(true);
     try {
@@ -59,7 +53,6 @@ export default function EditProfileScreen() {
         fname: fname.trim(),
         lname: lname.trim(),
         mobile: mobile.trim(),
-        dob: dobValidation.displayDob,
         profileImage,
       });
       triggerToast('Profile updated successfully!', 'success');
@@ -149,17 +142,7 @@ export default function EditProfileScreen() {
               />
             </View>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Date of Birth (DD-MM-YYYY) *</Text>
-              <TextInput
-                style={styles.input}
-                value={dob}
-                onChangeText={setDob}
-                placeholder="15-08-1995"
-                placeholderTextColor={COLORS.darkGray}
-                keyboardType="numbers-and-punctuation"
-              />
-            </View>
+
 
             {loading ? (
               <ActivityIndicator size="large" color={COLORS.primary} style={{ marginVertical: 16 }} />

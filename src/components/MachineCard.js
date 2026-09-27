@@ -6,7 +6,14 @@ import { useAppContext } from '../context/AppContext';
 
 export default function MachineCard({ machine, onPress, isListView = false }) {
   const { favorites, toggleFavorite } = useAppContext();
-  const isFavorite = favorites.includes(machine.id);
+  
+  // Dynamic API Field Fallbacks
+  const id = machine.id || machine.product_id;
+  const imageUri = machine.product_image 
+    ? `https://snehagraphicssolutions.com/public/img/uploads/product/${machine.product_image}` 
+    : machine.image;
+  const name = machine.product_name || machine.name;
+  const isFavorite = favorites.includes(id);
   
   const scaleValue = useRef(new Animated.Value(1)).current;
 
@@ -35,27 +42,27 @@ export default function MachineCard({ machine, onPress, isListView = false }) {
         onPressOut={handlePressOut}
       >
         <Animated.View style={[listStyles.card, { transform: [{ scale: scaleValue }] }]}>
-          <Image source={{ uri: machine.image }} style={listStyles.image} resizeMode="cover" />
+          <Image source={{ uri: imageUri }} style={listStyles.image} resizeMode="cover" />
           <View style={listStyles.info}>
             <View style={listStyles.headerRow}>
-              <Text style={listStyles.brand}>{machine.brand}</Text>
-              <Text style={listStyles.availability} numberOfLines={1}>{machine.availability}</Text>
+              <Text style={listStyles.brand}>{machine.brand || 'BRAND'}</Text>
+              <Text style={listStyles.availability} numberOfLines={1}>{machine.availability || 'Available'}</Text>
             </View>
-            <Text style={listStyles.name} numberOfLines={2}>{machine.name}</Text>
+            <Text style={listStyles.name} numberOfLines={2}>{name}</Text>
             
             <View style={listStyles.tags}>
-              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.year}</Text></View>
-              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.color} Colour</Text></View>
-              {machine.specs?.maxSheetSize && (
-                 <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.specs.maxSheetSize}</Text></View>
-              )}
+              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.year?.year_name || machine.year}</Text></View>
+              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.product_color || machine.color} Colour</Text></View>
+              {machine.product_sheet_size || machine.specs?.maxSheetSize ? (
+                 <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.product_sheet_size || machine.specs.maxSheetSize}</Text></View>
+              ) : null}
             </View>
 
             <View style={listStyles.footer}>
               <TouchableOpacity style={listStyles.enquireBtn} onPress={onPress}>
                 <Text style={listStyles.enquireBtnText}>Enquire Now</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => toggleFavorite(machine.id)} style={listStyles.favBtn}>
+              <TouchableOpacity onPress={() => toggleFavorite(id)} style={listStyles.favBtn}>
                 <Ionicons name={isFavorite ? 'bookmark' : 'bookmark-outline'} size={20} color={isFavorite ? COLORS.primary : COLORS.textMuted} />
               </TouchableOpacity>
             </View>
@@ -74,24 +81,24 @@ export default function MachineCard({ machine, onPress, isListView = false }) {
     >
       <Animated.View style={[styles.card, { transform: [{ scale: scaleValue }] }]}>
         <View style={styles.imageWrap}>
-          <Image source={{ uri: machine.image }} style={styles.image} resizeMode="cover" />
-          {machine.featured && (
+          <Image source={{ uri: imageUri }} style={styles.image} resizeMode="cover" />
+          {machine.featured || machine.product_featured === 1 ? (
             <View style={styles.featuredBadge}>
               <Text style={styles.featuredText}>FEATURED</Text>
             </View>
-          )}
-          <TouchableOpacity style={styles.favIcon} onPress={() => toggleFavorite(machine.id)}>
+          ) : null}
+          <TouchableOpacity style={styles.favIcon} onPress={() => toggleFavorite(id)}>
             <View style={styles.glassCircle}>
               <Ionicons name={isFavorite ? 'bookmark' : 'bookmark-outline'} size={16} color={isFavorite ? COLORS.primary : COLORS.secondary} />
             </View>
           </TouchableOpacity>
         </View>
         <View style={styles.info}>
-          <Text style={styles.brand}>{machine.brand}</Text>
-          <Text style={styles.name} numberOfLines={1}>{machine.name}</Text>
+          <Text style={styles.brand}>{machine.brand || 'BRAND'}</Text>
+          <Text style={styles.name} numberOfLines={1}>{name}</Text>
           
           <View style={styles.metaRow}>
-            <Text style={styles.metaText}>{machine.year} • {machine.color} Col • {machine.specs?.format || 'Offset'}</Text>
+            <Text style={styles.metaText}>{machine.year?.year_name || machine.year} • {machine.product_color || machine.color} Col • {machine.product_sheet_size || machine.specs?.format || 'Offset'}</Text>
           </View>
 
           <View style={styles.divider} />

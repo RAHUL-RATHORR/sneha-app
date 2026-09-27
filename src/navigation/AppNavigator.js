@@ -24,6 +24,16 @@ import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import ServicesScreen from '../screens/ServicesScreen';
+import SearchScreen from '../screens/SearchScreen';
+import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+import AboutUsScreen from '../screens/AboutUsScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
+import FAQScreen from '../screens/FAQScreen';
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import TermsConditionScreen from '../screens/TermsConditionScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
+import LanguageScreen from '../screens/LanguageScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,7 +50,6 @@ function TabNavigator() {
             HomeTab: focused ? 'home' : 'home-outline',
             MachinesTab: focused ? 'cube' : 'cube-outline',
             ClientsTab: focused ? 'people' : 'people-outline',
-            ContactTab: focused ? 'call' : 'call-outline',
             SettingsTab: focused ? 'settings' : 'settings-outline',
           };
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
@@ -67,7 +76,6 @@ function TabNavigator() {
       <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="MachinesTab" component={MachinesScreen} options={{ title: 'Machines' }} />
       <Tab.Screen name="ClientsTab" component={ClientsScreen} options={{ title: 'Clients' }} />
-      <Tab.Screen name="ContactTab" component={ContactScreen} options={{ title: 'Contact' }} />
       <Tab.Screen name="SettingsTab" component={SettingsScreen} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
@@ -92,11 +100,22 @@ export default function AppNavigator() {
         <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="MachineDetails" component={MachineDetailsScreen} options={{ title: 'Machine Details' }} />
+        <Stack.Screen name="Contact" component={ContactScreen} options={{ title: 'Contact Us', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Inquiry" component={InquiryScreen} options={{ title: 'Send Inquiry', headerStyle: { backgroundColor: COLORS.primary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Events" component={EventsScreen} options={{ title: 'Events', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Testimonials" component={TestimonialsScreen} options={{ title: 'Testimonials', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Categories" component={CategoriesScreen} options={{ title: 'Categories', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Services" component={ServicesScreen} options={{ title: 'Technical Services', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
+        <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} options={{ title: 'Change Password', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="AboutUs" component={AboutUsScreen} options={{ title: 'About Us', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="Achievements" component={AchievementsScreen} options={{ title: 'Achievements', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="FAQ" component={FAQScreen} options={{ title: 'FAQ\'s', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} options={{ title: 'Privacy Policy', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="TermsCondition" component={TermsConditionScreen} options={{ title: 'Terms and Conditions', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="Feedback" component={FeedbackScreen} options={{ headerShown: false, animation: 'slide_from_bottom' }} />
+        <Stack.Screen name="Language" component={LanguageScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

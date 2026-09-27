@@ -42,7 +42,9 @@ apiClient.interceptors.response.use(
     const isNetworkErr = error.message === 'Network Error' || error.code === 'ERR_NETWORK';
     const serverMessage = error.response?.data?.message || error.message;
 
-    console.warn('[API Network Log]:', serverMessage);
+    if (error.response?.status !== 404) {
+      console.warn('[API Network Log]:', serverMessage);
+    }
 
     if (isNetworkErr) {
       const networkError = new Error(

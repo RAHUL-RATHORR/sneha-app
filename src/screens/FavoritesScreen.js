@@ -30,7 +30,7 @@ export default function FavoritesScreen({ navigation }) {
             <MachineCard
               machine={item}
               isListView={true}
-              onPress={() => navigation.navigate('MachineDetails', { id: item.id })}
+              onPress={() => navigation.navigate('MachineDetails', { id: item.id, slug: item.product_slug || item.slug })}
             />
           </View>
         )}

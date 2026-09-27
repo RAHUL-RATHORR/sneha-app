@@ -1,0 +1,99 @@
+{
+  "status": true,
+  "message": "Service data fetched successfully",
+  "data": {
+    "services": {
+      "current_page": 1,
+      "data": [
+        {
+          "service_id": 89,
+          "service_image": "17331317431929.jpeg",
+          "service_title": "Technical Service Manual For Komori Offset Printing Machine"
+        },
+        {
+          "service_id": 96,
+          "service_image": "17333904689233.png",
+          "service_title": "Komori Technical Services"
+        },
+        {
+          "service_id": 94,
+          "service_image": "17333889102556.jpeg",
+          "service_title": "Komori Lithrone 426, 5 Colors Installation Completed at Beawar Rajasthan"
+        },
+        {
+          "service_id": 126,
+          "service_image": "17793574532708.jpeg",
+          "service_title": "Komori LITHRONE 628 +LX 1998 Model Loading"
+        },
+        {
+          "service_id": 127,
+          "service_image": "17793575886382.jpeg",
+          "service_title": "LITHRONE 628 +LX 1998"
+        },
+        {
+          "service_id": 125,
+          "service_image": "17779092898882.jpeg",
+          "service_title": "Komori 426 2000 Model Loading"
+        },
+        {
+          "service_id": 124,
+          "service_image": "17761060861093.jpeg",
+          "service_title": "Heidelberg SBG Cylinder Loading"
+        },
+        {
+          "service_id": 91,
+          "service_image": "17331319909914.jpeg",
+          "service_title": "Machines Being Loaded In Jaipur"
+        },
+        {
+          "service_id": 119,
+          "service_image": "17397900999782.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 111,
+          "service_image": "17380027017078.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 115,
+          "service_image": "17397058524530.jpeg",
+          "service_title": "Komori Machine Unloading"
+        },
+        {
+          "service_id": 113,
+          "service_image": "17397057807565.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 121,
+          "service_image": "17423834811113.jpeg",
+          "service_title": "Installation Done Komori Lithrone 426 2012  at Krishna Printer Jaipur"
+        },
+        {
+          "service_id": 122,
+          "service_image": "17468129237369.jpeg",
+          "service_title": "Komori Machine Unloading Gaya Bihar"
+        },
+        {
+          "service_id": 123,
+          "service_image": "17468129372544.jpeg",
+          "service_title": "Komori Machine Unloading Gaya, Bihar"
+        },
+        {
+          "service_id": 105,
+          "service_image": "17370268515739.jpeg",
+          "service_title": "Komori Offset Machine"
+        },
+        {
+          "service_id": 116,
+          "service_image": "17397060911518.jpeg",
+          "service_title": "Sheetfed Presses"
+        }
+      ]
+    },
+    "paths": {
+      "service_image": "https://snehagraphicssolutions.com/public/img/uploads/technical_services/"
+    }
+  }
+}

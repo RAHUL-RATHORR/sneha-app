@@ -1,0 +1,252 @@
+{
+  "status": true,
+  "message": "Home data fetched successfully",
+  "data": {
+    "home_slider": [
+      {
+        "slider_id": 11,
+        "slider_name": "<h1>All Type&nbsp;Machines</h1>\r\n\r\n<h5>Complete Engineering Services</h5>",
+        "slider_image": "1731132965.jpg",
+        "slider_position": 2,
+        "slider_url": null,
+        "slider_order": 5,
+        "slider_status": 1,
+        "created_at": "2023-03-09T02:06:49.000000Z",
+        "updated_at": "2025-12-28T10:38:15.000000Z"
+      }
+    ],
+    "productCategories": [
+      {
+        "category_id": 1,
+        "category_name": "Used Sheetfed Presses",
+        "category_slug": "used-sheetfed-presses",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 2,
+        "category_name": "Used Guillotines & accessories",
+        "category_slug": "used-guillotines-accessories-3",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 3,
+        "category_name": "Used Single Headed stitchers",
+        "category_slug": "used-single-headed-stitchers-1",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 4,
+        "category_name": "Used Finishing",
+        "category_slug": "used-finishing-1",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 5,
+        "category_name": "Used Pile Lifters/Turners",
+        "category_slug": "used-pile-liftersturners",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 6,
+        "category_name": "Used Folders & Accessories",
+        "category_slug": "used-folders-accessories-1",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 7,
+        "category_name": "Used Letterpress",
+        "category_slug": "used-letterpress-2",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      },
+      {
+        "category_id": 20,
+        "category_name": "Paper Cutting Machine",
+        "category_slug": "paper-cutting-machine",
+        "category_parent": "0",
+        "category_image": null,
+        "category_status": 1
+      }
+    ],
+    "manufacturer": [
+      {
+        "manufacturer_id": 3,
+        "manufacturer_name": "Komori",
+        "manufacturer_slug": "komori",
+        "manufacturer_image": "1674905518.png"
+      },
+      {
+        "manufacturer_id": 5,
+        "manufacturer_name": "Heidelberg",
+        "manufacturer_slug": "heidelberg",
+        "manufacturer_image": "1674905646.png"
+      },
+      {
+        "manufacturer_id": 11,
+        "manufacturer_name": "RMGT Ryobi",
+        "manufacturer_slug": "rmgt-ryobi",
+        "manufacturer_image": "1735482337.png"
+      },
+      {
+        "manufacturer_id": 6,
+        "manufacturer_name": "KBA",
+        "manufacturer_slug": "kba",
+        "manufacturer_image": "1674905700.png"
+      },
+      {
+        "manufacturer_id": 4,
+        "manufacturer_name": "MAN Roland",
+        "manufacturer_slug": "man-roland",
+        "manufacturer_image": "1674905578.png"
+      },
+      {
+        "manufacturer_id": 23,
+        "manufacturer_name": "Polar Paper Cutting",
+        "manufacturer_slug": "polar-paper-cutting",
+        "manufacturer_image": "1735481986.png"
+      }
+    ],
+    "featuredProducts": [
+      {
+        "product_id": 5,
+        "product_name": "POLAR 115 EMC MONITOR SIZE 45 INCH AGE 1988",
+        "product_slug": "polar-115-emc-monitor-size-45-inch-age-1997",
+        "product_year": "33",
+        "product_sheet_size": "45 inch",
+        "product_image": "1677242063.jpeg",
+        "product_color": null,
+        "product_manufacturer": 23,
+        "product_categories": "1,2",
+        "year": {
+          "year_id": 33,
+          "year_name": 1988
+        }
+      },
+      {
+        "product_id": 8,
+        "product_name": "ABEDICK 9995",
+        "product_slug": "abedick-10007",
+        "product_year": "22",
+        "product_sheet_size": "13x19",
+        "product_image": "1677241304.jpeg",
+        "product_color": 8,
+        "product_manufacturer": 28,
+        "product_categories": "1",
+        "year": {
+          "year_id": 22,
+          "year_name": 1999
+        }
+      },
+      {
+        "product_id": 11,
+        "product_name": "HEIDELBERG SORD  525 NUMBER",
+        "product_slug": "heidelberg-sord-525-number-10",
+        "product_year": null,
+        "product_sheet_size": "25x36",
+        "product_image": "1677239989.jpeg",
+        "product_color": 13,
+        "product_manufacturer": 5,
+        "product_categories": "1",
+        "year": null
+      },
+      {
+        "product_id": 76,
+        "product_name": "Komori LITHRONE 426 - Year 2005",
+        "product_slug": "komori-lithrone-426-year-2005",
+        "product_year": "16",
+        "product_sheet_size": "19x26",
+        "product_image": "1730104069.jpeg",
+        "product_color": 14,
+        "product_manufacturer": 3,
+        "product_categories": "1",
+        "year": {
+          "year_id": 16,
+          "year_name": 2005
+        }
+      },
+      {
+        "product_id": 98,
+        "product_name": "Komori Lithrone 426 - Model 1992",
+        "product_slug": "komori-lithrone-426-1992",
+        "product_year": "29",
+        "product_sheet_size": "19*26",
+        "product_image": "1747903280.jpeg",
+        "product_color": 14,
+        "product_manufacturer": 3,
+        "product_categories": "1",
+        "year": {
+          "year_id": 29,
+          "year_name": 1992
+        }
+      },
+      {
+        "product_id": 10,
+        "product_name": "ADAST 515 SIZE 15*20",
+        "product_slug": "adast-515-size-1525",
+        "product_year": null,
+        "product_sheet_size": "15x20",
+        "product_image": "1677240457.jpeg",
+        "product_color": 13,
+        "product_manufacturer": 16,
+        "product_categories": "1",
+        "year": null
+      }
+    ],
+    "testimonials": [
+      {
+        "testimonial_id": 4,
+        "testimonial_name": "Staynaryan Ji Agarwal",
+        "testimonial_image": "1744456064.webp",
+        "testimonial_rating": "5.00",
+        "testimonial_desc": "<p>As a leading printing company in the industry, we wanted to upgrade our equipment and get the best printing machines available in the market, but due to budget constraints, we were not able to buy a new one. That&rsquo;s when Sneha Graphics &amp; Solutions came into the picture with a high-quality, top-conditioned, and high-grade range of machines. We made the purchase and were pleased with the post-purchase support that they provided. Really fantastic service!&nbsp;</p>",
+        "testimonial_designation": "Rainbow Offset"
+      },
+      {
+        "testimonial_id": 3,
+        "testimonial_name": "Vikas Ji Agarwal",
+        "testimonial_image": "1744456005.webp",
+        "testimonial_rating": "5.00",
+        "testimonial_desc": "<p>I was a bit sceptical about purchasing a refurbished cutting machine, but when I saw the assortment of top-condition and premium-quality machines, I knew I was at the right place. The best part is that they are quite transparent about the whole process, whether it is the history and condition of the machine or the pricing point. I purchased a few machines from this company. It was a phenomenal experience.</p>",
+        "testimonial_designation": "Printolent"
+      }
+    ],
+    "partnerData": [
+      {
+        "partner_id": 2,
+        "partner_name": "Komari",
+        "partner_image": "1675429789.png",
+        "partner_url": null,
+        "partner_featured": 1,
+        "partner_status": 1
+      },
+      {
+        "partner_id": 15,
+        "partner_name": "Heidelberg",
+        "partner_image": "1677222599.png",
+        "partner_url": null,
+        "partner_featured": 1,
+        "partner_status": 1
+      }
+    ],
+    "paths": {
+      "category_image": "https://snehagraphicssolutions.com/public/img/uploads/category/",
+      "appearance_image": "https://snehagraphicssolutions.com/public/img/uploads/appearance/",
+      "product_image": "https://snehagraphicssolutions.com/public/img/uploads/product/",
+      "testimonial_image": "https://snehagraphicssolutions.com/public/img/uploads/testimonial/",
+      "partner_image": "https://snehagraphicssolutions.com/public/img/uploads/partner/"
+    }
+  }
+}

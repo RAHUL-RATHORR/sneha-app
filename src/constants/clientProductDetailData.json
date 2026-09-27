@@ -1,0 +1,108 @@
+{
+    "status": true,
+    "data": {
+        "product": {
+            "product_id": 109,
+            "product_unique_id": "PR00151",
+            "product_name": "Komori L426 - Model 1994",
+            "product_slug": "komori-l426-model-1994",
+            "product_reference_no": null,
+            "product_year": "27",
+            "product_sheet_size": "20 x 26 ",
+            "product_impression": null,
+            "product_short_description": null,
+            "product_desc": "<p>Komori L426<br />\r\nSize :- 20 x 26 <br />\r\nModel 1994<br />\r\nPQC <br />\r\nCocking <br />\r\nPlate Cylinders Hard Chrome <br />\r\nImpression Cylinders Normal. <br />\r\nSAPC ( Autoplate ) <br />\r\nAMR <br />\r\nPresets <br />\r\nPowder spray.<br />\r\nImport at Japan<br />\r\nIN STOCK</p>",
+            "product_image": "1785476409.jpeg",
+            "product_gallary": null,
+            "product_video_link": "",
+            "product_type": 2,
+            "product_color": 14,
+            "product_formate": 13,
+            "product_manufacturer": 3,
+            "product_model": 35,
+            "product_categories": "1",
+            "product_featured": 0,
+            "product_status": 1,
+            "product_order": 2,
+            "product_meta_title": "Komori L426 - Model 1994",
+            "product_meta_keyword": null,
+            "product_meta_desc": null,
+            "product_sold": 0,
+            "product_sold_city": "",
+            "created_at": "2026-07-31T05:40:09.000000Z",
+            "updated_at": "2026-07-31T05:44:09.000000Z",
+            "year": {
+                "year_id": 27,
+                "year_name": 1994,
+                "created_at": "2020-05-11T14:23:55.000000Z",
+                "updated_at": "2020-05-11T14:23:55.000000Z",
+                "deleted_at": null
+            },
+            "manufacturer": {
+                "manufacturer_id": 3,
+                "manufacturer_name": "Komori",
+                "manufacturer_slug": "komori"
+            },
+            "model": {
+                "model_id": 35,
+                "model_name": "komori Lithrone 426",
+                "model_slug": "komori-lithrone-426"
+            },
+            "format": {
+                "formate_id": 13,
+                "formate_name": "KOMORI",
+                "formate_slug": "komori"
+            },
+            "type": {
+                "type_id": 2,
+                "type_name": "Sheetfed Presses",
+                "type_slug": "sheetfed-presses"
+            },
+            "colour": {
+                "color_id": 14,
+                "color_name": "4 Colour",
+                "color_slug": "4-colour"
+            }
+        },
+        "gallery": [
+            {
+                "gallery_id": 3797,
+                "gallery_product_id": 109,
+                "gallery_image": "https://snehagraphicssolutions.com/public/img/uploads/product/23281785476396.WhatsApp Image 2026-07-27 at 10.16.29 AM.jpeg"
+            },
+            {
+                "gallery_id": 3798,
+                "gallery_product_id": 109,
+                "gallery_image": "https://snehagraphicssolutions.com/public/img/uploads/product/85881785476396.WhatsApp Image 2026-07-27 at 10.16.27 AM.jpeg"
+            },
+            {
+                "gallery_id": 3799,
+                "gallery_product_id": 109,
+                "gallery_image": "https://snehagraphicssolutions.com/public/img/uploads/product/58131785476396.WhatsApp Image 2026-07-27 at 10.16.27 AM (2).jpeg"
+            }
+        ],
+        "videos": [],
+        "related_products": [
+            {
+                "product_id": 108,
+                "product_name": "Heidelberg SBG Cylinder",
+                "product_image": "1776080316.jpeg",
+                "product_sheet_size": "22 x 30",
+                "year": null,
+                "colour": null
+            },
+            {
+                "product_id": 101,
+                "product_name": "KOMORI SPRINT 228 P - Model 1991",
+                "product_image": "1753250096.jpeg",
+                "product_sheet_size": "20*28",
+                "year": {
+                    "year_name": 1991
+                },
+                "colour": {
+                    "color_name": "2 Colour"
+                }
+            }
+        ]
+    }
+}

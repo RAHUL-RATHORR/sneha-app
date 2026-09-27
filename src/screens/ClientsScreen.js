@@ -1,16 +1,46 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import { clients, testimonials } from '../constants/dummyData';
+import { testimonials } from '../constants/dummyData';
+import { getClientsData } from '../api/services';
 import Screen from '../components/Screen';
 
 export default function ClientsScreen({ navigation }) {
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const data = await getClientsData();
+        if (data && data.clients) {
+          const basePath = data.paths?.client_image || '';
+          const formattedClients = data.clients.map(item => ({
+            id: item.client_id.toString(),
+            title: item.client_title,
+            image: basePath + item.client_image
+          }));
+          setClients(formattedClients);
+        }
+      } catch (error) {
+        console.error("Error fetching clients:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchClients();
+  }, []);
   return (
     <Screen backgroundColor="#F8F9FA">
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Our Clients</Text>
       </View>
+      {loading ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      ) : (
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         
         {/* Intro */}
@@ -79,6 +109,7 @@ export default function ClientsScreen({ navigation }) {
         </View>
         <View style={{ height: 40 }} />
       </ScrollView>
+      )}
     </Screen>
   );
 }
