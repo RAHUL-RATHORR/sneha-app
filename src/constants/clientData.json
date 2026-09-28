@@ -4,114 +4,940 @@
   "data": {
     "clients": [
       {
-        "client_id": 143,
+        "client_id": 1,
         "client_image": "17793573111771.jpeg",
         "client_title": "SOLD : KOMORI LITHRONE 426 MR. NIRMAL SIR AT JAIPUR",
         "client_desc": null,
         "client_status": 1,
         "client_order": 1,
-        "client_slug": "sold-komori-426-2000-model-autoplate-with-amr-popular-printers-jaipur",
-        "created_at": "2026-05-21T09:55:11.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "sold-komori-lithrone-426-mr-nirmal-sir-at-jaipur"
       },
       {
-        "client_id": 111,
+        "client_id": 2,
         "client_image": "17359887776850.jpeg",
         "client_title": "SOLD KOMORI LITHRONE 440 MR. PAWAN SIR",
         "client_desc": null,
         "client_status": 1,
         "client_order": 2,
-        "client_slug": "komori-lithrone-650-instillation-completed",
-        "created_at": "2025-01-04T11:06:17.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "sold-komori-lithrone-440-mr-pawan-sir"
       },
       {
-        "client_id": 110,
+        "client_id": 3,
         "client_image": "17337281551912.jpeg",
         "client_title": "SOLD : KOMORI LITHRONE 426 PUNJAB",
         "client_desc": null,
         "client_status": 1,
         "client_order": 3,
-        "client_slug": "sold-komori-lithrone-26-in-punjab",
-        "created_at": "2024-12-09T07:09:15.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "sold-komori-lithrone-426-punjab"
       },
       {
-        "client_id": 137,
+        "client_id": 4,
         "client_image": "17740751118056.jpg",
         "client_title": "Sold Komori Lithrone 426 - 2005 MR. Vikash Ji & Deepak Ji",
         "client_desc": null,
         "client_status": 1,
         "client_order": 4,
-        "client_slug": "komori-426-machine-sold-at-jaipur",
-        "created_at": "2026-03-21T06:36:57.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "sold-komori-lithrone-426-2005-mr-vikash-ji-deepak-ji"
       },
       {
-        "client_id": 148,
+        "client_id": 5,
         "client_image": "17855837688487.jpeg",
         "client_title": "Polar 115 EM Monitor Sold at NRM Industry",
         "client_desc": null,
         "client_status": 1,
         "client_order": 5,
-        "client_slug": "polar-115-em-monitor-sold-at-nrm-industry",
-        "created_at": "2026-08-01T11:29:28.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "polar-115-em-monitor-sold-at-nrm-industry"
       },
       {
-        "client_id": 142,
+        "client_id": 6,
         "client_image": "17779089042253.jpg",
         "client_title": "SOLD : KOMORI ENTHRONE (2015 MODEL) MR. MANOJ JI & MR. AMIT JI AT JAIPUR",
         "client_desc": null,
         "client_status": 1,
         "client_order": 6,
-        "client_slug": "successful-installation-of-enthrone-2015-model-fully-loaded-mr-manoj-ji-mr-amit-ji-sakshi-printers-jaipur",
-        "created_at": "2026-05-04T15:33:16.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "sold-komori-enthrone-2015-model-mr-manoj-ji-mr-amit-ji-at-jaipur"
       },
       {
-        "client_id": 145,
+        "client_id": 7,
         "client_image": "17839271503375.jpeg",
         "client_title": "Komori Manchine Sold : NRM Industries",
         "client_desc": null,
         "client_status": 1,
         "client_order": 7,
-        "client_slug": "komori-manchine-sold-nrm-industries",
-        "created_at": "2026-07-13T07:19:10.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "komori-manchine-sold-nrm-industries"
       },
       {
-        "client_id": 47,
+        "client_id": 8,
         "client_image": "17308095893151.png",
         "client_title": "VISHAL PRINTER",
         "client_desc": null,
         "client_status": 1,
         "client_order": 8,
-        "client_slug": "technical-1",
-        "created_at": "2024-01-05T09:35:37.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "vishal-printer"
       },
       {
-        "client_id": 146,
+        "client_id": 9,
         "client_image": "17847093528462.jpeg",
         "client_title": "Komori Model Sold at Jaipur",
         "client_desc": null,
         "client_status": 1,
         "client_order": 9,
-        "client_slug": "komori-model-sold-at-jaipur-1",
-        "created_at": "2026-07-22T08:35:52.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "komori-model-sold-at-jaipur"
       },
       {
-        "client_id": 135,
+        "client_id": 10,
         "client_image": "17700181569062.jpg",
         "client_title": "Komori lithrone LS 626- 2008 Model Installation Done",
         "client_desc": null,
         "client_status": 1,
         "client_order": 10,
-        "client_slug": "komori-lithrone-ls-626-2008-model",
-        "created_at": "2026-02-02T07:37:17.000000Z",
-        "updated_at": "2026-08-01T11:30:28.000000Z"
+        "client_slug": "komori-lithrone-ls-626-2008-model-installation-done"
+      },
+      {
+        "client_id": 11,
+        "client_image": "17778927542017.jpeg",
+        "client_title": "Sold: Komori 426 (2000 Model) Autoplate with AMR - Popular Printers, Jaipur, Mr. Nirmal Goyal",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 11,
+        "client_slug": "sold-komori-426-2000-model-autoplate-with-amr-popular-printers-jaipur-mr-nirmal-goyal"
+      },
+      {
+        "client_id": 12,
+        "client_image": "17796931094405.jpeg",
+        "client_title": "Komori lithrone LS 426- Sold Bangalore",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 12,
+        "client_slug": "komori-lithrone-ls-426-sold-bangalore"
+      },
+      {
+        "client_id": 13,
+        "client_image": "17736604114196.jpeg",
+        "client_title": "Print O land",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 13,
+        "client_slug": "print-o-land"
+      },
+      {
+        "client_id": 14,
+        "client_image": "17483473194166.jpeg",
+        "client_title": "Vedanta Note Book Jaipur Komori 440- 2002",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 14,
+        "client_slug": "vedanta-note-book-jaipur-komori-440-2002"
+      },
+      {
+        "client_id": 15,
+        "client_image": "17591254827802.jpg",
+        "client_title": "Komori Machine Instillation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 15,
+        "client_slug": "komori-machine-instillation-done"
+      },
+      {
+        "client_id": 16,
+        "client_image": "17023705303886.jpeg",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 16,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 17,
+        "client_image": "17855836492571.jpeg",
+        "client_title": "Polar 115 EM Paper Cutter Installation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 17,
+        "client_slug": "polar-115-em-paper-cutter-installation-done"
+      },
+      {
+        "client_id": 18,
+        "client_image": "17779076217769.jpeg",
+        "client_title": "Komori lithrone 426- 2000 Model Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 18,
+        "client_slug": "komori-lithrone-426-2000-model-sold"
+      },
+      {
+        "client_id": 19,
+        "client_image": "17624136902406.jpeg",
+        "client_title": "Installation complete komori Lithrone GL 437 2019",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 19,
+        "client_slug": "installation-complete-komori-lithrone-gl-437-2019"
+      },
+      {
+        "client_id": 20,
+        "client_image": "17506723591406.jpeg",
+        "client_title": "Komori Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 20,
+        "client_slug": "komori-machine-sold"
+      },
+      {
+        "client_id": 21,
+        "client_image": "17023676657637.jpeg",
+        "client_title": "Some of Our Happy Moments",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 21,
+        "client_slug": "some-of-our-happy-moments"
+      },
+      {
+        "client_id": 22,
+        "client_image": "17605124455119.jpeg",
+        "client_title": "Komori Machine Installation at Shashi Printers",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 22,
+        "client_slug": "komori-machine-installation-at-shashi-printers"
+      },
+      {
+        "client_id": 23,
+        "client_image": "17741736705961.jpeg",
+        "client_title": "Komori Model Sold at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 23,
+        "client_slug": "komori-model-sold-at-jaipur"
+      },
+      {
+        "client_id": 24,
+        "client_image": "17482403902971.jpeg",
+        "client_title": "Komori Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 24,
+        "client_slug": "komori-machine-sold"
+      },
+      {
+        "client_id": 25,
+        "client_image": "17044473546516.jpeg",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 25,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 26,
+        "client_image": "17023699359795.jpeg",
+        "client_title": "Pollar Paper Cutting Machine Installed in M.P",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 26,
+        "client_slug": "pollar-paper-cutting-machine-installed-in-m-p"
+      },
+      {
+        "client_id": 27,
+        "client_image": "17333886199056.jpeg",
+        "client_title": "Komori Lithrone 426, 5 Colors Installation Completed at Beawar Rajasthan",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 27,
+        "client_slug": "komori-lithrone-426-5-colors-installation-completed-at-beawar-rajasthan"
+      },
+      {
+        "client_id": 28,
+        "client_image": "17044473721912.jpeg",
+        "client_title": "WITH MITTSURE KAMAL SIR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 28,
+        "client_slug": "with-mittsure-kamal-sir"
+      },
+      {
+        "client_id": 29,
+        "client_image": "17397813778851.jpeg",
+        "client_title": "Komori LS Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 29,
+        "client_slug": "komori-ls-machine-sold"
+      },
+      {
+        "client_id": 30,
+        "client_image": "17308056714453.png",
+        "client_title": "KOMORI 526 1996 MODEL, FULLY LOADED PRINTING MACHINE INSTALLATION IN JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 30,
+        "client_slug": "komori-526-1996-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 31,
+        "client_image": "17461226842970.jpeg",
+        "client_title": "Komori Machine Instillation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 31,
+        "client_slug": "komori-machine-instillation-done"
+      },
+      {
+        "client_id": 32,
+        "client_image": "17013217975384.jpeg",
+        "client_title": "HEIDELBERG CD 102 6+ L 1997 MODEL INSTOLATION DONE  IN JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 32,
+        "client_slug": "heidelberg-cd-102-6-l-1997-model-instolation-done-in-jaipur"
+      },
+      {
+        "client_id": 33,
+        "client_image": "17376594917314.jpeg",
+        "client_title": "Komori Machine Instillation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 33,
+        "client_slug": "komori-machine-instillation-done"
+      },
+      {
+        "client_id": 34,
+        "client_image": "17023653916022.jpeg",
+        "client_title": "Komori Lithrone 426 2001 Model Successfully Installed at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 34,
+        "client_slug": "komori-lithrone-426-2001-model-successfully-installed-at-jaipur"
+      },
+      {
+        "client_id": 35,
+        "client_image": "17464219031099.jpeg",
+        "client_title": "Komori Machine Instillation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 35,
+        "client_slug": "komori-machine-instillation-done"
+      },
+      {
+        "client_id": 36,
+        "client_image": "17461226935264.jpeg",
+        "client_title": "Komori Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 36,
+        "client_slug": "komori-machine-sold"
+      },
+      {
+        "client_id": 37,
+        "client_image": "17045298784660.jpeg",
+        "client_title": "jaipur adast 414",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 37,
+        "client_slug": "jaipur-adast-414"
+      },
+      {
+        "client_id": 38,
+        "client_image": "17461226704520.jpeg",
+        "client_title": "Komori Machine Instillation Done",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 38,
+        "client_slug": "komori-machine-instillation-done"
+      },
+      {
+        "client_id": 39,
+        "client_image": "17045299059584.jpeg",
+        "client_title": "Komori Lithrone 520-2002 Installed in Kolkata",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 39,
+        "client_slug": "komori-lithrone-520-2002-installed-in-kolkata"
+      },
+      {
+        "client_id": 40,
+        "client_image": "17370287202639.jpeg",
+        "client_title": "Komori Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 40,
+        "client_slug": "komori-machine-sold"
+      },
+      {
+        "client_id": 41,
+        "client_image": "16781794494951.jpeg",
+        "client_title": "JAIPUR KOMORI LITHRONE 540- 5 COLOUR, KOMORI LITHRONE 240-2 COLOUR,POLLAR 115,MULLAR MARTINI 1509 AND MANY MACHINES SELS AND SERVICE",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 41,
+        "client_slug": "jaipur-komori-lithrone-540-5-colour-komori-lithrone-240-2-colour-pollar-115-mullar-martini-1509-and-many-machines-sels-and-service"
+      },
+      {
+        "client_id": 42,
+        "client_image": "16781805584986.jpeg",
+        "client_title": "JAIPUR KOMORI LITHRONE 440- 5 COLOUR, KOMORI, HEIDELBERG SORD 25x36 -1 COLOUR, POLLAR 115, MULLAR  MARTINI 1509 AND MANY MACHINES SELS AND SERVICE",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 42,
+        "client_slug": "jaipur-komori-lithrone-440-5-colour-komori-heidelberg-sord-25x36-1-colour-pollar-115-mullar-martini-1509-and-many-machines-sels-and-service"
+      },
+      {
+        "client_id": 43,
+        "client_image": "17308093159973.png",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 43,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 44,
+        "client_image": "17045296738524.jpeg",
+        "client_title": "Komori Lithrone L640 + C Installation in Ghaziabad",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 44,
+        "client_slug": "komori-lithrone-l640-c-installation-in-ghaziabad"
+      },
+      {
+        "client_id": 45,
+        "client_image": "17464218908802.jpeg",
+        "client_title": "Komori Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 45,
+        "client_slug": "komori-machine-sold"
+      },
+      {
+        "client_id": 46,
+        "client_image": "16781807976814.jpeg",
+        "client_title": "Komori 526 1999 Model, Fully Loaded Printing Machine ,Komori Lithrone 426 1993 Fully Loaded Installed in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 46,
+        "client_slug": "komori-526-1999-model-fully-loaded-printing-machine-komori-lithrone-426-1993-fully-loaded-installed-in-jaipur"
+      },
+      {
+        "client_id": 47,
+        "client_image": "17023694807939.jpeg",
+        "client_title": "HAPPY MOMENTS WITH BEST OFFSET JODHPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 47,
+        "client_slug": "happy-moments-with-best-offset-jodhpur"
+      },
+      {
+        "client_id": 48,
+        "client_image": "17308094556013.png",
+        "client_title": "Komori Lithrone 528 + L Installation in Hyderabad",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 48,
+        "client_slug": "komori-lithrone-528-l-installation-in-hyderabad"
+      },
+      {
+        "client_id": 49,
+        "client_image": "17370287091616.jpeg",
+        "client_title": "Komori Machine",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 49,
+        "client_slug": "komori-machine"
+      },
+      {
+        "client_id": 50,
+        "client_image": "17370292378696.jpeg",
+        "client_title": "Komori Machine",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 50,
+        "client_slug": "komori-machine"
+      },
+      {
+        "client_id": 51,
+        "client_image": "17397059473123.jpeg",
+        "client_title": "Komori 426 Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 51,
+        "client_slug": "komori-426-sold"
+      },
+      {
+        "client_id": 52,
+        "client_image": "16781789207179.jpeg",
+        "client_title": "Selling Pre-Press Machines Since 2014",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 52,
+        "client_slug": "selling-pre-press-machines-since-2014"
+      },
+      {
+        "client_id": 53,
+        "client_image": "17308078099310.png",
+        "client_title": "Komori Lithrone 240,Heidelberg 25x36 Machines Installed in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 53,
+        "client_slug": "komori-lithrone-240-heidelberg-25x36-machines-installed-in-jaipur"
+      },
+      {
+        "client_id": 54,
+        "client_image": "17308077491876.png",
+        "client_title": "Komori Lithrone 426-4 Colour Installed at Ajmer ,Sales and Service",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 54,
+        "client_slug": "komori-lithrone-426-4-colour-installed-at-ajmer-sales-and-service"
+      },
+      {
+        "client_id": 55,
+        "client_image": "17334857793162.jpeg",
+        "client_title": "Komori Lithrone 526-5 Colour 2002 Model Fully Loaded Installed at Sikar",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 55,
+        "client_slug": "komori-lithrone-526-5-colour-2002-model-fully-loaded-installed-at-sikar"
+      },
+      {
+        "client_id": 56,
+        "client_image": "16781797039975.jpeg",
+        "client_title": "KOMORI LITHRONE 540-5 COLOUR FULLY LOADED,POLLAR 115 AND MANY MACHINES SELS AND SERVICE",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 56,
+        "client_slug": "komori-lithrone-540-5-colour-fully-loaded-pollar-115-and-many-machines-sels-and-service"
+      },
+      {
+        "client_id": 57,
+        "client_image": "17308086206648.png",
+        "client_title": "Komori Lithrone 526-5 Colour ,SYPA 92, Pollar 92 EM And Many Machines",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 57,
+        "client_slug": "komori-lithrone-526-5-colour-sypa-92-pollar-92-em-and-many-machines"
+      },
+      {
+        "client_id": 58,
+        "client_image": "16781807186184.jpeg",
+        "client_title": "Komori Lithrone 528+L 20*28 5 Colour With Coter at Delhi",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 58,
+        "client_slug": "komori-lithrone-528-l-20-28-5-colour-with-coter-at-delhi"
+      },
+      {
+        "client_id": 59,
+        "client_image": "16781810986425.jpeg",
+        "client_title": "Komori Lithrone 426-4 colour Installed in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 59,
+        "client_slug": "komori-lithrone-426-4-colour-installed-in-jaipur"
+      },
+      {
+        "client_id": 60,
+        "client_image": "16781866596822.jpeg",
+        "client_title": "KOMORI LITHRONE 540-5 COLOUR FULLY LOADED,POLLAR 115 AND MANY MACHINES SELS AND SERVICE",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 60,
+        "client_slug": "komori-lithrone-540-5-colour-fully-loaded-pollar-115-and-many-machines-sels-and-service"
+      },
+      {
+        "client_id": 61,
+        "client_image": "17012357568383.jpeg",
+        "client_title": "Komori Lithrone 426 NL 2005 Model Installed at Jain Printers Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 61,
+        "client_slug": "komori-lithrone-426-nl-2005-model-installed-at-jain-printers-jaipur"
+      },
+      {
+        "client_id": 62,
+        "client_image": "17013218735284.jpeg",
+        "client_title": "Komori Lithrone 426 NL Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 62,
+        "client_slug": "komori-lithrone-426-nl-installation-in-jaipur"
+      },
+      {
+        "client_id": 63,
+        "client_image": "17013219899068.jpeg",
+        "client_title": "KOMORI LITHRONE 528 EVANSH JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 63,
+        "client_slug": "komori-lithrone-528-evansh-jaipur"
+      },
+      {
+        "client_id": 64,
+        "client_image": "17013220878818.jpeg",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 64,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 65,
+        "client_image": "17013221176956.jpeg",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 65,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 66,
+        "client_image": "17023672455059.jpeg",
+        "client_title": "HAPPY MOMENTS",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 66,
+        "client_slug": "happy-moments"
+      },
+      {
+        "client_id": 67,
+        "client_image": "17023673206097.jpeg",
+        "client_title": "Komori Lithrone 540 1995 Model Installed in Mumbai",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 67,
+        "client_slug": "komori-lithrone-540-1995-model-installed-in-mumbai"
+      },
+      {
+        "client_id": 68,
+        "client_image": "17023674052367.jpeg",
+        "client_title": "KOMORI LITHRINE 526 AT JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 68,
+        "client_slug": "komori-lithrine-526-at-jaipur"
+      },
+      {
+        "client_id": 69,
+        "client_image": "17308089829307.png",
+        "client_title": "Komori Lithrone 526 1998 Model Installed at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 69,
+        "client_slug": "komori-lithrone-526-1998-model-installed-at-jaipur"
+      },
+      {
+        "client_id": 70,
+        "client_image": "17023683158499.jpeg",
+        "client_title": "Komori Lithrone 526 1999 Model Installed at Vikash Book Binder Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 70,
+        "client_slug": "komori-lithrone-526-1999-model-installed-at-vikash-book-binder-jaipur"
+      },
+      {
+        "client_id": 71,
+        "client_image": "17308098334336.png",
+        "client_title": "HAPPY MOMENTS 2ND MACHINE KOMORI  LITHRONE  526-2002 MODEL AT JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 71,
+        "client_slug": "happy-moments-2nd-machine-komori-lithrone-526-2002-model-at-jaipur"
+      },
+      {
+        "client_id": 72,
+        "client_image": "17023688318333.jpeg",
+        "client_title": "Some of Our Happy Moments at Work",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 72,
+        "client_slug": "some-of-our-happy-moments-at-work"
+      },
+      {
+        "client_id": 73,
+        "client_image": "17023691993095.jpeg",
+        "client_title": "HAPPY MOMENTS JOTHWARA JAIPUR,",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 73,
+        "client_slug": "happy-moments-jothwara-jaipur-"
+      },
+      {
+        "client_id": 74,
+        "client_image": "17023696367235.jpeg",
+        "client_title": "HAPPY MOMENTS WITH RAIPUR CLIENT",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 74,
+        "client_slug": "happy-moments-with-raipur-client"
+      },
+      {
+        "client_id": 75,
+        "client_image": "17023704798367.jpeg",
+        "client_title": "HAPPY MOMENTS  KRISHNA PRINTERS JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 75,
+        "client_slug": "happy-moments-krishna-printers-jaipur"
+      },
+      {
+        "client_id": 76,
+        "client_image": "17044473171154.jpeg",
+        "client_title": "WITH SIKAR CLIENT",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 76,
+        "client_slug": "with-sikar-client"
+      },
+      {
+        "client_id": 77,
+        "client_image": "17044474105923.jpeg",
+        "client_title": "Heidelberg SM74-4 Installation Completed in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 77,
+        "client_slug": "heidelberg-sm74-4-installation-completed-in-jaipur"
+      },
+      {
+        "client_id": 78,
+        "client_image": "17044474293433.jpeg",
+        "client_title": "WITH UNIVARSAL RAJESH JI",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 78,
+        "client_slug": "with-univarsal-rajesh-ji"
+      },
+      {
+        "client_id": 79,
+        "client_image": "17044474539534.jpeg",
+        "client_title": "Some of Our Happy Moments",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 79,
+        "client_slug": "some-of-our-happy-moments"
+      },
+      {
+        "client_id": 80,
+        "client_image": "17308697756029.png",
+        "client_title": "Komori Lithrone S-40 Fully Loaded at Mittsure  in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 80,
+        "client_slug": "komori-lithrone-s-40-fully-loaded-at-mittsure-in-jaipur"
+      },
+      {
+        "client_id": 81,
+        "client_image": "17270028459991.jpeg",
+        "client_title": "Komori Sprint 26 Installation Completed in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 81,
+        "client_slug": "komori-sprint-26-installation-completed-in-jaipur"
+      },
+      {
+        "client_id": 82,
+        "client_image": "17331276007242.jpeg",
+        "client_title": "Komori Lithrone 650+ L 2001 Installation Completed at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 82,
+        "client_slug": "komori-lithrone-650-l-2001-installation-completed-at-jaipur"
+      },
+      {
+        "client_id": 83,
+        "client_image": "16770620774332.jpeg",
+        "client_title": "Komori 526 1999 Model, Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 83,
+        "client_slug": "komori-526-1999-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 84,
+        "client_image": "16781816267451.jpeg",
+        "client_title": "Komori 440 1996 Model, Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 84,
+        "client_slug": "komori-440-1996-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 85,
+        "client_image": "16781834259561.jpeg",
+        "client_title": "Komori 526 1999 Model, Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 85,
+        "client_slug": "komori-526-1999-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 86,
+        "client_image": "17308054503641.png",
+        "client_title": "Komori 426 1992 Model, Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 86,
+        "client_slug": "komori-426-1992-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 87,
+        "client_image": "16781836273644.jpeg",
+        "client_title": "Komori Lithrone 540+L 5 Colour With Coater 2003 Model ,Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 87,
+        "client_slug": "komori-lithrone-540-l-5-colour-with-coater-2003-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 88,
+        "client_image": "17308050677123.png",
+        "client_title": "Komori 526 1997 Model, Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 88,
+        "client_slug": "komori-526-1997-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 89,
+        "client_image": "17045297269318.jpeg",
+        "client_title": "Uttar Pradesh",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 89,
+        "client_slug": "uttar-pradesh"
+      },
+      {
+        "client_id": 90,
+        "client_image": "17270029818017.jpeg",
+        "client_title": "Jaipur Raja offset",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 90,
+        "client_slug": "jaipur-raja-offset"
+      },
+      {
+        "client_id": 91,
+        "client_image": "16781853282522.jpeg",
+        "client_title": "Komori 540 1994 Model , Fully Loaded Printing Machine Installation in Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 91,
+        "client_slug": "komori-540-1994-model-fully-loaded-printing-machine-installation-in-jaipur"
+      },
+      {
+        "client_id": 92,
+        "client_image": "17023647369975.jpeg",
+        "client_title": "KOMORI LITHRONE 426 NL 2005 MODEL",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 92,
+        "client_slug": "komori-lithrone-426-nl-2005-model"
+      },
+      {
+        "client_id": 93,
+        "client_image": "17023658651592.jpeg",
+        "client_title": "KOMORI LITHRONE 540 1994 MODEL AT NAGAR PRINTER JAIPUR",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 93,
+        "client_slug": "komori-lithrone-540-1994-model-at-nagar-printer-jaipur"
+      },
+      {
+        "client_id": 94,
+        "client_image": "17023660852772.jpeg",
+        "client_title": "Komori Lithrone 528 Model Installation at Sitapura Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 94,
+        "client_slug": "komori-lithrone-528-model-installation-at-sitapura-jaipur"
+      },
+      {
+        "client_id": 95,
+        "client_image": "17308070928380.png",
+        "client_title": "Komori 426 Fully Loaded 2002 Installed in Jodhpur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 95,
+        "client_slug": "komori-426-fully-loaded-2002-installed-in-jodhpur"
+      },
+      {
+        "client_id": 96,
+        "client_image": "17045297944249.jpeg",
+        "client_title": "KOMORI LITHRONR LS 640-2005",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 96,
+        "client_slug": "komori-lithronr-ls-640-2005"
+      },
+      {
+        "client_id": 97,
+        "client_image": "17308066563986.png",
+        "client_title": "komori sprint 26-2005 Installation Completed in Punjab",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 97,
+        "client_slug": "komori-sprint-26-2005-installation-completed-in-punjab"
+      },
+      {
+        "client_id": 98,
+        "client_image": "17308068826060.png",
+        "client_title": "Komori Lithrone 426-2000 Installation Completed in Ajmer",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 98,
+        "client_slug": "komori-lithrone-426-2000-installation-completed-in-ajmer"
+      },
+      {
+        "client_id": 99,
+        "client_image": "17023668013716.jpeg",
+        "client_title": "115 Cutting Machine Installed at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 99,
+        "client_slug": "115-cutting-machine-installed-at-jaipur"
+      },
+      {
+        "client_id": 100,
+        "client_image": "17023668941006.jpeg",
+        "client_title": "115 Cutting Machine Installed at Jaipur",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 100,
+        "client_slug": "115-cutting-machine-installed-at-jaipur"
+      },
+      {
+        "client_id": 101,
+        "client_image": "17333886426595.jpeg",
+        "client_title": "Komori Lithrone 426 Installation Completed at { Mumbai}",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 101,
+        "client_slug": "komori-lithrone-426-installation-completed-at-mumbai-"
+      },
+      {
+        "client_id": 102,
+        "client_image": "17370264436801.jpeg",
+        "client_title": "Komori Lithrone 426 Machine Sold",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 102,
+        "client_slug": "komori-lithrone-426-machine-sold"
+      },
+      {
+        "client_id": 103,
+        "client_image": "17370287413417.jpeg",
+        "client_title": "Komori Lithrone440Installation Completed at beawar (Rajsthan }",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 103,
+        "client_slug": "komori-lithrone440installation-completed-at-beawar-rajsthan-"
+      },
+      {
+        "client_id": 104,
+        "client_image": "17370292794603.jpeg",
+        "client_title": "Polar Cutting Machine Sold { KANPUR }",
+        "client_desc": null,
+        "client_status": 1,
+        "client_order": 104,
+        "client_slug": "polar-cutting-machine-sold-kanpur-"
       }
     ],
     "paths": {

@@ -1,56 +1,93 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator, Dimensions } from 'react-native';
 import Screen from '../components/Screen';
-import { COLORS, SHADOWS } from '../constants/theme';
+import { COLORS, SHADOWS, SIZES } from '../constants/theme';
+import { getAchievementsData } from '../api/services';
 
-const achievements = [
-  {
-    id: '1',
-    title: 'Best Service Provider 2023',
-    description: 'Awarded for excellent after-sales technical support in the offset printing industry.',
-    icon: 'trophy'
-  },
-  {
-    id: '2',
-    title: '500+ Installations',
-    description: 'Successfully completed over 500 machine installations across India.',
-    icon: 'checkmark-done-circle'
-  },
-  {
-    id: '3',
-    title: 'Top Komori Importer',
-    description: 'Recognized as one of the leading importers of refurbished Komori presses.',
-    icon: 'star'
-  }
-];
+const { width } = Dimensions.get('window');
 
 export default function AchievementsScreen() {
+  const [achievements, setAchievements] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAchievements = async () => {
+      try {
+        const data = await getAchievementsData();
+        if (data && data.achievement) {
+          const basePath = data.paths?.achievement_image 
+            ? `https://snehagraphicssolutions.com/public${data.paths.achievement_image}` 
+            : 'https://snehagraphicssolutions.com/public/img/uploads/achievements/';
+            
+          const formatted = data.achievement.map(item => ({
+            id: item.achievements_id.toString(),
+            name: item.achievements_name,
+            image: basePath + item.achievements_image
+          }));
+          setAchievements(formatted);
+        }
+      } catch (error) {
+        console.error("Error fetching achievements:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAchievements();
+  }, []);
+
+  if (loading) {
+    return (
+      <Screen backgroundColor="#F8F9FA">
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Screen>
+    );
+  }
+
   return (
     <Screen backgroundColor="#F8F9FA">
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.headerTitle}>Our Achievements</Text>
         <Text style={styles.headerSubtitle}>Milestones we are proud of</Text>
         
-        {achievements.map((item) => (
-          <View key={item.id} style={styles.card}>
-            <View style={styles.iconContainer}>
-              <Ionicons name={item.icon} size={32} color={COLORS.primary} />
+        <FlatList
+          data={achievements}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
+              <View style={styles.textContainer}>
+                <Text style={styles.name} numberOfLines={2}>{item.name}</Text>
+              </View>
             </View>
-            <View style={styles.contentContainer}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.description}>{item.description}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
+          )}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>No achievements found.</Text>
+          }
+        />
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  listContainer: {
+    paddingBottom: 40,
   },
   headerTitle: {
     fontSize: 28,
@@ -63,36 +100,35 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
     marginBottom: 24,
   },
-  card: {
-    flexDirection: 'row',
-    backgroundColor: COLORS.white,
-    padding: 20,
-    borderRadius: 16,
+  row: {
+    justifyContent: 'space-between',
     marginBottom: 16,
+  },
+  card: {
+    width: (width - 56) / 2, // 20 padding each side + 16 gap = 56
+    backgroundColor: COLORS.white,
+    borderRadius: 16,
+    overflow: 'hidden',
     ...SHADOWS.medium,
   },
-  iconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#E0F2FE',
-    justifyContent: 'center',
+  image: {
+    width: '100%',
+    height: 160,
+    backgroundColor: COLORS.surfaceMuted,
+  },
+  textContainer: {
+    padding: 12,
     alignItems: 'center',
-    marginRight: 16,
   },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: COLORS.secondary,
-    marginBottom: 6,
-  },
-  description: {
+  name: {
     fontSize: 14,
+    fontWeight: '700',
+    color: COLORS.secondary,
+    textAlign: 'center',
+  },
+  emptyText: {
+    textAlign: 'center',
     color: COLORS.darkGray,
-    lineHeight: 20,
+    marginTop: 40,
   }
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Image, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import Screen from '../components/Screen';
@@ -156,6 +156,20 @@ export default function SettingsScreen() {
           <TouchableOpacity
             style={styles.rowButton}
             activeOpacity={0.7}
+            onPress={() => navigation.navigate('Services')}
+          >
+            <View style={[styles.rowIconWrap, { backgroundColor: '#10B981' }]}>
+              <Ionicons name="construct" size={20} color={COLORS.white} />
+            </View>
+            <Text style={styles.rowLabel}>Technical Services</Text>
+            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity
+            style={styles.rowButton}
+            activeOpacity={0.7}
             onPress={() => navigation.navigate('Achievements')}
           >
             <View style={[styles.rowIconWrap, { backgroundColor: '#EC4899' }]}>
@@ -211,17 +225,17 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Follow Us</Text>
           <View style={styles.socialRow}>
-            <TouchableOpacity style={styles.socialBtn} onPress={() => {}}>
+            <TouchableOpacity style={styles.socialBtn} onPress={() => Linking.openURL('https://www.facebook.com/snehagraphicsandsolutions')}>
               <Ionicons name="logo-facebook" size={28} color="#1877F2" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.socialBtn} onPress={() => {}}>
+            <TouchableOpacity style={styles.socialBtn} onPress={() => Linking.openURL('https://www.instagram.com/snehagraphicsandsoultions/')}>
               <Ionicons name="logo-instagram" size={28} color="#E4405F" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.socialBtn} onPress={() => {}}>
+            <TouchableOpacity style={styles.socialBtn} onPress={() => Linking.openURL('https://www.youtube.com/@snehagraphicsandsolutions692')}>
               <Ionicons name="logo-youtube" size={28} color="#FF0000" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.socialBtn} onPress={() => {}}>
-              <Ionicons name="logo-linkedin" size={28} color="#0A66C2" />
+            <TouchableOpacity style={styles.socialBtn} onPress={() => Linking.openURL('https://t.me/+919214527136')}>
+              <Ionicons name="paper-plane" size={28} color="#0A66C2" />
             </TouchableOpacity>
           </View>
         </View>

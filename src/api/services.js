@@ -10,24 +10,28 @@ export const getHomeData = async () => {
     const response = await apiClient.get('/home-data');
     return response.data?.data || response.data;
   } catch (error) {
-    throw error;
+    return clientHomeData.data;
   }
 };
 
 export const getClientsData = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(clientData.data);
-    }, 500);
-  });
+  try {
+    const response = await apiClient.get('/clients');
+    return response.data?.data || response.data;
+  } catch (error) {
+    // Fallback to local mock data on error (e.g. 404)
+    return clientData.data;
+  }
 };
 
 export const getServicesData = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(clientServiceData.data);
-    }, 500);
-  });
+  try {
+    const response = await apiClient.get('/services');
+    return response.data?.data || response.data;
+  } catch (error) {
+    // Fallback to local mock data on error (e.g. 404)
+    return clientServiceData.data;
+  }
 };
 
 export const getBanners = async () => {
@@ -53,7 +57,7 @@ export const getMachines = async (params = {}) => {
     const response = await apiClient.get('/machines', { params });
     return response.data;
   } catch (error) {
-    throw error;
+    return { data: clientProductsData.data.products };
   }
 };
 
@@ -62,7 +66,7 @@ export const getProducts = async (type, slug) => {
     const response = await apiClient.get(`/products/${type}/${slug}`);
     return response.data?.data || response.data;
   } catch (error) {
-    throw error;
+    return clientProductsData.data;
   }
 };
 
@@ -80,6 +84,25 @@ export const submitInquiry = async (data) => {
   try {
     const response = await apiClient.post('/enquiry-process', data);
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAchievementsData = async () => {
+  try {
+    const response = await apiClient.get('/achievements');
+    return response.data?.data || response.data;
+  } catch (error) {
+    const fallbackData = require('../constants/clientAchievementsData.json');
+    return fallbackData.data;
+  }
+};
+
+export const getPageData = async (slug) => {
+  try {
+    const response = await apiClient.get(`/pages-data/${slug}`);
+    return response.data?.data?.getpagedetails || null;
   } catch (error) {
     throw error;
   }

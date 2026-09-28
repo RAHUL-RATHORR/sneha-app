@@ -51,6 +51,7 @@ function TabNavigator() {
             MachinesTab: focused ? 'cube' : 'cube-outline',
             ClientsTab: focused ? 'people' : 'people-outline',
             SettingsTab: focused ? 'settings' : 'settings-outline',
+            AchievementsTab: focused ? 'trophy' : 'trophy-outline',
           };
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
         },
@@ -76,6 +77,7 @@ function TabNavigator() {
       <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="MachinesTab" component={MachinesScreen} options={{ title: 'Machines' }} />
       <Tab.Screen name="ClientsTab" component={ClientsScreen} options={{ title: 'Clients' }} />
+      <Tab.Screen name="AchievementsTab" component={AchievementsScreen} options={{ title: 'Achievements' }} />
       <Tab.Screen name="SettingsTab" component={SettingsScreen} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );

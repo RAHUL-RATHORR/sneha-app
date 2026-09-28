@@ -1,74 +1,75 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { WebView } from 'react-native-webview';
 import Screen from '../components/Screen';
-import { COLORS, SHADOWS } from '../constants/theme';
+import { COLORS } from '../constants/theme';
+import { getPageData } from '../api/services';
 
 export default function PrivacyPolicyScreen() {
+  const [htmlContent, setHtmlContent] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPage = async () => {
+      try {
+        const data = await getPageData('privacy-policy');
+        if (data && data.page_content) {
+          setHtmlContent(data.page_content);
+        }
+      } catch (error) {
+        console.error("Error fetching privacy policy page:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPage();
+  }, []);
+
+  if (loading) {
+    return (
+      <Screen backgroundColor="#F8F9FA">
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Screen>
+    );
+  }
+
+  const customHTML = `
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { font-family: -apple-system, sans-serif; padding: 16px; color: #4b5563; line-height: 1.6; }
+          img { max-width: 100%; height: auto; border-radius: 8px; }
+          h2, h3, h4 { color: #1e293b; }
+        </style>
+      </head>
+      <body>
+        ${htmlContent || '<p>Content not available</p>'}
+      </body>
+    </html>
+  `;
+
   return (
     <Screen backgroundColor="#F8F9FA">
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.card}>
-          <Text style={styles.title}>Privacy Policy</Text>
-          <Text style={styles.lastUpdated}>Last Updated: September 2026</Text>
-          
-          <Text style={styles.sectionTitle}>1. Introduction</Text>
-          <Text style={styles.paragraph}>
-            Sneha Graphics & Solutions ("we", "our", "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our mobile application.
-          </Text>
-
-          <Text style={styles.sectionTitle}>2. Information We Collect</Text>
-          <Text style={styles.paragraph}>
-            We may collect personal information that you voluntarily provide to us when registering at the app, expressing an interest in obtaining information about us or our products, or otherwise contacting us. This includes your name, email address, phone number, and location.
-          </Text>
-
-          <Text style={styles.sectionTitle}>3. How We Use Your Information</Text>
-          <Text style={styles.paragraph}>
-            We use the information we collect or receive to facilitate account creation, fulfill and manage inquiries, respond to customer service requests, and send administrative information to you.
-          </Text>
-
-          <Text style={styles.sectionTitle}>4. Contact Us</Text>
-          <Text style={styles.paragraph}>
-            If you have questions or comments about this Privacy Policy, please contact us through the Contact Us page in the app.
-          </Text>
-        </View>
-      </ScrollView>
+      <WebView 
+        source={{ html: customHTML }} 
+        style={styles.webview}
+        originWhitelist={['*']}
+      />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  card: {
-    backgroundColor: COLORS.white,
-    padding: 20,
-    borderRadius: 16,
-    ...SHADOWS.medium,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.secondary,
-    marginBottom: 4,
-  },
-  lastUpdated: {
-    fontSize: 12,
-    color: COLORS.darkGray,
-    marginBottom: 20,
-    fontStyle: 'italic',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: COLORS.secondary,
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  paragraph: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-    lineHeight: 22,
-    marginBottom: 8,
+  webview: {
+    flex: 1,
+    backgroundColor: 'transparent'
   }
 });

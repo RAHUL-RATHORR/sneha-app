@@ -1,0 +1,86 @@
+{
+  "status": true,
+  "message": "Achievement data fetched successfully",
+  "data": {
+    "achievement": [
+      {
+        "achievements_id": 23,
+        "achievements_name": "N2",
+        "achievements_image": "1776078844.jpeg"
+      },
+      {
+        "achievements_id": 25,
+        "achievements_name": "N4",
+        "achievements_image": "1776160536.jpeg"
+      },
+      {
+        "achievements_id": 4,
+        "achievements_name": "4",
+        "achievements_image": "1737361737.jpeg"
+      },
+      {
+        "achievements_id": 24,
+        "achievements_name": "N3",
+        "achievements_image": "1776078899.jpeg"
+      },
+      {
+        "achievements_id": 19,
+        "achievements_name": "9",
+        "achievements_image": "1737361866.jpeg"
+      },
+      {
+        "achievements_id": 5,
+        "achievements_name": "3",
+        "achievements_image": "1737361752.jpeg"
+      },
+      {
+        "achievements_id": 13,
+        "achievements_name": "3",
+        "achievements_image": "1737361785.jpeg"
+      },
+      {
+        "achievements_id": 14,
+        "achievements_name": "4",
+        "achievements_image": "1737361797.jpeg"
+      },
+      {
+        "achievements_id": 15,
+        "achievements_name": "5",
+        "achievements_image": "1737361808.jpeg"
+      },
+      {
+        "achievements_id": 16,
+        "achievements_name": "6",
+        "achievements_image": "1737361820.jpeg"
+      },
+      {
+        "achievements_id": 17,
+        "achievements_name": "7",
+        "achievements_image": "1737361833.jpeg"
+      },
+      {
+        "achievements_id": 18,
+        "achievements_name": "8",
+        "achievements_image": "1737361857.jpeg"
+      },
+      {
+        "achievements_id": 20,
+        "achievements_name": "10",
+        "achievements_image": "1737361877.jpeg"
+      },
+      {
+        "achievements_id": 21,
+        "achievements_name": "11",
+        "achievements_image": "1737361887.jpeg"
+      },
+      {
+        "achievements_id": 22,
+        "achievements_name": "12",
+        "achievements_image": "1737361897.jpeg"
+      }
+    ],
+    "paths": {
+      "achievement_image": "/img/uploads/achievements/"
+    }
+  }
+}

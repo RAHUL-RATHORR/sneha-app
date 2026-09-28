@@ -1,74 +1,75 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { WebView } from 'react-native-webview';
 import Screen from '../components/Screen';
-import { COLORS, SHADOWS } from '../constants/theme';
+import { COLORS } from '../constants/theme';
+import { getPageData } from '../api/services';
 
 export default function TermsConditionScreen() {
+  const [htmlContent, setHtmlContent] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPage = async () => {
+      try {
+        const data = await getPageData('terms-conditions');
+        if (data && data.page_content) {
+          setHtmlContent(data.page_content);
+        }
+      } catch (error) {
+        console.error("Error fetching terms conditions page:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPage();
+  }, []);
+
+  if (loading) {
+    return (
+      <Screen backgroundColor="#F8F9FA">
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      </Screen>
+    );
+  }
+
+  const customHTML = `
+    <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { font-family: -apple-system, sans-serif; padding: 16px; color: #4b5563; line-height: 1.6; }
+          img { max-width: 100%; height: auto; border-radius: 8px; }
+          h2, h3, h4 { color: #1e293b; }
+        </style>
+      </head>
+      <body>
+        ${htmlContent || '<p>Content not available</p>'}
+      </body>
+    </html>
+  `;
+
   return (
     <Screen backgroundColor="#F8F9FA">
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.card}>
-          <Text style={styles.title}>Terms and Conditions</Text>
-          <Text style={styles.lastUpdated}>Last Updated: September 2026</Text>
-          
-          <Text style={styles.sectionTitle}>1. Agreement to Terms</Text>
-          <Text style={styles.paragraph}>
-            These Terms and Conditions constitute a legally binding agreement made between you and Sneha Graphics & Solutions concerning your access to and use of our mobile application.
-          </Text>
-
-          <Text style={styles.sectionTitle}>2. Use of the App</Text>
-          <Text style={styles.paragraph}>
-            The information provided on the app is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation.
-          </Text>
-
-          <Text style={styles.sectionTitle}>3. Machine Listings & Inquiries</Text>
-          <Text style={styles.paragraph}>
-            All machine specifications, prices, and availability are subject to change without notice. An inquiry made through the app does not constitute a confirmed order or contract until formally accepted by us.
-          </Text>
-
-          <Text style={styles.sectionTitle}>4. Limitation of Liability</Text>
-          <Text style={styles.paragraph}>
-            In no event will we or our directors, employees, or agents be liable to you or any third party for any direct, indirect, consequential, exemplary, incidental, special, or punitive damages arising from your use of the app.
-          </Text>
-        </View>
-      </ScrollView>
+      <WebView 
+        source={{ html: customHTML }} 
+        style={styles.webview}
+        originWhitelist={['*']}
+      />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  card: {
-    backgroundColor: COLORS.white,
-    padding: 20,
-    borderRadius: 16,
-    ...SHADOWS.medium,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.secondary,
-    marginBottom: 4,
-  },
-  lastUpdated: {
-    fontSize: 12,
-    color: COLORS.darkGray,
-    marginBottom: 20,
-    fontStyle: 'italic',
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: COLORS.secondary,
-    marginTop: 16,
-    marginBottom: 8,
-  },
-  paragraph: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-    lineHeight: 22,
-    marginBottom: 8,
+  webview: {
+    flex: 1,
+    backgroundColor: 'transparent'
   }
 });

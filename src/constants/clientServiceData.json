@@ -6,89 +6,429 @@
       "current_page": 1,
       "data": [
         {
-          "service_id": 89,
+          "service_id": 1,
           "service_image": "17331317431929.jpeg",
           "service_title": "Technical Service Manual For Komori Offset Printing Machine"
         },
         {
-          "service_id": 96,
+          "service_id": 2,
           "service_image": "17333904689233.png",
           "service_title": "Komori Technical Services"
         },
         {
-          "service_id": 94,
+          "service_id": 3,
           "service_image": "17333889102556.jpeg",
           "service_title": "Komori Lithrone 426, 5 Colors Installation Completed at Beawar Rajasthan"
         },
         {
-          "service_id": 126,
+          "service_id": 4,
           "service_image": "17793574532708.jpeg",
           "service_title": "Komori LITHRONE 628 +LX 1998 Model Loading"
         },
         {
-          "service_id": 127,
+          "service_id": 5,
           "service_image": "17793575886382.jpeg",
           "service_title": "LITHRONE 628 +LX 1998"
         },
         {
-          "service_id": 125,
+          "service_id": 6,
           "service_image": "17779092898882.jpeg",
           "service_title": "Komori 426 2000 Model Loading"
         },
         {
-          "service_id": 124,
+          "service_id": 7,
           "service_image": "17761060861093.jpeg",
           "service_title": "Heidelberg SBG Cylinder Loading"
         },
         {
-          "service_id": 91,
+          "service_id": 8,
           "service_image": "17331319909914.jpeg",
           "service_title": "Machines Being Loaded In Jaipur"
         },
         {
-          "service_id": 119,
+          "service_id": 9,
           "service_image": "17397900999782.jpeg",
           "service_title": "Komori Machine Service"
         },
         {
-          "service_id": 111,
+          "service_id": 10,
           "service_image": "17380027017078.jpeg",
           "service_title": "Komori Machine Service"
         },
         {
-          "service_id": 115,
+          "service_id": 11,
           "service_image": "17397058524530.jpeg",
           "service_title": "Komori Machine Unloading"
         },
         {
-          "service_id": 113,
+          "service_id": 12,
           "service_image": "17397057807565.jpeg",
           "service_title": "Komori Machine Service"
         },
         {
-          "service_id": 121,
+          "service_id": 13,
           "service_image": "17423834811113.jpeg",
           "service_title": "Installation Done Komori Lithrone 426 2012  at Krishna Printer Jaipur"
         },
         {
-          "service_id": 122,
+          "service_id": 14,
           "service_image": "17468129237369.jpeg",
           "service_title": "Komori Machine Unloading Gaya Bihar"
         },
         {
-          "service_id": 123,
+          "service_id": 15,
           "service_image": "17468129372544.jpeg",
           "service_title": "Komori Machine Unloading Gaya, Bihar"
         },
         {
-          "service_id": 105,
+          "service_id": 16,
           "service_image": "17370268515739.jpeg",
           "service_title": "Komori Offset Machine"
         },
         {
-          "service_id": 116,
+          "service_id": 17,
           "service_image": "17397060911518.jpeg",
           "service_title": "Sheetfed Presses"
+        },
+        {
+          "service_id": 18,
+          "service_image": "17397058193156.jpeg",
+          "service_title": "Komori Machine Loading"
+        },
+        {
+          "service_id": 19,
+          "service_image": "17333888351851.jpeg",
+          "service_title": "Komori Lithrone 426, 5 Colors Installation Completed at Chennai"
+        },
+        {
+          "service_id": 20,
+          "service_image": "17397901654781.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 21,
+          "service_image": "17397899373554.jpeg",
+          "service_title": "Machine Service"
+        },
+        {
+          "service_id": 22,
+          "service_image": "17397900401432.jpeg",
+          "service_title": "Heidelberg Machine Unloading"
+        },
+        {
+          "service_id": 23,
+          "service_image": "17380025173606.jpeg",
+          "service_title": "Komori Machine Loading"
+        },
+        {
+          "service_id": 24,
+          "service_image": "17370295371942.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 25,
+          "service_image": "17380027651093.jpeg",
+          "service_title": "Komori Lithrone 426 Machine Sevices"
+        },
+        {
+          "service_id": 26,
+          "service_image": "17370294506962.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 27,
+          "service_image": "17370294385592.jpeg",
+          "service_title": "Komori Machine Service"
+        },
+        {
+          "service_id": 28,
+          "service_image": "17023657782876.jpeg",
+          "service_title": "Komori Lithrone 426 1993 Model Installation In Udaipur"
+        },
+        {
+          "service_id": 29,
+          "service_image": "17370268136175.jpeg",
+          "service_title": "Komori Lithrone 426 Machine"
+        },
+        {
+          "service_id": 30,
+          "service_image": "17370290263600.jpeg",
+          "service_title": "Komori Machine"
+        },
+        {
+          "service_id": 31,
+          "service_image": "17370265276758.jpeg",
+          "service_title": "Komori Lithrone Machine"
+        },
+        {
+          "service_id": 32,
+          "service_image": "17370265064762.jpeg",
+          "service_title": "Komori Lithrone 426 Machine"
+        },
+        {
+          "service_id": 33,
+          "service_image": "17359890796646.jpeg",
+          "service_title": "Komori Lithrone 4 Colors Installation Completed"
+        },
+        {
+          "service_id": 34,
+          "service_image": "17359889139026.jpeg",
+          "service_title": "Polar Paper Cutting Machine"
+        },
+        {
+          "service_id": 35,
+          "service_image": "17359889638769.jpeg",
+          "service_title": "Komori Technical Service Done"
+        },
+        {
+          "service_id": 36,
+          "service_image": "17023670274650.jpeg",
+          "service_title": "Komori Lithrone 240 Loading In Malviya Nagar Jaipur"
+        },
+        {
+          "service_id": 37,
+          "service_image": "17370265713252.jpeg",
+          "service_title": "Komori Lithrone Machine's"
+        },
+        {
+          "service_id": 38,
+          "service_image": "17023666594513.jpeg",
+          "service_title": "Komori Lithrone 426 2001 Model Successfully Installed at Jaipur"
+        },
+        {
+          "service_id": 39,
+          "service_image": "17333893488793.jpeg",
+          "service_title": "Komori Lithrone 426, 5 Color Installation Completed"
+        },
+        {
+          "service_id": 40,
+          "service_image": "17023648787805.jpeg",
+          "service_title": "Komori Lithrone 426 NL 2003 Model Installed in Jaipur"
+        },
+        {
+          "service_id": 41,
+          "service_image": "17331318403231.jpeg",
+          "service_title": "Technical service komori offset machine"
+        },
+        {
+          "service_id": 42,
+          "service_image": "17023655909972.jpeg",
+          "service_title": "Komori Lithrone 526 2001 Model Successfully Installed at Jaipur"
+        },
+        {
+          "service_id": 43,
+          "service_image": "17023664472125.jpeg",
+          "service_title": "Komori 440 Machine Unloading in Jaipur"
+        },
+        {
+          "service_id": 44,
+          "service_image": "17023653498140.jpeg",
+          "service_title": "Komori 540 5 Colour 1995 Model Installation Done in Jaipur"
+        },
+        {
+          "service_id": 45,
+          "service_image": "17023655303445.jpeg",
+          "service_title": "Komori Lithrone 1995 Model Installation Done In Jodhpur"
+        },
+        {
+          "service_id": 46,
+          "service_image": "17023656772861.jpeg",
+          "service_title": "Komori Lithrone 426 1994 Model Installation At Bharatpur"
+        },
+        {
+          "service_id": 47,
+          "service_image": "16781831676171.jpeg",
+          "service_title": "Komori Lithrone 840+L 8 Colour With Coter 2003 Model, Installation In Jaipur"
+        },
+        {
+          "service_id": 48,
+          "service_image": "16781852077000.jpeg",
+          "service_title": "Heidelberg SORSZ  28x40 2 Colour Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 49,
+          "service_image": "17023661503452.jpeg",
+          "service_title": "Komori 526 1999 Model ,Fully Loaded Printing Machine Unloading in Jaipur"
+        },
+        {
+          "service_id": 50,
+          "service_image": "16781817365601.jpeg",
+          "service_title": "Komori Lithrone 426 1999 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 51,
+          "service_image": "16781832978187.jpeg",
+          "service_title": "Komori Lithrone 840+L 8 Colour with Coter 2005 Model , Fully Loaded Printing Machine Installation in Delhi"
+        },
+        {
+          "service_id": 52,
+          "service_image": "16781833656503.jpeg",
+          "service_title": "Komori 426 1992 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 53,
+          "service_image": "16781839842370.jpeg",
+          "service_title": "Komori Lithrone 640+L 6 Colour with Coter  2003 Model , Fully Loaded Printing Machine Installation in Punjab"
+        },
+        {
+          "service_id": 54,
+          "service_image": "16781840543144.jpeg",
+          "service_title": "Komori 526 1998 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 55,
+          "service_image": "16781841817915.jpeg",
+          "service_title": "Komori 426 1999 Model , Fully Loaded Printing Machine Installation in Ajmer"
+        },
+        {
+          "service_id": 56,
+          "service_image": "16781843118918.jpeg",
+          "service_title": "Komori Lithrone 540 8 Colour  1999 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 57,
+          "service_image": "16781843811162.jpeg",
+          "service_title": "Komori 440 2001 Model , Fully Loaded Printing Machine Installation in Udaipur"
+        },
+        {
+          "service_id": 58,
+          "service_image": "16781844675385.jpeg",
+          "service_title": "Komori 526 1998 Model , Fully Loaded Printing Machine Installation in Lucknow"
+        },
+        {
+          "service_id": 59,
+          "service_image": "16781845889540.jpeg",
+          "service_title": "ADAST 715 Printing Machine Installation in Bikaner"
+        },
+        {
+          "service_id": 60,
+          "service_image": "16781846693631.jpeg",
+          "service_title": "Komori 526 1999 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 61,
+          "service_image": "16781847937063.jpeg",
+          "service_title": "Komori 440 1996 Model, Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 62,
+          "service_image": "16781849396444.jpeg",
+          "service_title": "Komori 540 1993 Model, Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 63,
+          "service_image": "16781851095300.jpeg",
+          "service_title": "Komori 440 1996 Model, fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 64,
+          "service_image": "16781854423126.jpeg",
+          "service_title": "Pollar 92x Model Insolation in Jaipur"
+        },
+        {
+          "service_id": 65,
+          "service_image": "16781855937054.jpeg",
+          "service_title": "Mullar Martini 1509 6 + Cover Insolation in Jaipur"
+        },
+        {
+          "service_id": 66,
+          "service_image": "16781856402778.jpeg",
+          "service_title": "Komori 426 1992 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 67,
+          "service_image": "16781857443178.jpeg",
+          "service_title": "UV DRIP OFF 2 Colour With Insolation in Jaipur"
+        },
+        {
+          "service_id": 68,
+          "service_image": "16781858489161.jpeg",
+          "service_title": "UV DRIP OFF 2 Colour With Coter Installation in Delhi"
+        },
+        {
+          "service_id": 69,
+          "service_image": "16781859324564.jpeg",
+          "service_title": "Komori 528 + Coter 2002 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 70,
+          "service_image": "16781861043932.jpeg",
+          "service_title": "Komori 540 1993 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 71,
+          "service_image": "16781861627491.jpeg",
+          "service_title": "Komori 526 1996 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 72,
+          "service_image": "16781862087336.jpeg",
+          "service_title": "Komori 526 2001 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 73,
+          "service_image": "16781862574176.jpeg",
+          "service_title": "Komori 426 1997 Model, Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 74,
+          "service_image": "16781863402011.jpeg",
+          "service_title": "Komori 526 1996 Model , Fully Loaded Printing Machine Installation in Jaipur"
+        },
+        {
+          "service_id": 75,
+          "service_image": "17013215175292.jpeg",
+          "service_title": "Komori Lithrone 426 NL 2005 Model Installation Completed in Udaipur"
+        },
+        {
+          "service_id": 76,
+          "service_image": "17013215557832.jpeg",
+          "service_title": "Komori Lithrone 426 NL 2005 Model Installed in Delhi"
+        },
+        {
+          "service_id": 77,
+          "service_image": "17013215988967.jpeg",
+          "service_title": "Komori Lithrone 426 NL 2005 Model Installed in Udaipur"
+        },
+        {
+          "service_id": 78,
+          "service_image": "17013216824835.jpeg",
+          "service_title": "Heidelberg CD 102 6+ L 1997 Model Installed in Jaipur"
+        },
+        {
+          "service_id": 79,
+          "service_image": "17023645203782.jpeg",
+          "service_title": "Komori Lithrone 426 1994 Model Installed in Jaipur"
+        },
+        {
+          "service_id": 80,
+          "service_image": "17023646251772.jpeg",
+          "service_title": "Komori Lithrone 640+L 1998 Model Successfully Installed at Punjab"
+        },
+        {
+          "service_id": 81,
+          "service_image": "17023650145498.jpeg",
+          "service_title": "Komori Lithrone 426 2002 Model Successfully Installed at Jaipur"
+        },
+        {
+          "service_id": 82,
+          "service_image": "17023659181885.jpeg",
+          "service_title": "Komori Lithrone 540 1994 Model Installed at Nagar Printer Jaipur"
+        },
+        {
+          "service_id": 83,
+          "service_image": "17023665123108.jpeg",
+          "service_title": "Komori Lithrone 426 2002 Model Installation Completed at Jaipur"
+        },
+        {
+          "service_id": 84,
+          "service_image": "17023665881593.jpeg",
+          "service_title": "Komori Lithrone 426 2000 Model Loading at Jaipur"
+        },
+        {
+          "service_id": 85,
+          "service_image": "17333888829070.jpeg",
+          "service_title": "Komori Lithrone Installation Completed at Jaipur, Rajasthan"
         }
       ]
     },
