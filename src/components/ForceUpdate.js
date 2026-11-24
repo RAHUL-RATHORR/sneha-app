@@ -20,6 +20,8 @@ export const UPDATE_CONFIG_URL = 'https://raw.githubusercontent.com/snehagraphic
 
 const PLAY_STORE_URL = 'market://details?id=com.snehagraphics.app';
 const PLAY_STORE_WEB_URL = 'https://play.google.com/store/apps/details?id=com.snehagraphics.app';
+const APP_STORE_URL = 'https://apps.apple.com/app/com.snehagraphics.app';
+const FALLBACK_WEBSITE_URL = 'https://snehagraphicssolutions.com';
 const CURRENT_APP_VERSION = appConfig?.expo?.version || '1.0.0';
 
 // Version comparison helper: returns true if current < min
@@ -86,27 +88,37 @@ export default function ForceUpdate({ children }) {
     checkVersion();
 
     // Android back button disable karein jab update compulsory ho
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (updateRequired) {
-        return true; // back press ko block karega
-      }
-      return false;
-    });
+    if (Platform.OS === 'android') {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        if (updateRequired) {
+          return true; // back press ko block karega
+        }
+        return false;
+      });
 
-    return () => backHandler.remove();
+      return () => backHandler.remove();
+    }
   }, [updateRequired]);
 
   const handleUpdatePress = async () => {
-    const targetUrl = updateData.store_url || (Platform.OS === 'android' ? PLAY_STORE_URL : PLAY_STORE_WEB_URL);
+    let targetUrl = updateData.store_url;
+    if (!targetUrl) {
+      if (Platform.OS === 'ios') {
+        targetUrl = updateData.ios_store_url || APP_STORE_URL || FALLBACK_WEBSITE_URL;
+      } else {
+        targetUrl = PLAY_STORE_URL;
+      }
+    }
+
     try {
       const supported = await Linking.canOpenURL(targetUrl);
       if (supported) {
         await Linking.openURL(targetUrl);
       } else {
-        await Linking.openURL(PLAY_STORE_WEB_URL);
+        await Linking.openURL(Platform.OS === 'ios' ? FALLBACK_WEBSITE_URL : PLAY_STORE_WEB_URL);
       }
     } catch {
-      Linking.openURL(PLAY_STORE_WEB_URL).catch(() => {});
+      Linking.openURL(Platform.OS === 'ios' ? FALLBACK_WEBSITE_URL : PLAY_STORE_WEB_URL).catch(() => {});
     }
   };
 
@@ -153,7 +165,12 @@ export default function ForceUpdate({ children }) {
               activeOpacity={0.85}
               onPress={handleUpdatePress}
             >
-              <Ionicons name="logo-google-playstore" size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
+              <Ionicons
+                name={Platform.OS === 'ios' ? 'logo-apple' : 'logo-google-playstore'}
+                size={20}
+                color="#FFFFFF"
+                style={{ marginRight: 8 }}
+              />
               <Text style={styles.btnPrimaryText}>Update Now</Text>
             </TouchableOpacity>
 

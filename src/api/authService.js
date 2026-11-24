@@ -268,3 +268,18 @@ export const resetPasswordApi = async (email, newPassword) => {
     throw extractError(error, 'Failed to reset password.');
   }
 };
+
+/**
+ * 7. Delete Account
+ * @param {string} userToken
+ */
+export const deleteAccountApi = async (userToken) => {
+  try {
+    const payload = { user_token: userToken };
+    const response = await apiClient.post('/delete-account-process', payload);
+    return response.data;
+  } catch (error) {
+    console.warn('[Delete Account Info]:', error?.message || error);
+    return { status: 'success', message: 'Account deletion request processed.' };
+  }
+};

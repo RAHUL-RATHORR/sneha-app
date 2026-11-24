@@ -12,6 +12,9 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
       }
     },
     "production": {
@@ -19,6 +22,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "ascApiKeyId": "Y9TT949W3L",
+        "ascApiKeyIssuerId": "516072f7-3e5b-4a60-bedd-6d505f66d168",
+        "ascApiKeyPath": "./AuthKey_Y9TT949W3L.p8"
+      }
+    }
   }
 }

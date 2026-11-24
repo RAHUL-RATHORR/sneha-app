@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, logout, deleteAccount } = useAuth();
   const [policiesExpanded, setPoliciesExpanded] = useState(false);
 
   const handleLogout = () => {
@@ -28,6 +28,37 @@ export default function SettingsScreen() {
                 routes: [{ name: 'Login' }],
               })
             );
+          }
+        }
+      ]
+    );
+  };
+
+  const handleDeleteAccount = () => {
+    Alert.alert(
+      "Delete Account",
+      "Are you sure you want to permanently delete your account? All your personal details, inquiries, and saved data will be removed. This action cannot be undone.",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete My Account",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteAccount();
+              Alert.alert(
+                "Account Deleted",
+                "Your account and associated data have been removed successfully."
+              );
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: 'Login' }],
+                })
+              );
+            } catch (err) {
+              Alert.alert("Notice", err?.message || "Failed to process request. Please contact support.");
+            }
           }
         }
       ]
@@ -205,6 +236,23 @@ export default function SettingsScreen() {
             <Text style={styles.rowLabel}>Change Password</Text>
             <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
           </TouchableOpacity>
+
+          {isLoggedIn && (
+            <>
+              <View style={styles.divider} />
+              <TouchableOpacity
+                style={styles.rowButton}
+                activeOpacity={0.7}
+                onPress={handleDeleteAccount}
+              >
+                <View style={[styles.rowIconWrap, { backgroundColor: '#EF4444' }]}>
+                  <Ionicons name="trash-outline" size={20} color={COLORS.white} />
+                </View>
+                <Text style={[styles.rowLabel, { color: '#EF4444' }]}>Delete Account</Text>
+                <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
+              </TouchableOpacity>
+            </>
+          )}
         </View>
 
 

@@ -35,6 +35,35 @@ export default function PrivacyPolicyScreen() {
     );
   }
 
+  const fallbackPrivacyPolicy = `
+    <h2>Privacy Policy - Sneha Graphics & Solutions</h2>
+    <p>Last updated: November 2026</p>
+    <p>Sneha Graphics & Solutions ("we", "our", or "us") is dedicated to protecting your privacy. This Privacy Policy explains how our mobile application collects, uses, and safeguards your information.</p>
+
+    <h3>1. Information We Collect</h3>
+    <p>When you register or submit inquiries through our application, we may collect personal details such as your full name, email address, phone number, and machine inquiry details.</p>
+
+    <h3>2. How We Use Your Information</h3>
+    <p>We use your information exclusively to:</p>
+    <ul>
+      <li>Provide, operate, and maintain our application services.</li>
+      <li>Process your machinery inquiries and customer support requests.</li>
+      <li>Notify you regarding your inquiries, updates, or account security.</li>
+    </ul>
+
+    <h3>3. Data Protection and Security</h3>
+    <p>We implement strict administrative, technical, and physical security measures to protect your personal data from unauthorized access or disclosure.</p>
+
+    <h3>4. Account Deletion and Data Retention</h3>
+    <p>Users may request or perform account deletion at any time directly within the Settings menu of the app. Upon deletion, your personal data and inquiry history will be permanently deleted from our servers.</p>
+
+    <h3>5. Contact Us</h3>
+    <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+    <p><strong>Email:</strong> snehagraphicssolutions@gmail.com<br/>
+    <strong>Phone:</strong> +91 97999 68351<br/>
+    <strong>Address:</strong> Plot No. 21, AD Industrial Area, Harsooliya, Rajasthan 303904, India</p>
+  `;
+
   const customHTML = `
     <html>
       <head>
@@ -46,7 +75,7 @@ export default function PrivacyPolicyScreen() {
         </style>
       </head>
       <body>
-        ${htmlContent || '<p>Content not available</p>'}
+        ${htmlContent || fallbackPrivacyPolicy}
       </body>
     </html>
   `;

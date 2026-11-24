@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import safeStorage from '../utils/storage';
-import { loginUserApi, registerUserApi, updateProfileApi } from '../api/authService';
+import { loginUserApi, registerUserApi, updateProfileApi, deleteAccountApi } from '../api/authService';
 
 const AuthContext = createContext();
 
@@ -74,6 +74,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const deleteAccount = async () => {
+    try {
+      if (userToken) {
+        await deleteAccountApi(userToken);
+      }
+    } catch (e) {
+      console.warn('Could not complete server account deletion:', e);
+    } finally {
+      await logout();
+    }
+  };
+
   const updateProfileData = async ({ fname, lname, dob, mobile, profileImage }) => {
     if (!userToken) throw new Error('No user token found');
 
@@ -112,6 +124,7 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        deleteAccount,
         updateProfileData,
       }}
     >

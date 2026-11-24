@@ -106,7 +106,27 @@ export default function AboutUsScreen() {
       </head>
       <body>
         <div class="content">
-          ${htmlContent || '<p>Content not available</p>'}
+          ${htmlContent || `
+            <h2>About Sneha Graphics & Solutions</h2>
+            <p class="pre-title">Leading Printing & Packaging Machinery Partner</p>
+            <p>Sneha Graphics & Solutions is a premier distributor and service provider of state-of-the-art printing, die cutting, lamination, carton packaging, and post-press graphic machinery.</p>
+
+            <h3>Our Mission</h3>
+            <p>Empowering printing presses and packaging businesses with robust machinery, high precision, reliable spare parts, and dedicated nationwide engineering support.</p>
+
+            <h3>Key Machinery & Solutions</h3>
+            <ul>
+              <li>Automatic & Semi-Automatic Die Cutting Machines</li>
+              <li>Thermal & Water-based Film Lamination Machines</li>
+              <li>Folder Gluers & Rigid Box Making Machinery</li>
+              <li>Spare Parts, Consumables & On-site Maintenance Services</li>
+            </ul>
+
+            <h3>Headquarters & Facility</h3>
+            <p>Plot No. 21, near by Ratan Industrial Area Road, AD Industrial Area, Harsooliya, Rajasthan 303904, India.<br/>
+            <strong>Contact:</strong> +91 97999 68351 / +91 92145 27136<br/>
+            <strong>Email:</strong> snehagraphicssolutions@gmail.com</p>
+          `}
         </div>
         <script>
            document.querySelectorAll('.nav-tabs button').forEach(btn => {
