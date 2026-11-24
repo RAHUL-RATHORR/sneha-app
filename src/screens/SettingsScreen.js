@@ -66,63 +66,6 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Preferences</Text>
-          <TouchableOpacity
-            style={styles.rowButton}
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('Language')}
-          >
-            <View style={[styles.rowIconWrap, { backgroundColor: '#3B82F6' }]}>
-              <Ionicons name="language" size={20} color={COLORS.white} />
-            </View>
-            <Text style={styles.rowLabel}>App Language</Text>
-            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Account</Text>
-          
-          <TouchableOpacity
-            style={styles.rowButton}
-            activeOpacity={0.7}
-            onPress={() => {
-              if (isLoggedIn) {
-                navigation.navigate('EditProfile');
-              } else {
-                navigation.navigate('Login');
-              }
-            }}
-          >
-            <View style={[styles.rowIconWrap, { backgroundColor: '#10B981' }]}>
-              <Ionicons name="person" size={20} color={COLORS.white} />
-            </View>
-            <Text style={styles.rowLabel}>Personal Information</Text>
-            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
-
-          <View style={styles.divider} />
-
-          <TouchableOpacity
-            style={styles.rowButton}
-            activeOpacity={0.7}
-            onPress={() => {
-              if (isLoggedIn) {
-                navigation.navigate('ChangePassword');
-              } else {
-                navigation.navigate('Login');
-              }
-            }}
-          >
-            <View style={[styles.rowIconWrap, { backgroundColor: '#8B5CF6' }]}>
-              <Ionicons name="lock-closed" size={20} color={COLORS.white} />
-            </View>
-            <Text style={styles.rowLabel}>Change Password</Text>
-            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Support & Info</Text>
           
           <TouchableOpacity
@@ -153,19 +96,7 @@ export default function SettingsScreen() {
 
           <View style={styles.divider} />
 
-          <TouchableOpacity
-            style={styles.rowButton}
-            activeOpacity={0.7}
-            onPress={() => navigation.navigate('Services')}
-          >
-            <View style={[styles.rowIconWrap, { backgroundColor: '#10B981' }]}>
-              <Ionicons name="construct" size={20} color={COLORS.white} />
-            </View>
-            <Text style={styles.rowLabel}>Technical Services</Text>
-            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
-          </TouchableOpacity>
 
-          <View style={styles.divider} />
 
           <TouchableOpacity
             style={styles.rowButton}
@@ -223,6 +154,61 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Account</Text>
+          
+          <TouchableOpacity
+            style={styles.rowButton}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('Language')}
+          >
+            <View style={[styles.rowIconWrap, { backgroundColor: '#3B82F6' }]}>
+              <Ionicons name="language" size={20} color={COLORS.white} />
+            </View>
+            <Text style={styles.rowLabel}>App Language</Text>
+            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={styles.rowButton}
+            activeOpacity={0.7}
+            onPress={() => {
+              if (isLoggedIn) {
+                navigation.navigate('EditProfile');
+              } else {
+                navigation.navigate('Login');
+              }
+            }}
+          >
+            <View style={[styles.rowIconWrap, { backgroundColor: '#10B981' }]}>
+              <Ionicons name="person" size={20} color={COLORS.white} />
+            </View>
+            <Text style={styles.rowLabel}>Personal Information</Text>
+            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity
+            style={styles.rowButton}
+            activeOpacity={0.7}
+            onPress={() => {
+              if (isLoggedIn) {
+                navigation.navigate('ChangePassword');
+              } else {
+                navigation.navigate('Login');
+              }
+            }}
+          >
+            <View style={[styles.rowIconWrap, { backgroundColor: '#8B5CF6' }]}>
+              <Ionicons name="lock-closed" size={20} color={COLORS.white} />
+            </View>
+            <Text style={styles.rowLabel}>Change Password</Text>
+            <Ionicons name="chevron-forward" size={20} color={COLORS.darkGray} style={{ marginLeft: 'auto' }} />
+          </TouchableOpacity>
+        </View>
+
+
+        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Follow Us</Text>
           <View style={styles.socialRow}>
             <TouchableOpacity style={styles.socialBtn} onPress={() => Linking.openURL('https://www.facebook.com/snehagraphicsandsolutions')}>
@@ -257,17 +243,17 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   header: {
     padding: 20,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.secondary,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: COLORS.border,
     ...SHADOWS.light,
     zIndex: 10,
   },
   headerTitle: {
     fontSize: 22,
     fontWeight: '900',
-    color: COLORS.secondary,
+    color: COLORS.white,
     letterSpacing: 0.5,
   },
   scrollContent: {

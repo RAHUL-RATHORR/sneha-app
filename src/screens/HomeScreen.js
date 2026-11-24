@@ -6,11 +6,14 @@ import {
 import Screen from '../components/Screen';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
-import { getHomeData } from '../api/services';
+import { getHomeData, getEventsData } from '../api/services';
 import BannerCarousel from '../components/BannerCarousel';
 import MachineCard from '../components/MachineCard';
 import BrandCard from '../components/BrandCard';
 import TestimonialCard from '../components/TestimonialCard';
+import EventCard from '../components/EventCard';
+import MapInstallations from '../components/MapInstallations';
+import clientHomeData from '../constants/clientHomeData.json';
 
 const { width } = Dimensions.get('window');
 
@@ -52,13 +55,36 @@ export default function HomeScreen({ navigation }) {
 
   const fetchHomeData = async () => {
     try {
-      const data = await getHomeData();
+      const [data, eventsRes] = await Promise.all([
+        getHomeData(),
+        getEventsData().catch(() => null)
+      ]);
       
+      let events = [];
+      if (eventsRes && eventsRes.events) {
+        events = eventsRes.events.map(e => ({
+          ...e,
+          image: eventsRes.paths?.event_image ? eventsRes.paths.event_image + e.event_image : 'https://snehagraphicssolutions.com/public/img/uploads/events/' + e.event_image
+        }));
+      }
+
+      const getFullImageUrl = (path, filename) => {
+        if (!path || !filename) return '';
+        let fullPath = path + filename;
+        if (!fullPath.startsWith('http')) {
+          fullPath = 'https://snehagraphicssolutions.com/public' + fullPath;
+        }
+        return fullPath;
+      };
+
       // Parse API Data
+      const sliderData = (data.home_slider && data.home_slider.length > 0) ? data.home_slider : clientHomeData.data.home_slider;
+      const appearancePath = data.paths?.appearance_image || clientHomeData.data.paths.appearance_image;
+      
       const parsedData = {
-        banners: (data.home_slider || []).map(s => ({
+        banners: sliderData.map(s => ({
           id: s.slider_id.toString(),
-          image: data.paths.appearance_image + s.slider_image,
+          image: getFullImageUrl(appearancePath, s.slider_image),
           title: (s.slider_name || '').replace(/<[^>]+>/g, '').trim(),
           subtitle: ""
         })),
@@ -70,7 +96,8 @@ export default function HomeScreen({ navigation }) {
         })),
         manufacturers: (data.manufacturer || []).map(m => ({
           name: m.manufacturer_name,
-          slug: m.manufacturer_slug
+          slug: m.manufacturer_slug,
+          image: m.manufacturer_image ? getFullImageUrl(data.paths?.product_image || clientHomeData.data.paths.product_image, m.manufacturer_image) : null
         })),
         featuredMachines: (data.featuredProducts || []).map(p => {
           const mfg = (data.manufacturer || []).find(m => m.manufacturer_id === p.product_manufacturer);
@@ -79,7 +106,7 @@ export default function HomeScreen({ navigation }) {
             name: p.product_name,
             slug: p.product_slug,
             brand: mfg ? mfg.manufacturer_name : 'Unknown',
-            image: data.paths.product_image + p.product_image,
+            image: getFullImageUrl(data.paths.product_image, p.product_image),
             year: p.year?.year_name || 'N/A',
             color: p.product_color || '1',
             featured: true,
@@ -87,20 +114,20 @@ export default function HomeScreen({ navigation }) {
             availability: 'Available'
           };
         }),
-        testimonials: (data.testimonials || []).map(t => {
-          let imgPath = data.paths.testimonial_image || '';
-          if (imgPath && !imgPath.startsWith('http')) {
-            imgPath = 'https://snehagraphicssolutions.com/public' + imgPath;
-          }
-          return {
-            id: t.testimonial_id.toString(),
-            name: t.testimonial_name,
-            image: imgPath + t.testimonial_image,
-            text: (t.testimonial_desc || '').replace(/<[^>]+>/g, '').trim(),
-            rating: parseInt(t.testimonial_rating, 10) || 5,
-            company: t.testimonial_designation
-          };
-        })
+        testimonials: (data.testimonials || []).map(t => ({
+          id: t.testimonial_id.toString(),
+          name: t.testimonial_name,
+          image: getFullImageUrl(data.paths.testimonial_image, t.testimonial_image),
+          text: (t.testimonial_desc || '').replace(/<[^>]+>/g, '').trim(),
+          rating: parseInt(t.testimonial_rating, 10) || 5,
+          company: t.testimonial_designation
+        })),
+        partners: (data.partnerData || []).map(p => ({
+          id: p.partner_id.toString(),
+          name: p.partner_name,
+          image: getFullImageUrl(data.paths?.partner_image || '/img/uploads/partner/', p.partner_image)
+        })),
+        events: events
       };
 
       setHomeData(parsedData);
@@ -138,17 +165,17 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.navbar}>
         <View style={styles.navLeft}>
           <Image 
-            source={require('../../assets/logo.png')} 
+            source={require('../../assets/sneha nav.png')} 
             style={styles.logo} 
             resizeMode="contain" 
           />
         </View>
         <View style={styles.navIcons}>
           <TouchableOpacity onPress={() => navigation.navigate('Search')} style={styles.navIconBtn}>
-            <Ionicons name="search-outline" size={20} color={COLORS.textPrimary} />
+            <Ionicons name="search-outline" size={20} color={COLORS.white} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')} style={styles.navIconBtn}>
-            <Ionicons name="bookmark-outline" size={20} color={COLORS.textPrimary} />
+            <Ionicons name="bookmark-outline" size={20} color={COLORS.white} />
           </TouchableOpacity>
         </View>
       </View>
@@ -167,21 +194,78 @@ export default function HomeScreen({ navigation }) {
 
 
 
-          {/* ── Browse by Manufacturer ── */}
+
+          {/* ── Search by Machine (Manufacturers) ── */}
           <View style={styles.sectionWrap}>
-            <SectionHeader
-              title="Top Manufacturers"
-              subtitle="Browse machines by leading brands"
-            />
+            <SectionHeader title="Search by Machine" subtitle="Explore A Wide Range of Machines From Our Catalog" />
             <FlatList
-              data={homeData?.manufacturers || []}
+              data={(() => {
+                let mfrs = [...(homeData?.manufacturers || [])];
+                const polarIndex = mfrs.findIndex(m => m.name?.toLowerCase().includes('polar'));
+                if (polarIndex > -1) {
+                  const polar = mfrs.splice(polarIndex, 1)[0];
+                  mfrs.splice(2, 0, polar); // Insert at 3rd position
+                }
+                return mfrs;
+              })()}
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={i => i.slug}
-              contentContainerStyle={{ paddingHorizontal: 20 }}
+              contentContainerStyle={{ paddingHorizontal: 20, gap: 16 }}
               renderItem={({ item }) => (
-                <BrandCard brandName={item.name} onPress={() => navigation.navigate('MachinesTab', { type: 'machines', slug: item.slug })} />
+                <TouchableOpacity 
+                  style={styles.catboxCard}
+                  onPress={() => navigation.navigate('MachinesTab', { type: 'machines', slug: item.slug })}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.catboxTitle} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
+                  <View style={styles.catboxImageContainer}>
+                    {item.image ? (
+                      <Image source={{ uri: item.image }} style={styles.catboxImage} />
+                    ) : (
+                      <Ionicons name="image-outline" size={40} color={COLORS.border} />
+                    )}
+                  </View>
+                  <Text style={styles.catboxSubtitle}>Machines</Text>
+                </TouchableOpacity>
               )}
+            />
+          </View>
+
+          {/* ── Search by Colour ── */}
+          <View style={styles.sectionWrap}>
+            <SectionHeader title="Search by Colour" subtitle="Select Our Creations From A Exquisite Collection Of Hues" />
+            <FlatList
+              data={[6, 5, 4, 2, 1]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={i => i.toString()}
+              contentContainerStyle={{ paddingHorizontal: 20, gap: 16 }}
+              renderItem={({ item }) => {
+                // Map color numbers to exact images used on website
+                const colorImages = {
+                  '6': 'https://snehagraphicssolutions.com/public/img/uploads/product//1783596383.png',
+                  '5': 'https://snehagraphicssolutions.com/public/img/uploads/product//1783413969.png',
+                  '4': 'https://snehagraphicssolutions.com/public/img/uploads/product//1679057074.png',
+                  '2': 'https://snehagraphicssolutions.com/public/img/uploads/product//1679057137.png',
+                  '1': 'https://snehagraphicssolutions.com/public/img/uploads/product//1679057120.png',
+                };
+                const bgImage = colorImages[item.toString()];
+
+                return (
+                  <TouchableOpacity 
+                    style={styles.colorBoxCard}
+                    onPress={() => navigation.navigate('MachinesTab', { type: 'color', slug: `${item}-colour` })}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.colorBoxTitle} numberOfLines={2} ellipsizeMode="tail">{item} Colour</Text>
+                    <View style={styles.colorBoxImageContainer}>
+                      <Image source={{ uri: bgImage }} style={styles.catboxImage} />
+                    </View>
+                    <Text style={styles.catboxSubtitle}>Machines</Text>
+                  </TouchableOpacity>
+                );
+              }}
             />
           </View>
 
@@ -201,12 +285,65 @@ export default function HomeScreen({ navigation }) {
             </View>
           </View>
 
+          {/* ── Latest Events ── */}
+          {homeData?.events && homeData.events.length > 0 && (
+            <View style={styles.sectionWrap}>
+              <SectionHeader
+                title="Latest Events"
+                subtitle="Join us at these industry exhibitions and fairs"
+              />
+              <BannerCarousel 
+                data={homeData.events.map(e => ({ 
+                  id: e.event_id.toString(), 
+                  image: e.image, 
+                  title: e.event_name,
+                  subtitle: e.event_start_date ? new Date(e.event_start_date).toLocaleDateString() : 'Upcoming'
+                }))} 
+              />
+            </View>
+          )}
+
+          {/* ── Installations in India Map ── */}
+          <MapInstallations />
+
+          {/* ── Warehouse & Inventory ── */}
+          <View style={styles.sectionWrap}>
+            <SectionHeader
+              title="Our Warehouse & Machine Inventory"
+              subtitle="Premium printing solutions ready for dispatch"
+            />
+            <Text style={{ paddingHorizontal: 20, fontSize: 13, color: COLORS.textSecondary, marginBottom: 15, lineHeight: 20 }}>
+              Our warehouse is home to a wide range of carefully selected used offset printing machines from leading brands like Komori, Heidelberg, and Polar. Every machine is thoroughly inspected by our technical team before dispatch, ensuring quality, reliability, and readiness for installation.
+            </Text>
+            <FlatList
+              data={[
+                'https://snehagraphicssolutions.com/public/img/uploads/media/1783486945.jpeg',
+                'https://snehagraphicssolutions.com/public/img/uploads/media/1783486779.jpeg',
+                'https://snehagraphicssolutions.com/public/img/uploads/media/1783486802.jpeg',
+                'https://snehagraphicssolutions.com/public/img/uploads/media/1783486793.jpeg',
+                'https://snehagraphicssolutions.com/public/img/uploads/media/1783828917.jpeg'
+              ]}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={width * 0.75 + 16}
+              decelerationRate="fast"
+              snapToAlignment="center"
+              contentContainerStyle={{ paddingHorizontal: (width - (width * 0.75)) / 2 }}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <View style={{ width: width * 0.75, height: 200, borderRadius: 16, overflow: 'hidden', marginHorizontal: 8, ...SHADOWS.medium, borderWidth: 1, borderColor: COLORS.lightGray }}>
+                  <Image source={{ uri: item }} style={{ width: '100%', height: '100%' }} resizeMode="cover" />
+                </View>
+              )}
+            />
+          </View>
+
           {/* ── Testimonials ── */}
           {homeData?.testimonials && homeData.testimonials.length > 0 && (
             <View style={styles.sectionWrap}>
               <SectionHeader
-                title="What Our Clients Say"
-                subtitle="Trusted by businesses across India"
+                title="What Our Clients Have To Say"
+                subtitle="Our esteemed clientele includes some of the most renowned names in the industry. Here is what they have to say about our exceptional services:"
               />
               <FlatList
                 data={homeData.testimonials}
@@ -218,6 +355,23 @@ export default function HomeScreen({ navigation }) {
                   <TestimonialCard item={item} />
                 )}
               />
+            </View>
+          )}
+
+          {/* ── Our Partners ── */}
+          {homeData?.partners && homeData.partners.length > 0 && (
+            <View style={styles.sectionWrap}>
+              <SectionHeader
+                title="Our Partners"
+                subtitle="Brands we trust and work with"
+              />
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, gap: 16 }}>
+                {homeData.partners.map(partner => (
+                  <View key={partner.id} style={{ width: 100, height: 100, backgroundColor: COLORS.white, borderRadius: 12, justifyContent: 'center', alignItems: 'center', ...SHADOWS.light, padding: 10, borderWidth: 1, borderColor: COLORS.border }}>
+                    <Image source={{ uri: partner.image }} style={{ width: '100%', height: '100%' }} resizeMode="contain" />
+                  </View>
+                ))}
+              </ScrollView>
             </View>
           )}
 
@@ -260,11 +414,11 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   loaderContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  navbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: COLORS.surface, borderBottomWidth: 1, borderBottomColor: COLORS.border, zIndex: 10 },
+  navbar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 12, backgroundColor: COLORS.secondary, borderBottomWidth: 1, borderBottomColor: COLORS.border, zIndex: 10 },
   navLeft: { flexDirection: 'row', alignItems: 'center' },
   logo: { width: 140, height: 36 },
   navIcons: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  navIconBtn: { padding: 8, backgroundColor: COLORS.surfaceMuted, borderRadius: 8 },
+  navIconBtn: { padding: 8, backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: 8 },
   bannerContainer: { paddingTop: 16, paddingBottom: 24, backgroundColor: COLORS.surface, borderBottomLeftRadius: 24, borderBottomRightRadius: 24, ...SHADOWS.light, marginBottom: 20 },
   section: { paddingBottom: 24 },
   sectionWrap: { paddingBottom: 30 },
@@ -280,5 +434,21 @@ const styles = StyleSheet.create({
   servicesWrap: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, paddingBottom: 20 },
   serviceBox: { flex: 1, alignItems: 'center', backgroundColor: COLORS.surface, paddingVertical: 20, paddingHorizontal: 8, borderRadius: SIZES.radiusLarge, marginHorizontal: 4, borderWidth: 1, borderColor: COLORS.border, ...SHADOWS.light },
   serviceTitle: { fontSize: 13, fontWeight: '800', color: COLORS.textPrimary, marginTop: 10, textAlign: 'center' },
-  serviceSub: { fontSize: 11, color: COLORS.textSecondary, textAlign: 'center', marginTop: 4, fontWeight: '500' },
+  imageCard: { width: 140, height: 160, borderRadius: SIZES.radiusLarge, overflow: 'hidden', ...SHADOWS.medium },
+  imageCardSmall: { width: 110, height: 120, borderRadius: SIZES.radiusLarge, overflow: 'hidden', ...SHADOWS.medium },
+  cardBgImage: { width: '100%', height: '100%', resizeMode: 'cover' },
+  cardOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(15, 23, 42, 0.65)', padding: 12, justifyContent: 'flex-end' },
+  cardOverlayDark: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.75)', padding: 12, justifyContent: 'center', alignItems: 'center' },
+  imageCardText: { color: COLORS.surface, fontSize: 13, fontWeight: '800', lineHeight: 18 },
+  colorCardTitle: { color: COLORS.primary, fontSize: 28, fontWeight: '900', textShadowColor: 'rgba(0,0,0,0.5)', textShadowOffset: {width: 0, height: 1}, textShadowRadius: 3 },
+  colorCardSub: { color: COLORS.surface, fontSize: 13, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 1, marginTop: 4 },
+  catboxCard: { width: 150, backgroundColor: '#FFFFFF', borderRadius: SIZES.radius, paddingVertical: 12, paddingHorizontal: 12, alignItems: 'center', borderWidth: 1, borderColor: COLORS.border, ...SHADOWS.medium, marginVertical: 8 },
+  catboxTitle: { fontSize: 16, fontWeight: '700', color: COLORS.textPrimary, textAlign: 'center', marginBottom: 8, height: 40 },
+  catboxImageContainer: { width: '100%', height: 75, alignItems: 'center', justifyContent: 'center', marginBottom: 8 },
+  catboxImage: { width: '100%', height: '100%', resizeMode: 'contain' },
+  catboxSubtitle: { fontSize: 12, fontWeight: '600', color: COLORS.textSecondary, textTransform: 'uppercase' },
+
+  colorBoxCard: { width: 120, backgroundColor: '#16274F', borderRadius: SIZES.radius, paddingVertical: 10, paddingHorizontal: 8, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)', ...SHADOWS.medium, marginVertical: 8 },
+  colorBoxTitle: { fontSize: 14, fontWeight: '700', color: COLORS.surface, textAlign: 'center', marginBottom: 4, height: 20 },
+  colorBoxImageContainer: { width: '100%', height: 60, alignItems: 'center', justifyContent: 'center', marginBottom: 4 },
 });

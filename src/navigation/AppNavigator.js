@@ -51,7 +51,7 @@ function TabNavigator() {
             MachinesTab: focused ? 'cube' : 'cube-outline',
             ClientsTab: focused ? 'people' : 'people-outline',
             SettingsTab: focused ? 'settings' : 'settings-outline',
-            AchievementsTab: focused ? 'trophy' : 'trophy-outline',
+            ServicesTab: focused ? 'construct' : 'construct-outline',
           };
           return <Ionicons name={icons[route.name]} size={size} color={color} />;
         },
@@ -77,7 +77,7 @@ function TabNavigator() {
       <Tab.Screen name="HomeTab" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="MachinesTab" component={MachinesScreen} options={{ title: 'Machines' }} />
       <Tab.Screen name="ClientsTab" component={ClientsScreen} options={{ title: 'Clients' }} />
-      <Tab.Screen name="AchievementsTab" component={AchievementsScreen} options={{ title: 'Achievements' }} />
+      <Tab.Screen name="ServicesTab" component={ServicesScreen} options={{ title: 'Services' }} />
       <Tab.Screen name="SettingsTab" component={SettingsScreen} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
@@ -92,6 +92,9 @@ export default function AppNavigator() {
           headerStyle: { backgroundColor: COLORS.secondary },
           headerTintColor: COLORS.white,
           headerTitleStyle: { fontWeight: 'bold' },
+          headerBackTitleVisible: false,
+          headerBackTitle: '',
+          headerBackButtonDisplayMode: 'minimal',
         }}
       >
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
@@ -100,10 +103,10 @@ export default function AppNavigator() {
         <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="MachineDetails" component={MachineDetailsScreen} options={{ title: 'Machine Details' }} />
+        <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false, title: '' }} />
+        <Stack.Screen name="MachineDetails" component={MachineDetailsScreen} options={{ title: 'Machine Details', headerBackTitle: '', headerBackTitleVisible: false, headerBackButtonDisplayMode: 'minimal' }} />
         <Stack.Screen name="Contact" component={ContactScreen} options={{ title: 'Contact Us', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
-        <Stack.Screen name="Inquiry" component={InquiryScreen} options={{ title: 'Send Inquiry', headerStyle: { backgroundColor: COLORS.primary }, headerTintColor: COLORS.white }} />
+        <Stack.Screen name="Inquiry" component={InquiryScreen} options={{ title: 'Send Inquiry', headerStyle: { backgroundColor: COLORS.primary }, headerTintColor: COLORS.white, headerBackTitle: '', headerBackTitleVisible: false, headerBackButtonDisplayMode: 'minimal' }} />
         <Stack.Screen name="Events" component={EventsScreen} options={{ title: 'Events', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Testimonials" component={TestimonialsScreen} options={{ title: 'Testimonials', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />
         <Stack.Screen name="Categories" component={CategoriesScreen} options={{ title: 'Categories', headerStyle: { backgroundColor: COLORS.secondary }, headerTintColor: COLORS.white }} />

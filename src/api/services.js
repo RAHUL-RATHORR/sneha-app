@@ -4,6 +4,7 @@ import clientServiceData from '../constants/clientServiceData.json';
 import clientData from '../constants/clientData.json';
 import clientProductsData from '../constants/clientProductsData.json';
 import clientProductDetailData from '../constants/clientProductDetailData.json';
+import clientEventsData from '../constants/clientEventsData.json';
 
 export const getHomeData = async () => {
   try {
@@ -105,5 +106,14 @@ export const getPageData = async (slug) => {
     return response.data?.data?.getpagedetails || null;
   } catch (error) {
     throw error;
+  }
+};
+
+export const getEventsData = async () => {
+  try {
+    const response = await apiClient.get('/events');
+    return response.data?.data || response.data;
+  } catch (error) {
+    return clientEventsData.data;
   }
 };

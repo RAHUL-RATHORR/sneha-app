@@ -48,21 +48,20 @@ export default function AchievementsScreen() {
   return (
     <Screen backgroundColor="#F8F9FA">
       <View style={styles.container}>
-        <Text style={styles.headerTitle}>Our Achievements</Text>
-        <Text style={styles.headerSubtitle}>Milestones we are proud of</Text>
+
         
         <FlatList
           data={achievements}
           keyExtractor={(item) => item.id}
-          numColumns={2}
-          columnWrapperStyle={styles.row}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContainer}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <Image source={{ uri: item.image }} style={styles.image} resizeMode="contain" />
-              <View style={styles.textContainer}>
-                <Text style={styles.name} numberOfLines={2}>{item.name}</Text>
+              <Image source={{ uri: item.image }} style={styles.image} resizeMode="cover" />
+              <View style={styles.overlay}>
+                <View style={styles.textContainer}>
+                  <Text style={styles.name} numberOfLines={2}>{item.name}</Text>
+                </View>
               </View>
             </View>
           )}
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 10,
   },
   loaderContainer: {
     flex: 1,
@@ -88,47 +87,63 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingBottom: 40,
+    paddingTop: 10,
+  },
+  headerContainer: {
+    marginBottom: 24,
+    alignItems: 'center',
+    paddingTop: 10,
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: '800',
     color: COLORS.secondary,
-    marginBottom: 8,
+    marginBottom: 6,
+    letterSpacing: 0.5,
   },
   headerSubtitle: {
     fontSize: 15,
-    color: COLORS.darkGray,
-    marginBottom: 24,
-  },
-  row: {
-    justifyContent: 'space-between',
-    marginBottom: 16,
+    color: COLORS.textSecondary,
+    fontWeight: '500',
   },
   card: {
-    width: (width - 56) / 2, // 20 padding each side + 16 gap = 56
+    width: '100%',
+    height: 220,
     backgroundColor: COLORS.white,
-    borderRadius: 16,
+    borderRadius: 24,
     overflow: 'hidden',
-    ...SHADOWS.medium,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.05)',
+    ...SHADOWS.large,
   },
   image: {
     width: '100%',
-    height: 160,
-    backgroundColor: COLORS.surfaceMuted,
+    height: '100%',
+  },
+  overlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '40%',
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)', // Dark fade for text readability
   },
   textContainer: {
-    padding: 12,
-    alignItems: 'center',
+    padding: 20,
+    paddingBottom: 24,
   },
   name: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: '700',
-    color: COLORS.secondary,
-    textAlign: 'center',
+    color: COLORS.white,
+    letterSpacing: 0.3,
   },
   emptyText: {
     textAlign: 'center',
     color: COLORS.darkGray,
     marginTop: 40,
+    fontSize: 16,
   }
 });

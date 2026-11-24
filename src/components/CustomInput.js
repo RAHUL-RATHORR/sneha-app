@@ -10,9 +10,11 @@ export default function CustomInput({ label, error, ...props }) {
         style={[
           styles.input, 
           props.multiline && styles.multiline,
+          props.inputStyle,
+          props.style,
           error && styles.errorBorder
         ]}
-        placeholderTextColor={COLORS.darkGray}
+        placeholderTextColor={props.placeholderTextColor || '#9CA3AF'}
         {...props}
       />
       {error && <Text style={styles.errorText}>{error}</Text>}

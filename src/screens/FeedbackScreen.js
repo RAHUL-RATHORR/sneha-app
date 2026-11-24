@@ -37,7 +37,7 @@ export default function FeedbackScreen() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.closeBtn} onPress={() => navigation.goBack()}>
-          <Ionicons name="close" size={24} color={COLORS.secondary} />
+          <Ionicons name="close" size={24} color={COLORS.white} />
         </TouchableOpacity>
         
         <Text style={styles.headerTitle}>Send feedback</Text>
@@ -102,14 +102,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: COLORS.secondary,
     paddingTop: Platform.OS === 'android' ? 40 : 12,
   },
   closeBtn: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: COLORS.white,
+    backgroundColor: 'rgba(255,255,255,0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     ...SHADOWS.light,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.secondary,
+    color: COLORS.white,
   },
   sendBtn: {
     paddingHorizontal: 20,

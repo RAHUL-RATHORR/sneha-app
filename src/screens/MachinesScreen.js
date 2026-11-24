@@ -29,6 +29,13 @@ export default function MachinesScreen({ navigation, route }) {
   const [currentSlug, setCurrentSlug] = useState(initialSlug);
 
   useEffect(() => {
+    if (route.params?.type && route.params?.slug) {
+      setCurrentType(route.params.type);
+      setCurrentSlug(route.params.slug);
+    }
+  }, [route.params]);
+
+  useEffect(() => {
     fetchData();
   }, [currentType, currentSlug]);
 

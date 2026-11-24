@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, ScrollView, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { events } from '../constants/dummyData';
@@ -32,8 +32,11 @@ function EventCard({ event, onPress }) {
 }
 
 export default function EventsScreen({ navigation }) {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={{ flex: 1, backgroundColor: COLORS.background }}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Events & Exhibitions</Text>
         <Text style={styles.headerSubtitle}>Visit us at upcoming industry events</Text>
@@ -45,7 +48,7 @@ export default function EventsScreen({ navigation }) {
           <Text style={styles.sectionTitle}>Upcoming Events</Text>
         </View>
         {events.map(event => (
-          <EventCard key={event.id} event={event} onPress={() => {}} />
+          <EventCard key={event.id} event={event} onPress={() => setSelectedEvent(event)} />
         ))}
       </View>
 
@@ -63,6 +66,51 @@ export default function EventsScreen({ navigation }) {
       </View>
       <View style={{ height: 40 }} />
     </ScrollView>
+
+      {/* Event Details Modal */}
+      <Modal visible={!!selectedEvent} transparent={true} animationType="slide" onRequestClose={() => setSelectedEvent(null)}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' }}>
+          <View style={{ backgroundColor: COLORS.white, borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, maxHeight: '80%' }}>
+            <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 8 }} onPress={() => setSelectedEvent(null)}>
+              <Ionicons name="close" size={28} color={COLORS.darkGray} />
+            </TouchableOpacity>
+            
+            {selectedEvent && (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <Image source={{ uri: selectedEvent.image }} style={{ width: '100%', height: 200, borderRadius: 16, marginBottom: 20 }} resizeMode="cover" />
+                <View style={styles.cardBadge}>
+                  <Text style={styles.cardBadgeText}>Exhibition</Text>
+                </View>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: COLORS.secondary, marginBottom: 12 }}>{selectedEvent.title}</Text>
+                
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                  <Ionicons name="calendar" size={18} color={COLORS.primary} />
+                  <Text style={{ fontSize: 16, color: COLORS.darkGray }}>{selectedEvent.date}</Text>
+                </View>
+                
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                  <Ionicons name="location" size={18} color={COLORS.primary} />
+                  <Text style={{ fontSize: 16, color: COLORS.darkGray }}>{selectedEvent.location}</Text>
+                </View>
+                
+                <Text style={{ fontSize: 16, color: COLORS.darkGray, lineHeight: 24, marginBottom: 24 }}>{selectedEvent.desc}</Text>
+                
+                <TouchableOpacity 
+                  style={{ backgroundColor: COLORS.primary, paddingVertical: 16, borderRadius: 12, alignItems: 'center' }}
+                  onPress={() => {
+                    setSelectedEvent(null);
+                    navigation.navigate('Contact');
+                  }}
+                >
+                  <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: 'bold' }}>Contact Us for Setup</Text>
+                </TouchableOpacity>
+                <View style={{ height: 20 }} />
+              </ScrollView>
+            )}
+          </View>
+        </View>
+      </Modal>
+    </View>
   );
 }
 

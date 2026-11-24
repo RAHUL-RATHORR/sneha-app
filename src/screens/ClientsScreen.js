@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView, Image, TouchableOpacity, ActivityIndicator, Modal, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES, SHADOWS } from '../constants/theme';
 import { testimonials } from '../constants/dummyData';
@@ -9,13 +9,19 @@ import Screen from '../components/Screen';
 export default function ClientsScreen({ navigation }) {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [initialIndex, setInitialIndex] = useState(0);
+  const { width, height } = Dimensions.get('window');
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
         const data = await getClientsData();
         if (data && data.clients) {
-          const basePath = data.paths?.client_image || '';
+          let basePath = data.paths?.client_image || '';
+          if (basePath && !basePath.startsWith('http')) {
+            basePath = 'https://snehagraphicssolutions.com/public' + basePath;
+          }
           const formattedClients = data.clients.map(item => ({
             id: item.client_id.toString(),
             title: item.client_title,
@@ -63,10 +69,17 @@ export default function ClientsScreen({ navigation }) {
 
         {/* Gallery */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Installation Gallery</Text>
           <View style={styles.gallery}>
-            {clients.map(c => (
-              <TouchableOpacity key={c.id} style={styles.galleryItem} activeOpacity={0.9}>
+            {clients.map((c, index) => (
+              <TouchableOpacity 
+                key={c.id} 
+                style={styles.galleryItem} 
+                activeOpacity={0.9} 
+                onPress={() => {
+                  setInitialIndex(index);
+                  setModalVisible(true);
+                }}
+              >
                 <Image source={{ uri: c.image }} style={styles.galleryImage} resizeMode="cover" />
                 <View style={styles.galleryOverlay}>
                   <Text style={styles.galleryText} numberOfLines={2}>{c.title}</Text>
@@ -76,40 +89,38 @@ export default function ClientsScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Client Testimonials preview */}
-        <View style={styles.section}>
-          <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Client Stories</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Testimonials')} style={styles.seeAllBtn}>
-              <Text style={styles.seeAll}>Read All</Text>
-              <Ionicons name="arrow-forward" size={14} color={COLORS.primary} />
-            </TouchableOpacity>
-          </View>
-          {testimonials.slice(0, 2).map(t => (
-            <View key={t.id} style={styles.testimonialCard}>
-              <View style={styles.quoteIconWrap}>
-                <Ionicons name="chatbubbles" size={20} color={COLORS.primary} />
-              </View>
-              <Text style={styles.testimonialText} numberOfLines={4}>"{t.text}"</Text>
-              
-              <View style={styles.testimonialFooter}>
-                <Image source={{ uri: t.image }} style={styles.avatar} />
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.testimonialName}>{t.name}</Text>
-                  <Text style={styles.testimonialCompany}>{t.company}</Text>
-                </View>
-                <View style={styles.starsRow}>
-                  {[...Array(5)].map((_, i) => (
-                    <Ionicons key={i} name="star" size={12} color="#FBBF24" />
-                  ))}
-                </View>
-              </View>
-            </View>
-          ))}
-        </View>
         <View style={{ height: 40 }} />
       </ScrollView>
       )}
+
+      {/* Fullscreen Image Viewer Modal */}
+      <Modal visible={modalVisible} transparent={true} animationType="fade" onRequestClose={() => setModalVisible(false)}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.95)' }}>
+          <TouchableOpacity 
+            style={{ position: 'absolute', top: 50, right: 20, zIndex: 10, padding: 10, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 20 }} 
+            onPress={() => setModalVisible(false)}
+          >
+            <Ionicons name="close" size={28} color="#FFF" />
+          </TouchableOpacity>
+          <FlatList
+            data={clients}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            initialScrollIndex={initialIndex}
+            getItemLayout={(data, index) => ({ length: width, offset: width * index, index })}
+            keyExtractor={c => c.id}
+            renderItem={({ item }) => (
+              <View style={{ width, height, justifyContent: 'center', alignItems: 'center', paddingBottom: 50 }}>
+                <Image source={{ uri: item.image }} style={{ width: '100%', height: height * 0.6 }} resizeMode="contain" />
+                <Text style={{ color: '#FFF', fontSize: 18, fontWeight: '700', marginTop: 20, textAlign: 'center', paddingHorizontal: 20 }}>
+                  {item.title}
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+      </Modal>
     </Screen>
   );
 }
@@ -118,17 +129,17 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   header: {
     padding: 20,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.secondary,
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
+    borderBottomColor: COLORS.border,
     ...SHADOWS.light,
     zIndex: 10,
   },
   headerTitle: {
     fontSize: 22,
     fontWeight: '900',
-    color: COLORS.secondary,
+    color: COLORS.white,
     letterSpacing: 0.5,
   },
   introWrap: { padding: 24, paddingBottom: 16 },

@@ -91,7 +91,7 @@ export default function MachineDetailsScreen({ route, navigation }) {
   };
 
   return (
-    <Screen backgroundColor={COLORS.background}>
+    <Screen backgroundColor={COLORS.background} noTopPadding>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Image Gallery */}
         <View style={styles.galleryContainer}>

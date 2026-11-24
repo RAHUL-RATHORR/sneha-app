@@ -13,7 +13,18 @@ export default function MachineCard({ machine, onPress, isListView = false }) {
     ? `https://snehagraphicssolutions.com/public/img/uploads/product/${machine.product_image}` 
     : machine.image;
   const name = machine.product_name || machine.name;
-  const isFavorite = favorites.includes(id);
+  const isFavorite = favorites?.includes(id) || false;
+  
+  const getSafeString = (val) => typeof val === 'object' && val !== null ? '' : val;
+  const yearText = machine.year?.year_name || getSafeString(machine.year) || 'N/A';
+  let rawColor = machine.colour?.color_name || machine.product_color || getSafeString(machine.color) || 'N/A';
+  if (typeof rawColor === 'number' || (typeof rawColor === 'string' && !isNaN(rawColor))) {
+    // Backend mappings: 13=1, 8=2, 14=4, 15=5, 9=6
+    const idMap = { 13: '1', 8: '2', 14: '4', 15: '5', 9: '6' };
+    rawColor = idMap[rawColor] || rawColor;
+  }
+  const colorText = typeof rawColor === 'string' ? rawColor.replace(/colour/i, '').trim() : rawColor;
+  const sizeText = machine.product_sheet_size || machine.specs?.maxSheetSize || machine.specs?.format || 'Offset';
   
   const scaleValue = useRef(new Animated.Value(1)).current;
 
@@ -51,10 +62,10 @@ export default function MachineCard({ machine, onPress, isListView = false }) {
             <Text style={listStyles.name} numberOfLines={2}>{name}</Text>
             
             <View style={listStyles.tags}>
-              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.year?.year_name || machine.year}</Text></View>
-              <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.product_color || machine.color} Colour</Text></View>
-              {machine.product_sheet_size || machine.specs?.maxSheetSize ? (
-                 <View style={listStyles.tag}><Text style={listStyles.tagText}>{machine.product_sheet_size || machine.specs.maxSheetSize}</Text></View>
+              <View style={listStyles.tag}><Text style={listStyles.tagText}>{yearText}</Text></View>
+              <View style={listStyles.tag}><Text style={listStyles.tagText}>{colorText} Colour</Text></View>
+              {sizeText !== 'Offset' ? (
+                 <View style={listStyles.tag}><Text style={listStyles.tagText}>{sizeText}</Text></View>
               ) : null}
             </View>
 
@@ -98,7 +109,7 @@ export default function MachineCard({ machine, onPress, isListView = false }) {
           <Text style={styles.name} numberOfLines={1}>{name}</Text>
           
           <View style={styles.metaRow}>
-            <Text style={styles.metaText}>{machine.year?.year_name || machine.year} • {machine.product_color || machine.color} Col • {machine.product_sheet_size || machine.specs?.format || 'Offset'}</Text>
+            <Text style={styles.metaText}>{yearText} • {colorText} Col • {sizeText}</Text>
           </View>
 
           <View style={styles.divider} />

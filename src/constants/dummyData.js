@@ -53,7 +53,7 @@ export const partners = [
 ];
 
 export const events = [
-  { id: '1', title: 'PAMEX 2024', date: '6-9 Feb 2024', location: 'Mumbai, India', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop', desc: 'Join us at PAMEX 2024 to see our latest imported machines live in action.' },
+  { id: '1', title: 'PAMEX 2026', date: '27 – 30 January 2026', location: 'Bombay Exhibition Centre, Mumbai, India', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop', desc: 'Join us at PAMEX 2026. Sneha Graphics & Solutions will be showcasing premium printing solutions and imported machines live in action.' },
   { id: '2', title: 'PrintPack India', date: '1-5 Feb 2025', location: 'Greater Noida', image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=300&auto=format&fit=crop', desc: 'We are exhibiting at PrintPack India. Visit our stall for premium refurbished offset presses.' },
 ];
 

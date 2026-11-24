@@ -83,7 +83,7 @@ export default function EditProfileScreen() {
         {/* Top Header */}
         <View style={styles.topNav}>
           <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={22} color={COLORS.textPrimary} />
+            <Ionicons name="arrow-back" size={22} color={COLORS.white} />
           </TouchableOpacity>
           <Text style={styles.topTitle}>Edit Profile</Text>
           <View style={{ width: 36 }} />
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: COLORS.surface,
+    backgroundColor: COLORS.secondary,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: COLORS.surfaceMuted,
+    backgroundColor: 'rgba(255,255,255,0.1)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   topTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.textPrimary,
+    color: COLORS.white,
   },
   scrollContent: {
     padding: 20,

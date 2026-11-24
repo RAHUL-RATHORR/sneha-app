@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import { AppProvider } from './src/context/AppContext';
 import { AuthProvider } from './src/context/AuthContext';
+import ForceUpdate from './src/components/ForceUpdate';
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
@@ -12,7 +13,9 @@ export default function App() {
       <AppProvider>
         <SafeAreaProvider>
           <StatusBar style="light" backgroundColor="#111827" />
-          <AppNavigator />
+          <ForceUpdate>
+            <AppNavigator />
+          </ForceUpdate>
         </SafeAreaProvider>
       </AppProvider>
     </AuthProvider>

@@ -10,13 +10,14 @@ export default function BannerCarousel({ data }) {
 
   // Auto-scroll
   useEffect(() => {
+    if (!data || data.length === 0) return;
     const timer = setInterval(() => {
       const next = (currentIndex + 1) % data.length;
       flatListRef.current?.scrollToIndex({ index: next, animated: true });
       setCurrentIndex(next);
     }, 3500);
     return () => clearInterval(timer);
-  }, [currentIndex, data.length]);
+  }, [currentIndex, data]);
 
   return (
     <View style={styles.container}>

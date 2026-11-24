@@ -6,7 +6,7 @@ import Screen from '../components/Screen';
 
 const contactInfo = [
   { icon: 'business', label: 'Company', value: 'Sneha Graphics & Solutions' },
-  { icon: 'location', label: 'Address', value: 'Jaipur, Rajasthan, India' },
+  { icon: 'location', label: 'Address', value: 'Plot No.21, AD Industrial Area near by Ratan Industrial Area, Village- Harsooliya, Tehsil- Phagi, Jaipur, Rajasthan, India, 303904' },
   { icon: 'mail', label: 'Email', value: 'snehagraphicssolutions@gmail.com' },
   { icon: 'call', label: 'Phone 1', value: '+91-9799968351' },
   { icon: 'call', label: 'Phone 2', value: '+91-9214527136' },
@@ -19,9 +19,6 @@ export default function ContactScreen({ navigation }) {
 
   return (
     <Screen backgroundColor="#F8F9FA">
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Contact Us</Text>
-      </View>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         
         {/* Intro text */}
@@ -81,9 +78,9 @@ export default function ContactScreen({ navigation }) {
             <View style={styles.mapIconWrap}>
               <Ionicons name="map" size={40} color={COLORS.primary} />
             </View>
-            <Text style={styles.mapText}>Jaipur, Rajasthan, India</Text>
-            <Text style={styles.mapSub}>Visit us for a demo of our machines</Text>
-            <TouchableOpacity style={styles.mapBtn} onPress={() => Linking.openURL('https://maps.google.com/?q=Jaipur+Rajasthan+India')} activeOpacity={0.8}>
+            <Text style={styles.mapText}>Our Warehouse</Text>
+            <Text style={styles.mapSub}>Plot No.21, AD Industrial Area near by Ratan Industrial Area, Village- Harsooliya, Tehsil- Phagi, Jaipur, Rajasthan, India, 303904</Text>
+            <TouchableOpacity style={styles.mapBtn} onPress={() => Linking.openURL('https://www.google.com/maps?num=10&sca_esv=3d4a812c9ccd5f2a&rlz=1C5GCEM_enIN1198IN1198&sxsrf=APpeQnvRJCKuZ6WI4fYIRAoxnTGcDrtEyg:1791280042219&kgmid=/g/11trk2bby1&shem=dlvs1,epsd1,esd2e,ltae,rimspwouoe&shndl=30&kgs=c51ad8ceae34f4a9&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KZ1-XmVPuW05MSbx0vX0-J2l&daddr=Plot+No.21,+near+by+Ratan+Industrial+Area+Road,+AD+Industrial+Area,+Harsooliya,+Rajasthan+303904')} activeOpacity={0.8}>
               <Ionicons name="navigate" size={16} color={COLORS.white} />
               <Text style={styles.mapBtnText}>Get Directions</Text>
             </TouchableOpacity>
@@ -107,21 +104,6 @@ export default function ContactScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  header: {
-    padding: 20,
-    backgroundColor: COLORS.white,
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-    ...SHADOWS.light,
-    zIndex: 10,
-  },
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: COLORS.secondary,
-    letterSpacing: 0.5,
-  },
   introWrap: { padding: 24, paddingBottom: 10 },
   introTitle: { fontSize: 28, fontWeight: '900', color: COLORS.secondary, marginBottom: 8 },
   introSubtitle: { fontSize: 14, color: COLORS.darkGray, fontWeight: '500' },
@@ -145,7 +127,7 @@ const styles = StyleSheet.create({
   mapCard: { backgroundColor: COLORS.white, borderRadius: 24, padding: 30, alignItems: 'center', ...SHADOWS.medium, elevation: 3 },
   mapIconWrap: { width: 80, height: 80, borderRadius: 40, backgroundColor: '#FFF7ED', alignItems: 'center', justifyContent: 'center', marginBottom: 16 },
   mapText: { fontSize: 18, color: COLORS.secondary, fontWeight: '900', marginBottom: 6 },
-  mapSub: { fontSize: 13, color: COLORS.darkGray, marginBottom: 20, fontWeight: '500' },
+  mapSub: { fontSize: 13, color: COLORS.darkGray, marginBottom: 20, fontWeight: '500', textAlign: 'center', lineHeight: 20 },
   mapBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: COLORS.secondary, paddingHorizontal: 24, paddingVertical: 14, borderRadius: 16, gap: 8 },
   mapBtnText: { color: COLORS.white, fontWeight: 'bold', fontSize: 14 },
   
